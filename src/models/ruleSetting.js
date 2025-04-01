@@ -1,47 +1,26 @@
 import {DataTypes} from "sequelize";
 import {SCHEMA} from './Z_CONST.js';
 
-export const createChartTemplateModel = async (sequelize) => {
-    const ChartTemplate = sequelize.define(
-        "chartTemplate",
+export const createRuleSettingModel = async (sequelize) => {
+    const RuleSetting = sequelize.define(
+        "ruleSetting",
         {
             id: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
                 primaryKey: true,
             },
-            conditions: {
-                type: DataTypes.JSONB,
-            },
             company: {
                 type: DataTypes.STRING,
             },
-            name : {
-                type: DataTypes.TEXT,
+            rule: {
+                type: DataTypes.JSONB,
             },
             type : {
-                type: DataTypes.TEXT,
+                type: DataTypes.STRING,
             },
-            id_template : {
-                type: DataTypes.INTEGER,
-            },
-            id_filenote : {
-                type: DataTypes.INTEGER,
-            },
-            v1: {
-                type: DataTypes.TEXT,
-            },
-            v2: {
-                type: DataTypes.TEXT,
-            },
-            v3: {
-                type: DataTypes.TEXT,
-            },
-            v4: {
-                type: DataTypes.TEXT,
-            },
-            v5: {
-                type: DataTypes.TEXT,
+            table : {
+                type: DataTypes.STRING,
             },
             trang_thai: {
                 type: DataTypes.STRING,
@@ -70,9 +49,9 @@ export const createChartTemplateModel = async (sequelize) => {
             },
         },
         {
-            tableName: "chartTemplate",
+            tableName: "ruleSetting",
             schema: SCHEMA,
         }
     );
-    return ChartTemplate;
+    return RuleSetting;
 };

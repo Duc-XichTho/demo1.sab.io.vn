@@ -5,33 +5,33 @@ import { modelImports } from "./modelImports.js";
 config();
 
 const sequelize = new Sequelize(
-  process.env.DATABASE,
-  process.env.USER,
-  process.env.PASSWORD,
-  {
-    host: process.env.HOST,
-    dialect: "postgres",
-    port: 5432,
-    logging: false,
-    pool: {
-      // Số kết nối tối đa trong pool
-      max: 100,
-      // Số kết nối tối thiểu trong pool
-      min: 0,
-      // Thời gian tối đa (tính bằng ms) để Sequelize cố gắng lấy một kết nối trước khi lỗi (ở đây là 30000 ms = 30 giây).
-      acquire: 30000,
-      // Thời gian tối đa (tính bằng ms) mà một kết nối không được sử dụng trước khi bị đóng (ở đây là 10000 ms = 10 giây).
-      idle: 10000,
-    },
-    define: {
-      // Nếu là false, Sequelize sẽ không tự động thêm các trường createdAt và updatedAt vào bảng.
-      timestamps: false,
-    },
-    dialectOptions: {
-      // Thời gian tối đa (tính bằng ms) để kết nối cơ sở dữ liệu trước khi timeout (ở đây là 60000 ms = 60 giây).
-      connectTimeout: 60000,
-    },
-  }
+    process.env.DATABASE,
+    process.env.USER,
+    process.env.PASSWORD,
+    {
+      host: process.env.HOST,
+      dialect: "postgres",
+      port: 5432,
+      logging: false,
+      pool: {
+        // Số kết nối tối đa trong pool
+        max: 100,
+        // Số kết nối tối thiểu trong pool
+        min: 0,
+        // Thời gian tối đa (tính bằng ms) để Sequelize cố gắng lấy một kết nối trước khi lỗi (ở đây là 30000 ms = 30 giây).
+        acquire: 30000,
+        // Thời gian tối đa (tính bằng ms) mà một kết nối không được sử dụng trước khi bị đóng (ở đây là 10000 ms = 10 giây).
+        idle: 10000,
+      },
+      define: {
+        // Nếu là false, Sequelize sẽ không tự động thêm các trường createdAt và updatedAt vào bảng.
+        timestamps: false,
+      },
+      dialectOptions: {
+        // Thời gian tối đa (tính bằng ms) để kết nối cơ sở dữ liệu trước khi timeout (ở đây là 60000 ms = 60 giây).
+        connectTimeout: 60000,
+      },
+    }
 );
 
 let User;
@@ -202,12 +202,14 @@ let NotificationGw;
 let PermissionGw;
 let PMVChuKy;
 let CFConfig;
+let RuleSetting;
 
 const connection = async () => {
   try {
     await sequelize.authenticate();
     console.log("Connection DB successfully");
 
+    RuleSetting = await modelImports.createRuleSettingModel(sequelize);
     User = await modelImports.createUserModel(sequelize);
     KTQTReportManagement = await modelImports.createKTQTReportManagementModel(sequelize);
     PhieuGiaoHang = await modelImports.createPhieuGiaoHangModel(sequelize);
@@ -375,7 +377,7 @@ const connection = async () => {
     PermissionGw = await modelImports.createPermissionGWModel(sequelize);
     PMVChuKy = await modelImports.createPMVChuKyModel(sequelize);
     CFConfig = await modelImports.createCFConfigModel(sequelize);
-    
+
     const modelsToAudit = [
       {
         model: User,
@@ -878,7 +880,7 @@ const connection = async () => {
         }
       });
     });
-    
+
     MAPPING_TABLE_SAB_KTQT = [
       {
         sab: NhaCungCap,
@@ -920,6 +922,7 @@ const connection = async () => {
 };
 
 export {
+  RuleSetting,
   ChartTemplate,
   MAPPING_TABLE_SAB_KTQT,
   sequelize,

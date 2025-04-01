@@ -40,6 +40,9 @@ export const createHoaDonSanPhamModel = async (sequelize) => {
             ty_gia : {
                 type: DataTypes.TEXT,
             },
+            result_rule : {
+                type: DataTypes.TEXT,
+            }
 
         }, {
             tableName: "hoaDonSanPham",
