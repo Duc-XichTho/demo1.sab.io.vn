@@ -1,1 +1,1 @@
-export const SCHEMA = 'gateway_demo1';
+export const SCHEMA = 'gateway';
