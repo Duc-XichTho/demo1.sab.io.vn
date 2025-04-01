@@ -1,6 +1,7 @@
 import { config } from "dotenv";
 import { Sequelize } from "sequelize";
 import { modelImports } from "./modelImports.js";
+import {createRuleSettingModel} from "../models/ruleSetting.js";
 
 config();
 
@@ -913,8 +914,8 @@ const connection = async () => {
       },
     ];
 
-    // await sequelize.sync({ alter: true });
-    await sequelize.sync();
+    await sequelize.sync({ alter: true });
+    // await sequelize.sync();
     console.log("Database Synced");
   } catch (error) {
     console.error("Unable to connect to the database", error);

@@ -165,8 +165,10 @@ import { createNotificationGWModel } from "../models/gateway/notification.js";
 import { createPermissionGWModel } from "../models/gateway/permisson.js";
 import { createPMVChuKyModel } from "../models/pmvChuKy.js";
 import { createCFConfigModel } from "../models/CFConfig.js"
+import {createRuleSettingModel} from "../models/ruleSetting.js";
 
 export const modelImports = {
+  createRuleSettingModel,
   createUserModel,
   createDanhMucChungTuModel,
   createDonViTinhModel,
