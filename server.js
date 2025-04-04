@@ -1,4 +1,4 @@
-// Libraries 23:33
+// Libraries 50
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -165,7 +165,6 @@ import progressTaskRouter from "./src/routes/progressTaskRouter.js";
 import dieuChuyenKhoRouter from "./src/routes/dieuChuyenKhoRouter.js";
 import progressTaskPostRouter from "./src/routes/progressTaskPostRouter.js";
 import smartWarningSABRouter from "./src/routes/smartWarningSABRouter.js";
-
 import dashboardListRouter from "./src/routes/dashboardRouter.js";
 import costPoolRouter from "./src/routes/costPoolRouter.js";
 import feedbackRouter from "./src/routes/feedbackRouter.js";
@@ -204,6 +203,9 @@ import GW_PermissionRouter from "./src/routes/gateway/permissionRoute.js";
 import GW_EmailRouter from "./src/routes/gateway/emailRoute.js";
 import pmvChuKyRouter from "./src/routes/pmvChuKyRouter.js";
 import CFConfigRouter from "./src/routes/CFConfig.router.js";
+import RuleSettingRouter from "./src/routes/ruleSettingRouter.js";
+import githubWebhook from "./src/middleware/githubWebhook.js";
+import fileNotePadRouterPublic from "./src/routes/public/fileNotePadRouterPublic.js";
 
 dotenv.config();
 
@@ -227,14 +229,22 @@ app.use(cors(corsOptions));
 app.use(express.json({ limit: "50mb", }));
 app.use(express.urlencoded({ extended: true, limit: "50mb", }));
 app.use(cookieParser());
+app.post("/git/update", githubWebhook, (req, res) => {
+  return res.status(200).send("Webhook received");
+});
+
+app.use("/api/template-setting", templateSettingRouter);
+app.use("/api/file-note-pad", fileNotePadRouter);
 
 app.use(authRoutes);
 
 app.use("/so-ke-toan", soKeToanPublicRouter);
 app.use("/tai-khoan", taiKhoanPublicRouter);
+app.use("/file-note-pad", fileNotePadRouterPublic);
 
 app.use(authenticateToken);
 app.use('/api/tts', audioPlayRouter);
+app.use('/api/rule-setting', RuleSettingRouter);
 app.use("/api/tag", tagRouter);
 app.use("/api/chart-template", chartTemplateRouter);
 app.use("/api/result-cross-check", resultCrossCheckRouter);
@@ -384,7 +394,6 @@ app.use("/api/nganh-real", nganhRealRouter);
 app.use("/api/metrics", metricsRouter);
 app.use("/api/business-objective", businessObjectiveRouter);
 app.use("/api/data-mapping", dataMappingRouter);
-app.use("/api/template-setting", templateSettingRouter);
 
 app.use("/api/kpi-calculator", kpiCalculatorRouter);
 app.use("/api/quan-ly-tag", quanLyTagRouter);
