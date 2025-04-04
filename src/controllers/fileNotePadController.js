@@ -32,6 +32,22 @@ export const getFileNotePadByIdController = async (req, res) => {
     }
 };
 
+export const getFileNotePadByIdControllerPublic = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const fileNotePad = await getFileNotePadByIdService(id);
+        const data = {
+            id: fileNotePad.id || '',
+            url: fileNotePad.url || '',
+        }
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(404).json({
+            message: 'Bản ghi FileNotePad không tồn tại: ' + error.message
+        });
+    }
+};
+
 export const getFileNotePadController = async (req, res) => {
     try {
         const FileNotePadList = await getFileNotePadService();

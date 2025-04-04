@@ -13,6 +13,9 @@ export const createRuleSettingModel = async (sequelize) => {
             company: {
                 type: DataTypes.STRING,
             },
+            name : {
+                type: DataTypes.STRING,
+            },
             rule: {
                 type: DataTypes.JSONB,
             },

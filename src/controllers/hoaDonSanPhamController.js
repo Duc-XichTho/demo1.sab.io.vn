@@ -1,4 +1,8 @@
-import {createHoaDonSanPham, getAllHoaDonSanPhamByHoaDonId} from "../services/hoaDonSanPhamService.js";
+import {
+    createHoaDonSanPham,
+    getAllHoaDonSanPhamByHoaDonId,
+    updateHoaDonSanPhamService
+} from "../services/hoaDonSanPhamService.js";
 
 // GET
 export const getAllHoaDonSanPhamByHoaDonIdController = async (req, res) => {
@@ -21,6 +25,18 @@ export const createHoaDonSanPhamController = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             message: error.message
+        });
+    }
+};
+
+export const updateHoaDonSanPhamController = async (req, res) => {
+    const data = req.body;
+    try {
+        const team = await updateHoaDonSanPhamService(data);
+        res.status(200).json(team);
+    } catch (error) {
+        res.status(404).json({
+            message: 'Bản ghi không tồn tại hoặc lỗi khi cập nhật: ' + error.message,
         });
     }
 };

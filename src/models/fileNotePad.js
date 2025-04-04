@@ -58,12 +58,18 @@ export const createFileNotePadModel = async (sequelize) => {
             position: {
                 type: DataTypes.INTEGER,
             },
+            plan_canvas: {
+                type: DataTypes.JSONB,
+            },
+            info: {
+                type: DataTypes.JSONB,
+                defaultValue: {
+                    hide: false,
+                },
+            },
             show: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,
-            },
-            plan_canvas: {
-                type: DataTypes.JSONB,
             },
         },
         {
