@@ -23,7 +23,7 @@ import {
   getTemplateTableByPlanIdController,
   createTemplateTableController,
   getAllTemplateTablesPlanController,
-  getTemplateTableByDevIdController
+  getTemplateTableByDevIdController, getTemplateRowByIdController
 } from "../controllers/templateSettingController.js";
 
 const router = express.Router();
@@ -40,6 +40,7 @@ router.get("/deployment/:planId", getTemplateTableByDevIdController);
 router.get("/get-column/:id", getTemplateColumnController);
 
 router.get("/get-row/:tableId", getTemplateRowController);
+router.get("/get-row-by-id/:id", getTemplateRowByIdController);
 
 router.get("/get-valid/:id/:columnId", getValidationDataController);
 

@@ -171,6 +171,22 @@ export const getTemplateRow = async (tableId) => {
     }
 };
 
+
+export const getTemplateRowById = async (id) => {
+    try {
+        const result = await TemplateData.findOne({
+            where: {
+                id,
+                show: true,
+            },
+            order: [["id", "ASC"]],
+        });
+        return result;
+    } catch (e) {
+        throw new Error("Lỗi khi lấy bản ghi Dữ liệu sheet: " + e.message);
+    }
+};
+
 export const getValidationData = async (id, columnId) => {
     try {
         let validData = new Set();
@@ -379,18 +395,24 @@ export const deleteTemplateRow = async (id) => {
 
 export const deleteTemplateRowByTableId = async (tableId) => {
     try {
-        const data = await TemplateData.findAll({where: {tableId}});
-        if (!data) {
-            throw new Error("Bản ghi sheet row không tồn tại");
+        const [updatedCount] = await TemplateData.update(
+            { show: false },
+            { where: { tableId } }
+        );
+
+        if (updatedCount === 0) {
+            throw new Error("Không có bản ghi nào được cập nhật");
         }
-        for (const row of data) {
-            await row.update({show: false});
-        }
-        return data;
+
+        // Tùy theo mục đích, nếu cần trả về dữ liệu sau khi cập nhật:
+        const updatedRows = await TemplateData.findAll({ where: { tableId } });
+
+        return updatedRows;
     } catch (e) {
         throw new Error("Lỗi khi set show = false: " + e.message);
     }
 };
+
 
 export const deleteTemplateColumn = async (data) => {
     try {

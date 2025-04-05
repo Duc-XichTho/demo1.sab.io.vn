@@ -23,7 +23,7 @@ import {
   createTemplateTableService,
   getAllTemplateTablesPlan,
   getTemplateTableByDevIdService,
-  getTemplateTableByNoteIdService
+  getTemplateTableByNoteIdService, getTemplateRowById
 } from "../services/templateSettingService.js";
 import {createCardService} from "../services/cardService.js";
 
@@ -133,6 +133,18 @@ export const getTemplateRowController = async (req, res) => {
   try {
     let { tableId } = req.params;
     const data = await getTemplateRow(tableId);
+    res.status(200).json(data);
+  } catch (e) {
+    res
+      .status(404)
+      .json({ message: "Bản ghi sheet data không tồn tại: " + e.message });
+  }
+};
+
+export const getTemplateRowByIdController = async (req, res) => {
+  try {
+    let { id } = req.params;
+    const data = await getTemplateRowById(id);
     res.status(200).json(data);
   } catch (e) {
     res
