@@ -1,7 +1,7 @@
 import {
     FileNotePad,
     PMVDeployment,
-    PMVPlan,
+    PMVPlan, SheetColumn,
     TemplateColumn,
     TemplateData,
     TemplateTable,
@@ -300,7 +300,7 @@ export const updateColumnIndexes = async (data) => {
             throw new Error("Invalid input data");
         }
         const updatePromises = columns.map(({id, columnIndex}) =>
-            SheetColumn.update(
+            TemplateColumn.update(
                 {columnIndex},
                 {
                     where: {
@@ -313,10 +313,10 @@ export const updateColumnIndexes = async (data) => {
         await Promise.all(updatePromises);
         return updatePromises;
     } catch (e) {
-        console.error("Error updating column indexes:", error);
+        console.error("Error updating column indexes:", e);
         return res.status(500).json({
             error: "Failed to update column indexes",
-            message: error.message,
+            message: e.message,
         });
     }
 };
