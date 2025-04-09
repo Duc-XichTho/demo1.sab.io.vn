@@ -23,7 +23,7 @@ router.post("/", upload.array("files"), async (req, res) => {
   try {
     const files = req.files;
     const bucketName = "bucket-xichtho";
-    const folderName = "sab/";
+    const folderName = process.env.FOLDER_NAME_BUCKET_BITFLY;
 
     if (!files || files.length === 0) {
       return res
