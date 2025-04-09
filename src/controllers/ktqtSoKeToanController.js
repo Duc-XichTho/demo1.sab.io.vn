@@ -1,3 +1,4 @@
+// Add to imports at the top
 import {
   createKTQTSoKeToanService,
   getKTQTSoKeToanByIdService,
@@ -9,13 +10,29 @@ import {
   findLastUpdate,
   findLastId,
   deleteByDaDung1Service,
-  deleteKTQTSoKeToanByYearService, getUpdatedKTQTSoKeToanService, getCountSoKeToanService,
+  deleteKTQTSoKeToanByYearService,
+  getUpdatedKTQTSoKeToanService,
+  getCountSoKeToanService,
+  createBulkKTQTSoKeToanService,
+  updateBulkKTQTSoKeToanService,
+  deleteBulkKTQTSoKeToanService,
 } from '../services/ktqtSoKeToanService.js';
 
 export const createKTQTSoKeToanController = async (req, res) => {
   const data = req.body;
   try {
     const team = await createKTQTSoKeToanService(data);
+    res.status(201).json(team);
+  } catch (error) {
+    res.status(500).json({
+      message: 'Lỗi khi tạo bản ghi KTQTSoKeToan: ' + error.message
+    });
+  }
+};
+export const createBulkKTQTSoKeToanController = async (req, res) => {
+  const data = req.body;
+  try {
+    const team = await createBulkKTQTSoKeToanService(data);
     res.status(201).json(team);
   } catch (error) {
     res.status(500).json({
@@ -180,4 +197,34 @@ export const getCountSoKeToanController = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Lỗi server khi lấy số lượng bản ghi." });
   }
+};
+
+export const updateBulkKTQTSoKeToanController = async (req, res) => {
+    const dataArray = req.body;
+    try {
+        const result = await updateBulkKTQTSoKeToanService(dataArray);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(404).json({
+            message: 'Lỗi khi cập nhật hàng loạt: ' + error.message,
+        });
+    }
+};
+
+export const deleteBulkKTQTSoKeToanController = async (req, res) => {
+    const { ids } = req.body;
+    if (!Array.isArray(ids) || ids.length === 0) {
+        return res.status(400).json({
+            message: 'Yêu cầu không hợp lệ: cần một mảng ID không rỗng.'
+        });
+    }
+
+    try {
+        const result = await deleteBulkKTQTSoKeToanService(ids);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(404).json({
+            message: 'Lỗi khi xóa hàng loạt: ' + error.message,
+        });
+    }
 };

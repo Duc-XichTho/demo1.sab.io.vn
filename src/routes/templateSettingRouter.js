@@ -23,7 +23,9 @@ import {
   getTemplateTableByPlanIdController,
   createTemplateTableController,
   getAllTemplateTablesPlanController,
-  getTemplateTableByDevIdController, getTemplateRowByIdController
+  getTemplateTableByDevIdController,
+  getTemplateRowByIdController,
+  createBatchTemplateDataController
 } from "../controllers/templateSettingController.js";
 
 const router = express.Router();
@@ -53,6 +55,7 @@ router.post("/create-table", createTemplateTableController);
 router.post("/create-column", createTemplateColumnController);
 
 router.post("/create-row", createTemplateRowController);
+router.post("/create-batch-row", createBatchTemplateDataController);
 
 // UPDATE
 router.put("/update-table", updateTemplateTableController);

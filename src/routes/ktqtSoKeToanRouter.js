@@ -11,12 +11,17 @@ import {
     deleteByDaDung1Controller,
     deleteKTQTSoKeToanByYearController,
     getUpdatedKTQTSoKeToanController,
-    getCountSoKeToanController,
+    getCountSoKeToanController, createBulkKTQTSoKeToanController,
+    updateBulkKTQTSoKeToanController,
+    deleteBulkKTQTSoKeToanController,
 } from '../controllers/ktqtSoKeToanController.js';
 const router = express.Router();
 router.post('/', createKTQTSoKeToanController);
+router.post('/create-bulk', createBulkKTQTSoKeToanController);
 router.get('/', getAllKTQTSoKeToanController);
 router.put('/', updateKTQTSoKeToanController);
+router.put('/update-bulk', updateBulkKTQTSoKeToanController);
+router.delete('/delete-bulk', deleteBulkKTQTSoKeToanController);
 router.delete('/all/', deleteAllKTQTSoKeToanController);
 router.delete('/month/:month/year/:year/company/:company', deleteKTQTSoKeToanByMonthController);
 router.delete('/year/:year/company/:company', deleteKTQTSoKeToanByYearController);

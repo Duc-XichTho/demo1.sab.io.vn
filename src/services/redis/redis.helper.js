@@ -89,18 +89,12 @@ export const registerCacheHandler = (prefix, ttlConfig, customHandler = null) =>
         if (id && data) {
           await setCache(`${prefix}:id:${id}`, ttlConfig.single, data);
           await invalidateListCache(`${prefix}:all`);
-          await invalidateListCache(`${prefix}:count`);
-          await invalidateListCache(`${prefix}:lastUpdate`);
-          await invalidateListCache(`${prefix}:lastId`);
         }
         break;
       case 'delete':
         if (ids) {
           await deleteFromCache(prefix, ids);
           await invalidateListCache(`${prefix}:all`);
-          await invalidateListCache(`${prefix}:count`);
-          await invalidateListCache(`${prefix}:lastUpdate`);
-          await invalidateListCache(`${prefix}:lastId`);
         }
         break;
       case 'custom':

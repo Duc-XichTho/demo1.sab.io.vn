@@ -532,8 +532,7 @@ io.on('connection', (socket) => {
 httpServer.listen(PORT, async () => {
   try {
     await connection();
-    // await connectRedis();
-    // await initializeCacheManager();
+    await connectRedis();
     console.log(`Server is running on port ${PORT}`);
   } catch (error) {
     console.error("Failed to connect to the database:", error);
