@@ -1,8 +1,10 @@
 import { TemplateData } from "../postgres/postgres.js";
 import { cacheQueue } from "./redis/cacheQueue.js";
 
+const cacheKey =(tableId) => `${process.env.FOLDER_NAME_BUCKET_BITFLY}_template_data:table_id:${tableId}`;
 export const getTemplateDataByTableIdService = async (tableId) => {
-  const cacheKey = `${process.env.FOLDER_NAME_BUCKET_BITFLY}template_data:table_id:${tableId}`;
+
+
   try {
     const cachedData = await cacheQueue.get(cacheKey);
     if (cachedData) {
@@ -17,7 +19,7 @@ export const getTemplateDataByTableIdService = async (tableId) => {
       order: [["id", "ASC"]],
     });
 
-    cacheQueue.set(cacheKey, data);
+    cacheQueue.set(cacheKey(tableId), data);
 
     return data;
   } catch (error) {
@@ -48,11 +50,10 @@ export const createTemplateDataService = async (tableId, newData) => {
       show: true,
     });
 
-    const cacheKeyById = `template_data:id:${data.id}`;
-    const cacheKeyByTable = `template_data:table_id:${tableId}`;
+    const cacheKeyById = `${process.env.FOLDER_NAME_BUCKET_BITFLY}_template_data:id:${data.id}`;
 
     cacheQueue.set(cacheKeyById, data);
-    cacheQueue.delete(cacheKeyByTable);
+    cacheQueue.delete(cacheKey(tableId));
 
     return data;
   } catch (error) {
@@ -68,9 +69,8 @@ export const createBatchTemplateDataService = async (tableId, newData) => {
       data: item,
     })));
 
-    const cacheKeyByTable = `template_data:table_id:${tableId}`;
 
-    cacheQueue.delete(cacheKeyByTable);
+    cacheQueue.delete(cacheKey(tableId));
 
     return data;
   } catch (error) {
@@ -79,8 +79,6 @@ export const createBatchTemplateDataService = async (tableId, newData) => {
 }
 
 export const updateTemplateDataService = async (id, dataUpdate) => {
-  const cacheKeyById = `template_data:id:${id}`;
-
   try {
     const row = await TemplateData.findByPk(id);
     if (!row) {
@@ -88,10 +86,8 @@ export const updateTemplateDataService = async (id, dataUpdate) => {
     }
     const updatedRow = await row.update({ data: dataUpdate });
 
-    const cacheKeyByTable = `template_data:table_id:${row.tableId}`;
 
-    cacheQueue.set(cacheKeyById, updatedRow);
-    cacheQueue.delete(cacheKeyByTable);
+    cacheQueue.delete(cacheKey(row.tableId));
 
     return updatedRow.dataValues;
   } catch (error) {
@@ -99,8 +95,41 @@ export const updateTemplateDataService = async (id, dataUpdate) => {
   }
 };
 
+export const updateBatchTemplateDataService = async (tableId, dataUpdate) => {
+  try {
+    if (!Array.isArray(dataUpdate)) {
+      throw new Error('dataUpdate must be an array');
+    }
+
+    const updates = await Promise.all(
+      dataUpdate.map(async ({ id, data }) => {
+        const row = await TemplateData.findOne({
+          where: {
+            id,
+            tableId,
+            show: true
+          }
+        });
+        
+        if (!row) {
+          throw new Error(`Bản ghi template_data với id ${id} không tồn tại`);
+        }
+        
+        return row.update({ data });
+      })
+    );
+
+    cacheQueue.delete(cacheKey(tableId));
+
+    return updates.map(row => row.dataValues);
+  } catch (error) {
+    console.log('Error updateBatchTemplateDataService', error.message);
+    throw error;
+  }
+};
+
 export const deleteTemplateDataByIdService = async (id) => {
-  const cacheKeyById = `template_data:id:${id}`;
+  const cacheKeyById = `${process.env.FOLDER_NAME_BUCKET_BITFLY}_template_data:id:${id}`;
 
   try {
     const row = await TemplateData.findByPk(id);
@@ -109,10 +138,9 @@ export const deleteTemplateDataByIdService = async (id) => {
     }
     const updatedRow = await row.update({ show: false });
 
-    const cacheKeyByTable = `template_data:table_id:${row.tableId}`;
 
     cacheQueue.delete(cacheKeyById);
-    cacheQueue.delete(cacheKeyByTable);
+    cacheQueue.delete(cacheKey(row.tableId));
 
     return updatedRow.dataValues;
   } catch (error) {
@@ -121,7 +149,6 @@ export const deleteTemplateDataByIdService = async (id) => {
 };
 
 export const deleteTemplateRowByTableIdService = async (tableId) => {
-  const cacheKeyByTable = `template_data:table_id:${tableId}`;
 
   try {
     const [updatedCount] = await TemplateData.update(
@@ -135,7 +162,7 @@ export const deleteTemplateRowByTableIdService = async (tableId) => {
 
     const updatedRows = await TemplateData.findAll({ where: { tableId } });
 
-    cacheQueue.delete(cacheKeyByTable);
+    cacheQueue.delete(cacheKey(tableId));
 
     return updatedRows;
   } catch (error) {

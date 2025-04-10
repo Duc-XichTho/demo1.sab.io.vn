@@ -271,6 +271,19 @@ export const updateTemplateRowController = async (req, res) => {
   }
 };
 
+export const updateBatchTemplateRowController = async (req, res) => {
+ try {
+    let { tableId, data } = req.body;
+    const result = await TemplateDataService.updateBatchTemplateDataService(tableId, data);
+    res.status(200).json(result);
+ } catch (error) {
+    res.status(404).json({
+      message:
+        "Lỗi updateBatchTemplateRowController " + error.message, 
+    })
+ } 
+}
+
 export const updateColumnSelectOptionController = async (req, res) => {
   try {
     let { id, selectOptions } = req.body;

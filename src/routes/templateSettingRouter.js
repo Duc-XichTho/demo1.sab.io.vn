@@ -25,7 +25,8 @@ import {
   getAllTemplateTablesPlanController,
   getTemplateTableByDevIdController,
   getTemplateRowByIdController,
-  createBatchTemplateDataController
+  createBatchTemplateDataController,
+  updateBatchTemplateRowController
 } from "../controllers/templateSettingController.js";
 
 const router = express.Router();
@@ -67,6 +68,8 @@ router.put("/update-column-width", updateTemplateColumnWidthController);
 router.put("/update-column-indexes", updateColumnIndexesController);
 
 router.put("/update-row", updateTemplateRowController);
+
+router.put("/update-batch-row", updateBatchTemplateRowController);
 
 router.put("/update-select-option", updateColumnSelectOptionController);
 
