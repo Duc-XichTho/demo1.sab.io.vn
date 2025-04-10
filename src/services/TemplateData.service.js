@@ -1,12 +1,14 @@
 import { TemplateData } from "../postgres/postgres.js";
 import { cacheQueue } from "./redis/cacheQueue.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const cacheKey =(tableId) => `${process.env.FOLDER_NAME_BUCKET_BITFLY}_template_data:table_id:${tableId}`;
 export const getTemplateDataByTableIdService = async (tableId) => {
 
 
   try {
-    const cachedData = await cacheQueue.get(cacheKey);
+    const cachedData = await cacheQueue.get(cacheKey(tableId));
     if (cachedData) {
       return cachedData;
     }
