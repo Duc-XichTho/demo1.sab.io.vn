@@ -2,8 +2,7 @@ import { TemplateData } from "../postgres/postgres.js";
 import { cacheQueue } from "./redis/cacheQueue.js";
 
 export const getTemplateDataByTableIdService = async (tableId) => {
-  const cacheKey = `template_data:table_id:${tableId}`;
-
+  const cacheKey = `${process.env.FOLDER_NAME_BUCKET_BITFLY}template_data:table_id:${tableId}`;
   try {
     const cachedData = await cacheQueue.get(cacheKey);
     if (cachedData) {
