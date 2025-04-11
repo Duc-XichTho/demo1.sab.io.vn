@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createLeadManagementModel = async (sequelize) => {
     const LeadManagement = sequelize.define(
@@ -92,7 +92,7 @@ export const createLeadManagementModel = async (sequelize) => {
         },
         {
             tableName: "leadManagement",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return LeadManagement;

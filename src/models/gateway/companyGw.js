@@ -1,6 +1,4 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from "./ZZ_CONST.js";
-import {CompanyGw} from "../../postgres/postgres.js";
 
 export const createCompanyGWModel = async (sequelize) => {
   const CompanyGw = sequelize.define(
@@ -21,7 +19,7 @@ export const createCompanyGWModel = async (sequelize) => {
     },
     {
       tableName: "company_gw",
-      schema: SCHEMA,
+      schema: 'gateway',
     }
   );
   return CompanyGw;

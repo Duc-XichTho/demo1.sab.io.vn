@@ -1,13 +1,12 @@
 import {
     DataTypes
 } from "sequelize";
-import {
-    SCHEMA
-} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createCanvasBotModel = async (sequelize) => {
     const CanvasBot = sequelize.define(
-        "canvas_bot", {
+        "canvas_bot",
+        {
             id: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
@@ -45,7 +44,7 @@ export const createCanvasBotModel = async (sequelize) => {
                 defaultValue: true,
             }
         }, {
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
             tableName: "canvas_bot",
             timestamps: false,
         }

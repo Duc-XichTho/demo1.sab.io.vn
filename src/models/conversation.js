@@ -1,4 +1,4 @@
-import { SCHEMA } from './Z_CONST.js';
+import {config} from "dotenv"; config();
 import { DataTypes, Sequelize } from 'sequelize';
 
 export const createConversationModel = async (sequelize) => {
@@ -27,7 +27,7 @@ export const createConversationModel = async (sequelize) => {
             },
         },
         {
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
             tableName: 'conversation',
         }
     );

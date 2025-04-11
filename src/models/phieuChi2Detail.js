@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createPhieuChi2DetailModel = async (sequelize) => {
     const PhieuChi2Detail = sequelize.define(
@@ -71,7 +71,7 @@ export const createPhieuChi2DetailModel = async (sequelize) => {
         },
         {
             tableName: "phieuChi2Detail",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return PhieuChi2Detail;

@@ -1,4 +1,4 @@
-import { SCHEMA } from './Z_CONST.js';
+import {config} from "dotenv"; config();
 import { DataTypes } from 'sequelize';
 
 export const createMappingLuongModel = async (sequelize) => {
@@ -45,7 +45,7 @@ export const createMappingLuongModel = async (sequelize) => {
       },
     },
     {
-      schema: SCHEMA,
+      schema: process.env.SCHEMA,
       tableName: 'mapping_luong',
       timestamps: false,
     }

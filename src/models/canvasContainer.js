@@ -1,9 +1,10 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from './Z_CONST.js'
+import {config} from "dotenv"; config();
 
 export const createCanvasContainerModel = async (sequelize) => {
 	const CanvasContainer = sequelize.define(
-		"CanvasContainer", {
+		"CanvasContainer",
+		{
 		id: {
 			type: DataTypes.INTEGER,
 			autoIncrement: true,
@@ -53,7 +54,7 @@ export const createCanvasContainerModel = async (sequelize) => {
 		},
 	}, {
 		tableName: "canvasContainer",
-		schema: SCHEMA,
+		schema: process.env.SCHEMA,
 	}
 	);
 	return CanvasContainer;

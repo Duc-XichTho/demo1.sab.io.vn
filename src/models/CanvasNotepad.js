@@ -1,13 +1,12 @@
 import {
     DataTypes
 } from "sequelize";
-import {
-    SCHEMA
-} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createCanvasNotepadModel = async (sequelize) => {
     const CanvasNotepad = sequelize.define(
-        "canvas_notepad", {
+        "canvas_notepad",
+        {
             id: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
@@ -25,7 +24,7 @@ export const createCanvasNotepadModel = async (sequelize) => {
                 defaultValue: true,
             }
         }, {
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
             tableName: "canvas_notepad",
             timestamps: false,
         }

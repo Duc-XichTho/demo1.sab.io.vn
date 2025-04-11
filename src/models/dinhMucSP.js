@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createDinhMucSPModel = async (sequelize) => {
     const DinhKMucSP = sequelize.define(
@@ -33,7 +33,7 @@ export const createDinhMucSPModel = async (sequelize) => {
         },
         {
             tableName: "dinhMucSP",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return DinhKMucSP;

@@ -1,13 +1,12 @@
 import {
     DataTypes
 } from "sequelize";
-import {
-    SCHEMA
-} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createDinhKhoanMapModel = async (sequelize) => {
     const DinhKhoanMap = sequelize.define(
-        "dinhKhoanMap", {
+        "dinhKhoanMap",
+        {
             id: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
@@ -48,7 +47,7 @@ export const createDinhKhoanMapModel = async (sequelize) => {
                 defaultValue: true,
             },
         }, {
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
             tableName: "dinhKhoanMap",
             timestamps: false,
         }

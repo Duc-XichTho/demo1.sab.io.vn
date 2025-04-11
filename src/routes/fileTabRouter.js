@@ -3,12 +3,14 @@ import {
   getAllFileTabController,
   createFileTabController,
   updateFileTabController,
-  deleteFileTabController,
+  deleteFileTabController, getFileTabByTypeController, getAllFileTabTypeDataController,
 } from "../controllers/fileTabController.js";
 
 const router = express.Router();
 
 router.get("/", getAllFileTabController);
+router.get("/by-type", getFileTabByTypeController);
+router.get("/all-type-data", getAllFileTabTypeDataController);
 
 router.post("/", createFileTabController);
 

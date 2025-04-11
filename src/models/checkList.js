@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createCheckListModel = async (sequelize) => {
     const CheckList = sequelize.define(
@@ -42,7 +42,7 @@ export const createCheckListModel = async (sequelize) => {
             },
         },
         {
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
             timestamps: false,
             freezeTableName: true,
         }

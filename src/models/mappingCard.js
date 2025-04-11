@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createMappingCardModel = async (sequelize) => {
     const MappingCard = sequelize.define(
@@ -56,7 +56,7 @@ export const createMappingCardModel = async (sequelize) => {
         },
         {
             tableName: "mappingCard",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return MappingCard;

@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createInputModel = async (sequelize) => {
     const Input = sequelize.define(
@@ -101,7 +101,7 @@ export const createInputModel = async (sequelize) => {
         },
         {
             tableName: "input",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return Input;

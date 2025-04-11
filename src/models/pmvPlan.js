@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createPMVPlanModel = async (sequelize) => {
     const PMVPlan = sequelize.define(
@@ -66,7 +66,7 @@ export const createPMVPlanModel = async (sequelize) => {
         },
         {
             tableName: "pmvPlan",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return PMVPlan;

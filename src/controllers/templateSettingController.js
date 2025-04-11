@@ -1,32 +1,25 @@
 import {
-  getAllTemplateTables,
-  getSheetTableByFileNoteId,
-  getTemplateColumn,
-  getTemplateRow,
-  getValidationData,
-  getTableById,
   createTemplateColumn,
-  createTemplateRow,
-  updateTemplateTable,
-  updateTemplateColumn,
-  updateTemplateColumnWidth,
-  updateColumnIndexes,
-  updateTemplateRow,
-  updateColumnSelectOption,
-  updateColumnTemplateOption,
-  updateColumnFormulaOption,
-  deleteTemplateRow,
+  createTemplateTableService,
   deleteTemplateColumn,
   getAllSheetTable,
-  deleteTemplateRowByTableId,
-  getTemplateTableByPlanIdService,
-  createTemplateTableService,
+  getAllTemplateTables,
   getAllTemplateTablesPlan,
+  getTableById,
+  getTemplateColumn,
   getTemplateTableByDevIdService,
-  getTemplateTableByNoteIdService, getTemplateRowById
+  getTemplateTableByNoteIdService,
+  getTemplateTableByPlanIdService,
+  getValidationData,
+  updateColumnFormulaOption,
+  updateColumnIndexes,
+  updateColumnSelectOption,
+  updateColumnTemplateOption,
+  updateTemplateColumn,
+  updateTemplateColumnWidth,
+  updateTemplateTable
 } from "../services/templateSettingService.js";
 import * as TemplateDataService from '../services/TemplateData.service.js';
-import { createCardService } from "../services/cardService.js";
 
 // GET
 export const getAllTemplateTablesController = async (req, res) => {
@@ -279,9 +272,9 @@ export const updateBatchTemplateRowController = async (req, res) => {
  } catch (error) {
     res.status(404).json({
       message:
-        "Lỗi updateBatchTemplateRowController " + error.message, 
+        "Lỗi updateBatchTemplateRowController " + error.message,
     })
- } 
+ }
 }
 
 export const updateColumnSelectOptionController = async (req, res) => {
@@ -345,6 +338,19 @@ export const deleteTemplateRowByTableIdController = async (req, res) => {
     res.status(404).json({
       message:
         "Lỗi khi tạo dòng cho bản ghi sheet row không tồn tại: " + e.message,
+    });
+  }
+};
+
+export const deleteTemplateColByTableIdController = async (req, res) => {
+  try {
+    let tableId = req.params.tableId;
+    const result = await TemplateDataService.deleteTemplateColByTableIdService(tableId);
+    res.status(200).json(result);
+  } catch (e) {
+    res.status(404).json({
+      message:
+        "Lỗi khi tạo dòng cho bản ghi column không tồn tại: " + e.message,
     });
   }
 };

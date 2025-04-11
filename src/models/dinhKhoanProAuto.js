@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createDinhKhoanProAutoModel = async (sequelize) => {
     const DinhKhoanProAuto = sequelize.define(
@@ -57,7 +57,7 @@ export const createDinhKhoanProAutoModel = async (sequelize) => {
             }
         },
         {
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
             tableName: "dinhKhoanProAuto",
             timestamps: false,
         }

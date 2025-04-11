@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createCashFlowCategoryModel = async (sequelize) => {
     const CashFlowCategory = sequelize.define(
@@ -56,7 +56,7 @@ export const createCashFlowCategoryModel = async (sequelize) => {
         },
         {
             tableName: "cashFlowCategory",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return CashFlowCategory;

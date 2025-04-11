@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createPMVSkuAllocationModel = async (sequelize) => {
     const PMVSkuAllocation = sequelize.define(
@@ -61,7 +61,7 @@ export const createPMVSkuAllocationModel = async (sequelize) => {
         },
         {
             tableName: "pmvSkuAllocation",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return PMVSkuAllocation;

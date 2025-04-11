@@ -1,13 +1,12 @@
 import {
     DataTypes
 } from "sequelize";
-import {
-    SCHEMA
-} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createProgressModel = async (sequelize) => {
     const Progress = sequelize.define(
-        "progress", {
+        "progress",
+        {
             id: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
@@ -34,7 +33,7 @@ export const createProgressModel = async (sequelize) => {
             }
         }, {
             tableName: "progress",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return Progress;

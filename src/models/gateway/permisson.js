@@ -1,5 +1,4 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from "./ZZ_CONST.js";
 
 export const createPermissionGWModel = async (sequelize) => {
     const Permission = sequelize.define(
@@ -42,7 +41,7 @@ export const createPermissionGWModel = async (sequelize) => {
         },
         {
             tableName: "permission",
-            schema: SCHEMA,
+            schema: 'gateway',
             timestamps: true,
         }
     );

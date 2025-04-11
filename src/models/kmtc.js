@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createKmtcModel = async (sequelize) => {
     const Kmtc = sequelize.define(
@@ -74,7 +74,7 @@ export const createKmtcModel = async (sequelize) => {
         },
         {
             tableName: "kmtc",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return Kmtc;

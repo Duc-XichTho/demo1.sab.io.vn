@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createPBLSXModel = async (sequelize) => {
     const PBLSX = sequelize.define(
@@ -47,7 +47,7 @@ export const createPBLSXModel = async (sequelize) => {
         },
         {
             tableName: "pblsx",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return PBLSX;

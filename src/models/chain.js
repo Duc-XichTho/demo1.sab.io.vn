@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createChainModel = async (sequelize) => {
     const Chain = sequelize.define(
@@ -53,7 +53,7 @@ export const createChainModel = async (sequelize) => {
         },
         {
             tableName: "chain",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return Chain;

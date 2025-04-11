@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from "./Z_CONST.js";
+import {config} from "dotenv"; config();
 
 export const createFileTabModel = async (sequelize) => {
     const FileTab = sequelize.define(
@@ -29,13 +29,16 @@ export const createFileTabModel = async (sequelize) => {
             table: {
                 type: DataTypes.STRING,
             },
+            type: {
+                type: DataTypes.STRING,
+            },
             show: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,
             },
         },
         {
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
             tableName: "fileTab",
             timestamps: false,
             hooks: {

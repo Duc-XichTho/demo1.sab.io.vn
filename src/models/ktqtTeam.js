@@ -1,4 +1,4 @@
-import { SCHEMA } from './Z_CONST.js';
+import {config} from "dotenv"; config();
 import { DataTypes } from 'sequelize';
 
 export const createKTQTTeamModel = async (sequelize) => {
@@ -46,7 +46,7 @@ export const createKTQTTeamModel = async (sequelize) => {
       },
     },
     {
-      schema: SCHEMA,
+      schema: process.env.SCHEMA,
     }
   );
   return KTQTTeam;

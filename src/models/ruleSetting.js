@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createRuleSettingModel = async (sequelize) => {
     const RuleSetting = sequelize.define(
@@ -53,7 +53,7 @@ export const createRuleSettingModel = async (sequelize) => {
         },
         {
             tableName: "ruleSetting",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return RuleSetting;

@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from './Z_CONST.js'
+import {config} from "dotenv"; config();
 
 export const createTabContentModel = async (sequelize) => {
     const tabContent = sequelize.define(
@@ -54,7 +54,7 @@ export const createTabContentModel = async (sequelize) => {
         },
         {
             tableName: "tab_content",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
             timestamps: true,
             createdAt: 'created_at',
             updatedAt: 'updated_at'

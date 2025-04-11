@@ -417,7 +417,6 @@ export const deleteTemplateRowByTableId = async (tableId) => {
 export const deleteTemplateColumn = async (data) => {
     try {
         const {tableId, rowId, columnName} = data;
-        console.log(data);
         const column = await TemplateColumn.findByPk(rowId);
         if (!column) {
             throw new Error("Bản ghi sheet row không tồn tại");

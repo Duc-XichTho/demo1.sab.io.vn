@@ -1,6 +1,6 @@
 // models/auditLog.js
 import { DataTypes } from "sequelize";
-import { SCHEMA } from "./Z_CONST.js";
+import {config} from "dotenv"; config();
 
 export const createAuditLogModel = async (sequelize) => {
   const AuditLog = sequelize.define(
@@ -38,7 +38,7 @@ export const createAuditLogModel = async (sequelize) => {
     },
     {
       tableName: "auditLog",
-      schema: SCHEMA,
+      schema: process.env.SCHEMA,
     }
   );
   return AuditLog;

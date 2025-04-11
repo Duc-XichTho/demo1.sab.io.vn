@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createReportCanvasModel = async (sequelize) => {
     const ReportCanvas = sequelize.define(
@@ -56,7 +56,7 @@ export const createReportCanvasModel = async (sequelize) => {
         },
         {
             tableName: "reportCanvas",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return ReportCanvas;

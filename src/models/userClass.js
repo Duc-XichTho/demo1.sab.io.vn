@@ -1,13 +1,10 @@
-import {
-  DataTypes
-} from "sequelize";
-import {
-  SCHEMA
-} from "./Z_CONST.js";
+import {  DataTypes} from "sequelize";
+import {config} from "dotenv"; config();
 
 export const createUserClassModel = async (sequelize) => {
   const UserClass = sequelize.define(
-    "UserClass", {
+    "UserClass",
+    {
       id: {
         type: DataTypes.STRING,
         primaryKey: true,
@@ -50,7 +47,7 @@ export const createUserClassModel = async (sequelize) => {
       },
     }, {
       tableName: "userClass",
-      schema: SCHEMA,
+      schema: process.env.SCHEMA,
     }
   );
   return UserClass;

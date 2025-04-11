@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createCostPoolModel = async (sequelize) => {
     const CostPool = sequelize.define(
@@ -58,7 +58,7 @@ export const createCostPoolModel = async (sequelize) => {
         },
         {
             tableName: "costPool",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return CostPool;

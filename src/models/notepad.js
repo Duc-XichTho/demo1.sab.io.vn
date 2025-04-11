@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createNotePadModel = async (sequelize) => {
     const NotePad = sequelize.define(
@@ -52,7 +52,7 @@ export const createNotePadModel = async (sequelize) => {
             },
         },
         {
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
             timestamps: false,
             freezeTableName: true,
         }

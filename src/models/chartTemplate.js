@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createChartTemplateModel = async (sequelize) => {
     const ChartTemplate = sequelize.define(
@@ -75,7 +75,7 @@ export const createChartTemplateModel = async (sequelize) => {
         },
         {
             tableName: "chartTemplate",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return ChartTemplate;

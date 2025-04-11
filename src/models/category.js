@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from './Z_CONST.js'
+import {config} from "dotenv"; config();
 
 export const createCategoryModel = async (sequelize) => {
     const category = sequelize.define(
@@ -48,9 +48,8 @@ export const createCategoryModel = async (sequelize) => {
         },
         {
             tableName: "category",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
-
     return category;
 };

@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createLoModel = async (sequelize) => {
     const Lo = sequelize.define(
@@ -57,7 +57,7 @@ export const createLoModel = async (sequelize) => {
         },
         {
             tableName: "lo",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return Lo;

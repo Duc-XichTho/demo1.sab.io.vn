@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createResultCrossCheckModel = async (sequelize) => {
     const ResultCrossCheck = sequelize.define(
@@ -47,7 +47,7 @@ export const createResultCrossCheckModel = async (sequelize) => {
         },
         {
             tableName: "resultCrossCheck",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return ResultCrossCheck;

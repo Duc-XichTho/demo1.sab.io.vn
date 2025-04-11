@@ -1,6 +1,7 @@
-import { SCHEMA } from './Z_CONST.js';
+import {config} from "dotenv"; config();
 import {DataTypes} from 'sequelize';
 import dayjs from 'dayjs';
+
 export const createKTQTSoKeToanModel = async (sequelize) => {
     const KTQTSoKeToan = sequelize.define(
         'ktqtSoKeToan',
@@ -185,7 +186,7 @@ export const createKTQTSoKeToanModel = async (sequelize) => {
             },
         },
         {
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
             tableName: 'ktqtSoKeToan',
         }
     );

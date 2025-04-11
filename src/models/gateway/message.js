@@ -1,5 +1,4 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from "./ZZ_CONST.js";
 
 export const createMessageGWModel = async (sequelize) => {
   const Message = sequelize.define(
@@ -35,7 +34,7 @@ export const createMessageGWModel = async (sequelize) => {
     },
     {
       tableName: "message",
-      schema: SCHEMA,
+      schema: 'gateway',
       timestamps: true,
     }
   );

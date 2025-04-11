@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from "./Z_CONST.js";
+import {config} from "dotenv"; config();
 
 export const createTagModel = async (sequelize) => {
     const Tag = sequelize.define(
@@ -44,7 +44,7 @@ export const createTagModel = async (sequelize) => {
         },
         {
             tableName: "tag",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
             timestamps: false,
         }
     );

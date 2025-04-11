@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createPBGV3Model = async (sequelize) => {
     const PBGV3 = sequelize.define(
@@ -59,7 +59,7 @@ export const createPBGV3Model = async (sequelize) => {
         },
         {
             tableName: "pbgv3",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return PBGV3;

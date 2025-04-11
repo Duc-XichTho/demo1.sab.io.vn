@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from "./Z_CONST.js";
+import {config} from "dotenv"; config();
 
 export const createTemplateDataModel = async (sequelize) => {
   const TemplateData = sequelize.define(
@@ -26,7 +26,7 @@ export const createTemplateDataModel = async (sequelize) => {
     {
       tableName: "template_data",
       timestamps: false,
-      schema: SCHEMA,
+      schema: process.env.SCHEMA,
     }
   );
   return TemplateData;

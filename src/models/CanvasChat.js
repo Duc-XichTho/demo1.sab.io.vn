@@ -1,13 +1,12 @@
 import {
     DataTypes
 } from "sequelize";
-import {
-    SCHEMA
-} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createCanvasChatModel = async (sequelize) => {
     const CanvasChat = sequelize.define(
-        "canvas_chat", {
+        "canvas_chat",
+        {
             id: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
@@ -30,7 +29,7 @@ export const createCanvasChatModel = async (sequelize) => {
                 defaultValue: true,
             },
         }, {
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
             tableName: "canvas_chat",
             timestamps: false,
         }

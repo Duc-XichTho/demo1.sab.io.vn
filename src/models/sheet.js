@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createSheetModel = async (sequelize) => {
     const Sheet = sequelize.define(
@@ -40,7 +40,7 @@ export const createSheetModel = async (sequelize) => {
             }
         },
         {
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
             tableName: "sheet",
             timestamps: false,
         }

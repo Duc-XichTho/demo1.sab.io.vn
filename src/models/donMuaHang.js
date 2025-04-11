@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from "./Z_CONST.js";
+import {config} from "dotenv"; config();
 
 export const createDonMuaHangModel = async (sequelize) => {
     const DonMuaHang = sequelize.define(
@@ -77,7 +77,7 @@ export const createDonMuaHangModel = async (sequelize) => {
         },
         {
             tableName: "donMuaHang",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return DonMuaHang;

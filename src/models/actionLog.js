@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createActionLogModel = async (sequelize) => {
     const ActionLog = sequelize.define(
@@ -50,7 +50,7 @@ export const createActionLogModel = async (sequelize) => {
         },
         {
             tableName: "actionLog",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return ActionLog;

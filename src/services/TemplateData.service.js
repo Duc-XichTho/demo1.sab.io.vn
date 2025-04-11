@@ -1,4 +1,4 @@
-import { TemplateData } from "../postgres/postgres.js";
+import {TemplateColumn, TemplateData} from "../postgres/postgres.js";
 import { cacheQueue } from "./redis/cacheQueue.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -112,11 +112,11 @@ export const updateBatchTemplateDataService = async (tableId, dataUpdate) => {
             show: true
           }
         });
-        
+
         if (!row) {
           throw new Error(`Bản ghi template_data với id ${id} không tồn tại`);
         }
-        
+
         return row.update({ data });
       })
     );
@@ -149,25 +149,38 @@ export const deleteTemplateDataByIdService = async (id) => {
     console.log('Error deleteTemplateDataByIdService', error.message);
   }
 };
-
 export const deleteTemplateRowByTableIdService = async (tableId) => {
-
   try {
-    const [updatedCount] = await TemplateData.update(
-      { show: false },
-      { where: { tableId } }
-    );
+    const deletedCount = await TemplateData.destroy({
+      where: { tableId }
+    });
 
-    if (updatedCount === 0) {
-      throw new Error("Không có bản ghi nào được cập nhật");
+    if (deletedCount === 0) {
+      throw new Error("Không có bản ghi nào bị xoá");
     }
-
-    const updatedRows = await TemplateData.findAll({ where: { tableId } });
 
     cacheQueue.delete(cacheKey(tableId));
 
-    return updatedRows;
+    return { message: `${deletedCount} dòng đã được xoá` };
   } catch (error) {
-    console.log('Error deleteTemplateRowByTableIdService', error.message)
+    console.log('Error deleteTemplateRowByTableIdService', error.message);
+  }
+};
+
+export const deleteTemplateColByTableIdService = async (tableId) => {
+  try {
+    const deletedCount = await TemplateColumn.destroy({
+      where: { tableId }
+    });
+
+    if (deletedCount === 0) {
+      throw new Error("Không có bản ghi nào bị xoá");
+    }
+
+    cacheQueue.delete(cacheKey(tableId));
+
+    return { message: `${deletedCount} cột đã được xoá` };
+  } catch (error) {
+    console.log('Error deleteTemplateColByTableIdService', error.message);
   }
 };

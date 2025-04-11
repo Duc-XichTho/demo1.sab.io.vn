@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createCardInputModel = async (sequelize) => {
     const CardInput = sequelize.define(
@@ -57,7 +57,7 @@ export const createCardInputModel = async (sequelize) => {
         },
         {
             tableName: "cardInput",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return CardInput;

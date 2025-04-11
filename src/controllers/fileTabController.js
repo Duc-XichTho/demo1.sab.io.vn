@@ -2,13 +2,36 @@ import {
   getAllFileTabService,
   createFileTabService,
   updateFileTabService,
-  deleteFileTabService,
+  deleteFileTabService, getFileTabByTypeService, getAllFileTabTypeDataService,
 } from "../services/fileTabService.js";
 
 // GET
 export const getAllFileTabController = async (req, res) => {
   try {
     const FileTabs = await getAllFileTabService();
+    res.status(200).json(FileTabs);
+  } catch (error) {
+    res.status(500).json({
+      message: "Lỗi khi lấy bản ghi FileTabs: " + error.message,
+    });
+  }
+};
+
+export const getAllFileTabTypeDataController = async (req, res) => {
+  try {
+    const FileTabs = await getAllFileTabTypeDataService();
+    res.status(200).json(FileTabs);
+  } catch (error) {
+    res.status(500).json({
+      message: "Lỗi khi lấy bản ghi FileTabs: " + error.message,
+    });
+  }
+};
+
+export const getFileTabByTypeController = async (req, res) => {
+  try {
+    const { table, type } = req.query;
+    const FileTabs = await getFileTabByTypeService(table , type);
     res.status(200).json(FileTabs);
   } catch (error) {
     res.status(500).json({

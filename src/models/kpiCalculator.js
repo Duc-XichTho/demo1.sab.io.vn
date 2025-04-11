@@ -1,5 +1,5 @@
-import { DataTypes, Sequelize } from "sequelize";
-import { SCHEMA } from "./Z_CONST.js";
+import { DataTypes } from "sequelize";
+import {config} from "dotenv"; config();
 
 export const createKpiCalculatorModel = async (sequelize) => {
   const kpiCalculator = sequelize.define(
@@ -50,7 +50,7 @@ export const createKpiCalculatorModel = async (sequelize) => {
     },
     {
       tableName: "kpiCalculator",
-      schema: SCHEMA,
+      schema: process.env.SCHEMA,
     }
   );
   return kpiCalculator;

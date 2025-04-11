@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import {SCHEMA} from "./Z_CONST.js";
+import {config} from "dotenv"; config();
 
 export const createDashBoardList = async (sequelize) => {
   const DashBoardList = sequelize.define(
@@ -29,7 +29,7 @@ export const createDashBoardList = async (sequelize) => {
     },
     {
       tableName: "dashBoardList",
-      schema: SCHEMA,
+      schema: process.env.SCHEMA,
     }
   );
   return DashBoardList;

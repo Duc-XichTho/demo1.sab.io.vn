@@ -1,5 +1,4 @@
 import { DataTypes } from "sequelize";
-import { SCHEMA } from "./ZZ_CONST.js";
 
 export const createTagGWModel = async (sequelize) => {
   const TagGw = sequelize.define(
@@ -20,7 +19,7 @@ export const createTagGWModel = async (sequelize) => {
     },
     {
       tableName: "tag_gw",
-      schema: SCHEMA,
+      schema: 'gateway',
     }
   );
   return TagGw;

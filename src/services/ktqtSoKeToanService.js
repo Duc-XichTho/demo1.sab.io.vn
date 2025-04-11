@@ -3,6 +3,9 @@ import dayjs from 'dayjs';
 import {Op} from "sequelize";
 import {cacheQueue} from "./redis/cacheQueue.js";
 
+import dotenv from "dotenv";
+
+dotenv.config();
 const cacheKey = `${process.env.FOLDER_NAME_BUCKET_BITFLY}_ktqt_SoKeToan`;
 export const createKTQTSoKeToanService = async (newData) => {
     try {

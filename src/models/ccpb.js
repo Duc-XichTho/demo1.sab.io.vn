@@ -1,5 +1,5 @@
 import {DataTypes} from "sequelize";
-import {SCHEMA} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createCCPBModel = async (sequelize) => {
     const CCPB = sequelize.define(
@@ -62,7 +62,7 @@ export const createCCPBModel = async (sequelize) => {
         },
         {
             tableName: "ccpb",
-            schema: SCHEMA,
+            schema: process.env.SCHEMA,
         }
     );
     return CCPB;

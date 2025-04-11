@@ -1,13 +1,12 @@
 import {
     DataTypes
 } from "sequelize";
-import {
-    SCHEMA
-} from './Z_CONST.js';
+import {config} from "dotenv"; config();
 
 export const createHoaDonSanPhamModel = async (sequelize) => {
     const HoaDonSanPham = sequelize.define(
-        "hoaDonSanPham", {
+        "hoaDonSanPham",
+        {
             id: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
@@ -46,7 +45,7 @@ export const createHoaDonSanPhamModel = async (sequelize) => {
 
         }, {
             tableName: "hoaDonSanPham",
-            schema: SCHEMA
+            schema: process.env.SCHEMA,
         }
     );
     return HoaDonSanPham;
