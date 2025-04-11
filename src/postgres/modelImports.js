@@ -166,6 +166,9 @@ import { createPermissionGWModel } from "../models/gateway/permisson.js";
 import { createPMVChuKyModel } from "../models/pmvChuKy.js";
 import { createCFConfigModel } from "../models/CFConfig.js"
 import {createRuleSettingModel} from "../models/ruleSetting.js";
+import {createBCanvasMappingModel} from "../models/bCanvasMapping.js";
+import {createBCanvasDataOriginalRowModel} from "../models/bCanvasDataOriginalRow.js";
+import {createBCanvasDataOriginalModel} from "../models/bCanvasDataOriginal.js";
 
 export const modelImports = {
   createRuleSettingModel,
@@ -335,5 +338,8 @@ export const modelImports = {
   createNotificationGWModel,
   createPermissionGWModel,
   createPMVChuKyModel,
-  createCFConfigModel
+  createCFConfigModel,
+  createBCanvasMappingModel,
+  createBCanvasDataOriginalRowModel,
+  createBCanvasDataOriginalModel
 }

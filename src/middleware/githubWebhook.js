@@ -2,8 +2,8 @@ import { exec } from 'child_process';
 import { promisify } from 'util';
 
 const execPromise = promisify(exec);
-const repoPath = '/root/app/demo2.sab.io.vn_be';
-const repoName = "demo2.sab.io.vn_be";
+const repoPath = '/root/app/fastco.sab.io.vn_be';
+const repoName = "fastco.sab.io.vn_be";
 
 const updateCode = async () => {
   try {

@@ -5,13 +5,13 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import rateLimit from 'express-rate-limit';
 
 // Middleware
 import authenticateToken from "./src/middleware/authenticateToken.js";
 import { connection } from "./src/postgres/postgres.js";
 import { schedule } from "./src/services/schedule/schedule.js";
 import { connectRedis } from "./src/services/redis/redis.service.js";
-import { initializeCacheManager } from "./src/services/redis/redis.helper.js"
 
 // Routes
 import authRoutes from "./src/routes/authRoutes.js";
@@ -80,6 +80,7 @@ import fileRouter from "./src/routes/fileRouter.js";
 import uploadManyFileRouter from "./src/routes/uploadManyFileRouter.js";
 import uploadFileRouter from "./src/routes/uploadFileRouter.js";
 import mappingCardRouter from "./src/routes/mappingCardRouter.js";
+import deleteFileRouter from "./src/routes/deleteFileRouter.js";
 
 import hangHoaLoRouter from "./src/routes/hangHoaLoRouter.js";
 import hangHoaLoKhoRouter from "./src/routes/hangHoaLoKhoRouter.js";
@@ -206,12 +207,24 @@ import CFConfigRouter from "./src/routes/CFConfig.router.js";
 import RuleSettingRouter from "./src/routes/ruleSettingRouter.js";
 import githubWebhook from "./src/middleware/githubWebhook.js";
 import fileNotePadRouterPublic from "./src/routes/public/fileNotePadRouterPublic.js";
+import bCanvasDataOriginalRouter from "./src/routes/bCanvasDataOriginalRouter.js";
+import bCanvasDataOriginalRowRouter from "./src/routes/bCanvasDataOriginalRowRouter.js";
+import bCanvasMappingRouter from "./src/routes/bCanvasMappingRouter.js";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT;
 schedule();
+
+const apiRateLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000,
+  max: 5000,
+  message: 'Quá nhiều yêu cầu, hãy thử lại sau!',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 const whitelist = [process.env.URL_CLIENT];
 const corsOptions = {
   origin: function (origin, callback) {
@@ -233,7 +246,8 @@ app.post("/git/update", githubWebhook, (req, res) => {
   return res.status(200).send("Webhook received");
 });
 
-app.use("/api/template-setting", templateSettingRouter);
+app.use("/api/template-setting", apiRateLimiter, templateSettingRouter);
+// app.use("/api/template-setting", templateSettingRouter);
 app.use("/api/file-note-pad", fileNotePadRouter);
 
 app.use(authRoutes);
@@ -293,8 +307,8 @@ app.use("/api/so-ke-toan", soKeToanRouter);
 app.use("/api/so-chuoi", soChuoiRouter);
 app.use("/api/uploadFile", uploadFileRouter);
 app.use("/api/upload-many-file", uploadManyFileRouter);
+app.use("/api/delete", deleteFileRouter);
 app.use("/api/file", fileRouter);
-app.use("/api/file-note-pad", fileNotePadRouter);
 app.use("/api/mapping-card", mappingCardRouter);
 app.use("/api/lo", loRouter);
 app.use("/api/phieu-xuat", phieuXuatRouter);
@@ -419,6 +433,10 @@ app.use("/api/gw-email", GW_EmailRouter);
 
 app.use("/api/cf-config", CFConfigRouter);
 
+app.use("/api/b-canvas-data-original", bCanvasDataOriginalRouter);
+app.use("/api/b-canvas-data-original-row", bCanvasDataOriginalRowRouter);
+app.use("/api/b-canvas-mapping", bCanvasMappingRouter);
+
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
@@ -533,6 +551,7 @@ httpServer.listen(PORT, async () => {
   try {
     await connection();
     await connectRedis();
+
     console.log(`Server is running on port ${PORT}`);
   } catch (error) {
     console.error("Failed to connect to the database:", error);
