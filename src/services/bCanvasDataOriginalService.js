@@ -23,32 +23,39 @@ export const getBCanvasDataRowOriginalByOriginalIdService = async (id) => {
         }
 
         let dataCacheForOneOriginal = await cacheQueue.get(keyForOneOriginalData(id))
+
         if (dataCacheForOneOriginal) {
             return dataCacheForOneOriginal;
-        }
-
-        let rowData = {info: info};
-
-        const cachedData = await cacheQueue.get(keyAllRow);
-        if (cachedData) {
-            let data = cachedData.filter(item => item.id_DataOriginal === id);
-            if (data && data.length > 0) {
-                rowData.rowData = data.map(item => {
-                    return item?.data;
-                });
-            }
         } else {
-            let data = await BCanvasDataOriginalRow.findAll({where: {id_DataOriginal: id}});
-            if (data && data.length > 0) {
-                rowData.rowData = data.map(item => {
-                    return item?.data;
-                });
+            let rowData = {info: info, rowData:[]};
+
+            const cachedData = await cacheQueue.get(keyAllRow);
+
+            if (cachedData) {
+                let data = cachedData.filter(item => item.id_DataOriginal == id);
+                if (data && data.length > 0) {
+
+                    rowData.rowData = data.map(item => {
+                        return item?.data;
+                    });
+                    console.log(rowData);
+                }
+            } else {
+                let data = await BCanvasDataOriginalRow.findAll({where: {show: true}});
                 cacheQueue.set(keyAllRow, data);
+                data = data.filter(item => item.id_DataOriginal == id);
+                if (data && data.length > 0) {
+                    rowData.rowData = data.map(item => {
+                        return item?.data;
+                    });
+
+                }
             }
+
+            cacheQueue.set(keyForOneOriginalData(id), rowData);
+            return rowData;
         }
 
-        cacheQueue.set(keyForOneOriginalData(id), rowData);
-        return rowData;
     } catch (error) {
         throw new Error('Lỗi khi lấy bản ghi BCanvasDataOriginal: ' + error.message);
     }
