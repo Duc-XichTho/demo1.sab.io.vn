@@ -177,8 +177,8 @@ export const createTemplateColumnController = async (req, res) => {
 
 export const createTemplateRowController = async (req, res) => {
   try {
-    let { tableId, data } = req.body;
-    const result = await TemplateDataService.createTemplateDataService(tableId, data);
+    let { tableId, data , id_DataOriginal } = req.body;
+    const result = await TemplateDataService.createTemplateDataService(tableId, data , id_DataOriginal);
     res.status(200).json(result);
   } catch (e) {
     res.status(404).json({
@@ -191,8 +191,8 @@ export const createTemplateRowController = async (req, res) => {
 
 export const createBatchTemplateDataController = async (req, res) => {
   try {
-    let { tableId, data } = req.body;
-    const result = await TemplateDataService.createBatchTemplateDataService(tableId, data);
+    let { tableId, data, id_DataOriginal } = req.body;
+    const result = await TemplateDataService.createBatchTemplateDataService(tableId, data, id_DataOriginal);
     res.status(200).json(result);
   } catch (e) {
     res.status(404).json({ message: "Lỗi createBacthTemplateDataController" + e.message, });

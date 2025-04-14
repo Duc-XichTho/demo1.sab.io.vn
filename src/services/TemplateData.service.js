@@ -18,7 +18,7 @@ export const getTemplateDataByTableIdService = async (tableId) => {
         tableId,
         show: true,
       },
-      order: [["id", "ASC"]],
+      order: [["id", "DESC"]],
     });
 
     cacheQueue.set(cacheKey(tableId), data);
@@ -44,31 +44,33 @@ export const getTemplateDataByIdService = async (id) => {
   }
 };
 
-export const createTemplateDataService = async (tableId, newData) => {
+export const createTemplateDataService = async (tableId, data , id_DataOriginal) => {
   try {
-    const data = await TemplateData.create({
+    const newData = await TemplateData.create({
       tableId,
-      newData,
+      data,
+      id_DataOriginal,
       show: true,
     });
 
-    const cacheKeyById = `${process.env.FOLDER_NAME_BUCKET_BITFLY}_template_data:id:${data.id}`;
+    const cacheKeyById = `${process.env.FOLDER_NAME_BUCKET_BITFLY}_template_data:id:${newData.id}`;
 
-    cacheQueue.set(cacheKeyById, data);
+    cacheQueue.set(cacheKeyById, newData);
     cacheQueue.delete(cacheKey(tableId));
 
-    return data;
+    return newData
   } catch (error) {
     console.log('Error createTemplateDataService', error.message);
   }
 };
 
-export const createBatchTemplateDataService = async (tableId, newData) => {
+export const createBatchTemplateDataService = async (tableId, newData, id_DataOriginal) => {
 
   try {
     const data = await TemplateData.bulkCreate(newData.map((item) => ({
       tableId,
       data: item,
+      id_DataOriginal
     })));
 
 

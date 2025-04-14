@@ -10,6 +10,10 @@ export const createTemplateDataModel = async (sequelize) => {
         autoIncrement: true,
         primaryKey: true,
       },
+        id_DataOriginal: {
+        type: DataTypes.DECIMAL,
+        allowNull: true,
+      },
       tableId: {
         type: DataTypes.DECIMAL,
         allowNull: true,

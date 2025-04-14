@@ -16,6 +16,9 @@ export const createBCanvasDataOriginalModel = async (sequelize) => {
             name : {
                 type: DataTypes.TEXT,
             },
+            type : {
+                type: DataTypes.STRING,
+            },
             columns : {
                 type: DataTypes.JSONB,
             },

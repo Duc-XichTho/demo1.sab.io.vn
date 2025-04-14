@@ -14,16 +14,24 @@ export const createFileTabModel = async (sequelize) => {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,
             },
+            hide2 : {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
+            },
             key: {
                 type: DataTypes.STRING,
             },
             label: {
                 type: DataTypes.TEXT,
             },
+
             alt: {
                 type: DataTypes.STRING,
             },
             position: {
+                type: DataTypes.INTEGER,
+            },
+            position2: {
                 type: DataTypes.INTEGER,
             },
             table: {
@@ -33,6 +41,10 @@ export const createFileTabModel = async (sequelize) => {
                 type: DataTypes.STRING,
             },
             show: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: true,
+            },
+            show2: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,
             },

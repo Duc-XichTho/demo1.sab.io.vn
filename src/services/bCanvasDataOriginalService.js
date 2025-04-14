@@ -1,4 +1,4 @@
-import {BCanvasDataOriginal, BCanvasDataOriginalRow} from '../postgres/postgres.js';
+import {BCanvasDataOriginal, BCanvasDataOriginalRow, TemplateData} from '../postgres/postgres.js';
 import dotenv from "dotenv";
 import {cacheQueue} from "./redis/cacheQueue.js";
 
@@ -38,7 +38,6 @@ export const getBCanvasDataRowOriginalByOriginalIdService = async (id) => {
                     rowData.rowData = data.map(item => {
                         return item?.data;
                     });
-                    console.log(rowData);
                 }
             } else {
                 let data = await BCanvasDataOriginalRow.findAll({where: {show: true}});
@@ -92,25 +91,65 @@ export const updateBCanvasDataOriginalService = async (newData) => {
     }
 };
 
-export const deleteBCanvasDataOriginalService = async (ids) => {
+export const deleteBCanvasDataOriginalService = async (id) => {
     try {
-        const dataList = await BCanvasDataOriginal.findAll({
+        const data = await BCanvasDataOriginal.findByPk(id);
+        
+        if (!data) {
+            return { message: 'Không có bản ghi BCanvasDataOriginal nào tồn tại với ID này' };
+        }
+
+        await TemplateData.destroy({
+            where: { id_DataOriginal: id }
+        });
+
+        await BCanvasDataOriginalRow.destroy({
+            where: { id_DataOriginal: id }
+        });
+
+        await BCanvasDataOriginal.destroy({
+            where: { id: id }
+        });
+
+        cacheQueue.delete(keyAllRow);
+        cacheQueue.delete(keyForOneOriginalData(id));
+
+        return { message: 'Bản ghi BCanvasDataOriginal và dữ liệu liên quan đã được xóa thành công' };
+    } catch (error) {
+        return { message: 'Lỗi khi xóa bản ghi BCanvasDataOriginal: ' + error.message };
+    }
+};
+
+export const getAllTemplateDataByDataOriginalService = async (id) => {
+    try {
+        const templateData = await TemplateData.findAll({
             where: {
-                id: ids,
+                id_DataOriginal: id,
             },
         });
-        if (dataList.length === 0) {
-            throw new Error('Không có bản ghi BCanvasDataOriginal nào tồn tại với các ID này');
+        if (templateData.length === 0) {
+            throw new Error('Không có bản ghi TemplateData nào tồn tại với các ID này');
         }
-        await BCanvasDataOriginal.update(
-            {show: false},
-            {
-                where: {
-                    id: ids,
-                },
-            }
-        );
-        return {message: 'Các bản ghi BCanvasDataOriginal đã được ẩn thành công'};
+
+        return templateData;
+    } catch (error) {
+        throw new Error('Lỗi khi ẩn các bản ghi TemplateData: ' + error.message);
+    }
+};
+
+export const deleteAllTemplateDataByDataOriginalService = async (id) => {
+    try {
+        const templateData = await TemplateData.findAll({
+            where: {
+                id_DataOriginal: id,
+            },
+        });
+        if (templateData.length === 0) {
+            throw new Error('Không có bản ghi TemplateData nào tồn tại với các ID này');
+        }
+        await TemplateData.destroy({where: {id_DataOriginal: id}});
+
+        return {message: 'Các bản ghi TemplateData đã được ẩn thành công'};
     } catch (error) {
         throw new Error('Lỗi khi ẩn các bản ghi BCanvasDataOriginal: ' + error.message);
     }

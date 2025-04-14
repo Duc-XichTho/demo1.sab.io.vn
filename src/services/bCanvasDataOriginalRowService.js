@@ -30,6 +30,19 @@ export const getBCanvasDataOriginalRowByIdService = async (id) => {
     }
 };
 
+export const getBCanvasDataOriginalRowsByIdDataOriginalService = async (id) => {
+    try {
+        const data = await BCanvasDataOriginalRow.findAll({
+            where: { id_DataOriginal: id }
+        });
+
+        return data; // luôn trả về [] nếu không có bản ghi
+    } catch (error) {
+        throw new Error('Lỗi khi lấy danh sách BCanvasDataOriginalRow: ' + error.message);
+    }
+};
+
+
 export const getAllBCanvasDataOriginalRowService = async () => {
     try {
         const cachedData = await cacheQueue.get(keyAllRow);

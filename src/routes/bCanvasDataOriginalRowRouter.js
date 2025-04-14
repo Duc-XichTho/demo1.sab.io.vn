@@ -1,8 +1,11 @@
 import express from 'express';
 import {
-    createBCanvasDataOriginalRowController, deleteBCanvasDataOriginalRowController,
+    createBCanvasDataOriginalRowController,
+    deleteBCanvasDataOriginalRowController,
     getAllBCanvasDataOriginalRowController,
-    getBCanvasDataOriginalRowByIdController, updateBCanvasDataOriginalRowController
+    getBCanvasDataOriginalRowByIdController,
+    getBCanvasDataOriginalRowByIdDataOriginalController,
+    updateBCanvasDataOriginalRowController
 } from "../controllers/bCanvasDataOriginalRowController.js";
 
 const router = express.Router();
@@ -16,5 +19,6 @@ router.put('/', updateBCanvasDataOriginalRowController);
 router.delete('/:id', deleteBCanvasDataOriginalRowController);
 
 router.get('/:id', getBCanvasDataOriginalRowByIdController);
+router.get('/data-original/:id', getBCanvasDataOriginalRowByIdDataOriginalController);
 
 export default router;

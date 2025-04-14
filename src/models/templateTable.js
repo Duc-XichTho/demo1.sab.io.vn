@@ -27,6 +27,9 @@ export const createTemplateTableModel = async (sequelize) => {
             deployment_id: {
                 type: DataTypes.INTEGER,
             },
+            data_original_id: {
+                type: DataTypes.INTEGER,
+            },
             viewer: {
                 type: DataTypes.JSONB,
                 allowNull: true,

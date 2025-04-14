@@ -18,6 +18,12 @@ export const createCanvasBotModel = async (sequelize) => {
             name: {
                 type: DataTypes.STRING,
             },
+            kpiPacks: {
+                type: DataTypes.JSON,
+            },
+            tempChartPacks: {
+                type: DataTypes.JSON,
+            },
             tempPacks: {
                 type: DataTypes.JSON,
             },

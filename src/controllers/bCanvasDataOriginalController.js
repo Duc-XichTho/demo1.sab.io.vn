@@ -1,6 +1,6 @@
 import {
-    createBCanvasDataOriginalService, deleteBCanvasDataOriginalService,
-    getAllBCanvasDataOriginalService,
+    createBCanvasDataOriginalService, deleteAllTemplateDataByDataOriginalService, deleteBCanvasDataOriginalService,
+    getAllBCanvasDataOriginalService, getAllTemplateDataByDataOriginalService,
     getBCanvasDataRowOriginalByOriginalIdService,
     updateBCanvasDataOriginalService
 } from "../services/bCanvasDataOriginalService.js";
@@ -16,7 +16,7 @@ export const createBCanvasDataOriginalController = async (req, res) => {
 };
 
 export const getBCanvasDataOriginalWithRowByIdController = async (req, res) => {
-    const { id } = req.params; 
+    const { id } = req.params;
 
     try {
         const team = await getBCanvasDataRowOriginalByOriginalIdService(id);
@@ -50,21 +50,40 @@ export const updateBCanvasDataOriginalController = async (req, res) => {
 };
 
 export const deleteBCanvasDataOriginalController = async (req, res) => {
-    let ids = req.params.id;
-    if (!Array.isArray(ids)) {
-        ids = [ids];
-    }
-
-    if (ids.length === 0) {
-        return res.status(400).json({message: 'Yêu cầu không hợp lệ: cần một hoặc nhiều ID.'});
-    }
+    let id = req.params.id;
 
     try {
-        const result = await deleteBCanvasDataOriginalService(ids);
+        const result = await deleteBCanvasDataOriginalService(id);
         res.status(200).json(result);
     } catch (error) {
         res.status(404).json({
             message: 'Bản ghi BCanvasDataOriginal không tồn tại hoặc lỗi khi xóa: ' + error.message,
+        });
+    }
+};
+
+
+
+export const getAllTemplateDataByDataOriginalController = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const team = await getAllTemplateDataByDataOriginalService(id);
+        res.status(200).json(team);
+    } catch (error) {
+        res.status(200).json([]);
+    }
+};
+
+export const deleteAllTemplateDataByDataOriginalController = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const result = await deleteAllTemplateDataByDataOriginalService(id);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(200).json({
+            message: 'Bản ghi TemplateData không tồn tại hoặc lỗi khi xóa: ' + error.message,
         });
     }
 };

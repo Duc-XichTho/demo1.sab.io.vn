@@ -1,33 +1,5 @@
 import {FileNotePad, FileTab, ReportCanvas} from "../postgres/postgres.js";
 
-export const getAllFileTabTypeDataService = async () => {
-    try {
-        const fileTabs = await FileTab.findAll({
-            where: {show: true},
-            raw: true,
-            type: "data",
-        });
-
-        const result = await Promise.all(
-            fileTabs.map(async (tab) => {
-                const notes = await FileNotePad.findAll({
-                    where: {
-                        tab: tab.key,
-                        show: true
-                    },
-                    raw: true,
-                });
-                return {
-                    ...tab,
-                    listFileNote: notes,
-                };
-            })
-        );
-        return result;
-    } catch (error) {
-        throw new Error("Lỗi khi lấy dữ liệu: " + error.message);
-    }
-}
 
 ;export const getAllFileTabService = async () => {
     try {
@@ -111,6 +83,37 @@ export const getFileTabByTypeService = async (table, type) => {
         }
     }
 ;
+
+export const getAllFileTabTypeDataService = async () => {
+    try {
+        const fileTabs = await FileTab.findAll({
+            where: {
+                show2: true,
+                type: "data",
+            },
+            raw: true,
+        });
+        const result = await Promise.all(
+            fileTabs.map(async (tab) => {
+                const notes = await FileNotePad.findAll({
+                    where: {
+                        tab: tab.key,
+                        show: true
+                    },
+                    order: [['id', 'DESC']],
+                    raw: true,
+                });
+                return {
+                    ...tab,
+                    listFileNote: notes,
+                };
+            })
+        );
+        return result;
+    } catch (error) {
+        throw new Error("Lỗi khi lấy dữ liệu: " + error.message);
+    }
+}
 
 
 // CREATE

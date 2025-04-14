@@ -1,7 +1,7 @@
 import {
     createBCanvasDataOriginalRowService, deleteBCanvasDataOriginalRowService,
     getAllBCanvasDataOriginalRowService,
-    getBCanvasDataOriginalRowByIdService,
+    getBCanvasDataOriginalRowByIdService, getBCanvasDataOriginalRowsByIdDataOriginalService,
     updateBCanvasDataOriginalRowService
 } from "../services/bCanvasDataOriginalRowService.js";
 
@@ -20,6 +20,17 @@ export const getBCanvasDataOriginalRowByIdController = async (req, res) => {
 
     try {
         const team = await getBCanvasDataOriginalRowByIdService(id);
+        res.status(200).json(team);
+    } catch (error) {
+        res.status(404).json({message: 'Bản ghi BCanvasDataOriginalRow không tồn tại: ' + error.message});
+    }
+}
+
+;export const getBCanvasDataOriginalRowByIdDataOriginalController = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const team = await getBCanvasDataOriginalRowsByIdDataOriginalService(id);
         res.status(200).json(team);
     } catch (error) {
         res.status(404).json({message: 'Bản ghi BCanvasDataOriginalRow không tồn tại: ' + error.message});

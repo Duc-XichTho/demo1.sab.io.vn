@@ -13,6 +13,9 @@ export const createBCanvasMappingModel = async (sequelize) => {
             id_DataOriginal : {
                 type: DataTypes.INTEGER,
             },
+            id_FileNote : {
+                type: DataTypes.INTEGER,
+            },
             data : {
                 type: DataTypes.JSONB,
             },
