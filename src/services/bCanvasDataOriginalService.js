@@ -27,7 +27,7 @@ export const getBCanvasDataRowOriginalByOriginalIdService = async (id) => {
         if (dataCacheForOneOriginal) {
             return dataCacheForOneOriginal;
         } else {
-            let rowData = {info: info, rowData:[]};
+            let rowData = {info: info, rowData: []};
 
             const cachedData = await cacheQueue.get(keyAllRow);
 
@@ -93,30 +93,35 @@ export const updateBCanvasDataOriginalService = async (newData) => {
 
 export const deleteBCanvasDataOriginalService = async (id) => {
     try {
+        const cacheTemplateDataKey = (tableId) => `${process.env.FOLDER_NAME_BUCKET_BITFLY}_template_data:table_id:${tableId}`;
         const data = await BCanvasDataOriginal.findByPk(id);
-        
-        if (!data) {
-            return { message: 'Không có bản ghi BCanvasDataOriginal nào tồn tại với ID này' };
-        }
 
+        if (!data) {
+            return {message: 'Không có bản ghi BCanvasDataOriginal nào tồn tại với ID này'};
+        }
+        let tempData = await TemplateData.findAll({where: {show: true, id_DataOriginal: id}});
+        let tableId = tempData.map(item => item.tableId)
+        if (tableId && tableId.length > 0) {
+            cacheQueue.delete(cacheTemplateDataKey(tableId[0]));
+        }
         await TemplateData.destroy({
-            where: { id_DataOriginal: id }
+            where: {id_DataOriginal: id}
         });
 
         await BCanvasDataOriginalRow.destroy({
-            where: { id_DataOriginal: id }
+            where: {id_DataOriginal: id}
         });
 
         await BCanvasDataOriginal.destroy({
-            where: { id: id }
+            where: {id: id}
         });
 
         cacheQueue.delete(keyAllRow);
         cacheQueue.delete(keyForOneOriginalData(id));
 
-        return { message: 'Bản ghi BCanvasDataOriginal và dữ liệu liên quan đã được xóa thành công' };
+        return {message: 'Bản ghi BCanvasDataOriginal và dữ liệu liên quan đã được xóa thành công'};
     } catch (error) {
-        return { message: 'Lỗi khi xóa bản ghi BCanvasDataOriginal: ' + error.message };
+        return {message: 'Lỗi khi xóa bản ghi BCanvasDataOriginal: ' + error.message};
     }
 };
 
