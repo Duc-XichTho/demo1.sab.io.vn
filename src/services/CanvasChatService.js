@@ -19,6 +19,23 @@ export const getAllCanvasChat = async () => {
     }
 }
 
+export const getAllCanvasChatByCanvasContainer = async (id) => {
+    try {
+        const dataList = await CanvasChat.findAll({
+            where: {
+                idCanvasContainer:id,
+                show: true
+            },
+            order: [
+                ["id", "ASC"]
+            ],
+        });
+        return dataList;
+    } catch (error) {
+        throw new Error('Lỗi khi lấy danh sách bản ghi Canvas Chat: ' + error.message);
+    }
+}
+
 // CREATE
 export const createCanvasChat = async (newData) => {
     try {

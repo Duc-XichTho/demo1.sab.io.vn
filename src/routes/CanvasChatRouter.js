@@ -3,12 +3,14 @@ import {
     getAllCanvasChatController,
     createCanvasChatController,
     updateCanvasChatController,
-    deleteCanvasChatController
+    deleteCanvasChatController, getAllCanvasChatByCanvasContainerController
 } from '../controllers/CanvasChatController.js';
 
 const router = express.Router();
 
 router.get('/', getAllCanvasChatController);
+
+router.get('/CanvasContainer/:id', getAllCanvasChatByCanvasContainerController);
 
 router.post('/', createCanvasChatController);
 

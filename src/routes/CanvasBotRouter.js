@@ -3,12 +3,13 @@ import {
     getAllCanvasBotController,
     createCanvasBotController,
     updateCanvasBotController,
-    deleteCanvasBotController
+    deleteCanvasBotController, getAllCanvasBotByCanvasContainerController
 } from '../controllers/CanvasBotController.js';
 
 const router = express.Router();
 
 router.get('/', getAllCanvasBotController);
+router.get('/CanvasContainer/:id', getAllCanvasBotByCanvasContainerController);
 
 router.post('/', createCanvasBotController);
 
