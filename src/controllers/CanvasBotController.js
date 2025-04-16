@@ -2,7 +2,7 @@ import {
     getAllCanvasBot,
     createCanvasBot,
     updateCanvasBot,
-    deleteCanvasBot, getAllCanvasBotByCanvasContainer
+    deleteCanvasBot, getCanvasBotByIdCanvasContainer
 } from "../services/CanvasBotService.js";
 
 // GET
@@ -17,10 +17,10 @@ export const getAllCanvasBotController = async (req, res) => {
     }
 };
 
-export const getAllCanvasBotByCanvasContainerController = async (req, res) => {
+export const getCanvasBotByIdCanvasContainerController = async (req, res) => {
     try {
         const id = req.params.id;
-        const dataList = await getAllCanvasBotByCanvasContainer(id);
+        const dataList = await getCanvasBotByIdCanvasContainer(id);
         res.status(200).json(dataList);
     } catch (error) {
         res.status(500).json({

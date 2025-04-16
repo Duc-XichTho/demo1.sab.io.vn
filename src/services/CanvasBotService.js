@@ -18,7 +18,7 @@ export const getAllCanvasBot = async () => {
         throw new Error('Lỗi khi lấy danh sách bản ghi Canvas Bot: ' + error.message);
     }
 }
-export const getAllCanvasBotByCanvasContainer = async (id) => {
+export const getCanvasBotByIdCanvasContainer = async (id) => {
     try {
         const dataList = await CanvasBot.findAll({
             where: {
