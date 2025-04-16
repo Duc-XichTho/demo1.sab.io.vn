@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get('/', getAllCanvasChatController);
 
-router.get('/CanvasContainer/:id', getAllCanvasChatByCanvasContainerController);
+router.get('/canvas-container/:id', getAllCanvasChatByCanvasContainerController);
 
 router.post('/', createCanvasChatController);
 
