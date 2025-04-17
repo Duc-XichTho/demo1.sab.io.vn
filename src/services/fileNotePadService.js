@@ -14,8 +14,8 @@ export const createFileNotePadService = async (newData) => {
 export const getFileNotePadByIdService = async (id) => {
     try {
         const data = await FileNotePad.findByPk(id);
-        if (!data) {
-            throw new Error('Bản ghi FileNotePad không tồn tại');
+        if (!data || data.show !== true) {
+            throw new Error('Bản ghi FileNotePad không tồn tại hoặc không được hiển thị');
         }
         return data;
     } catch (error) {
