@@ -12,7 +12,7 @@ export const createReportCanvasService = async (newData) => {
 export const getReportCanvasByIdService = async (id) => {
     try {
         const data = await ReportCanvas.findByPk(id);
-        if (!data) {
+        if (!data || data.show !== true) {
             throw new Error('Bản ghi ReportCanvas không tồn tại');
         }
         return data;
