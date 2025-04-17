@@ -34,6 +34,18 @@ export const createTemplateTableModel = async (sequelize) => {
                 type: DataTypes.JSONB,
                 allowNull: true,
             },
+            mother_table_id: {
+                type: DataTypes.INTEGER,
+                allowNull: true,
+            },
+            mother_rotate_columns: {
+                type: DataTypes.JSONB,
+                allowNull: true,
+            },
+            table_type:{
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
             show: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,
