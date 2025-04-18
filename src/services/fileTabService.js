@@ -88,6 +88,7 @@ export const getAllFileTabTypeDataService = async () => {
     try {
         const fileTabs = await FileTab.findAll({
             where: {
+                show : true,
                 show2: true,
                 type: "data",
             },

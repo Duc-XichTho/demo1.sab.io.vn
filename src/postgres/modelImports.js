@@ -169,6 +169,8 @@ import {createRuleSettingModel} from "../models/ruleSetting.js";
 import {createBCanvasMappingModel} from "../models/bCanvasMapping.js";
 import {createBCanvasDataOriginalRowModel} from "../models/bCanvasDataOriginalRow.js";
 import {createBCanvasDataOriginalModel} from "../models/bCanvasDataOriginal.js";
+import {createWebPageModel} from "../models/webPage.js";
+import {createStoryWebPageModel} from "../models/storyWebPage.js";
 
 export const modelImports = {
   createRuleSettingModel,
@@ -341,5 +343,7 @@ export const modelImports = {
   createCFConfigModel,
   createBCanvasMappingModel,
   createBCanvasDataOriginalRowModel,
-  createBCanvasDataOriginalModel
+  createBCanvasDataOriginalModel,
+  createWebPageModel,
+  createStoryWebPageModel
 }

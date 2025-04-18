@@ -1,50 +1,25 @@
 import {DataTypes} from "sequelize";
 import {config} from "dotenv"; config();
 
-export const createChartTemplateModel = async (sequelize) => {
-    const ChartTemplate = sequelize.define(
-        "chartTemplate",
+export const createStoryWebPageModel = async (sequelize) => {
+    const StoryWebPage = sequelize.define(
+        "storyWebPage",
         {
             id: {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
                 primaryKey: true,
             },
-            isSort: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: false,
+            id_web_page: {
+                type: DataTypes.INTEGER,
             },
-            conditions: {
-                type: DataTypes.JSONB,
-            },
-            company: {
+            title : {
                 type: DataTypes.STRING,
             },
-            name : {
-                type: DataTypes.TEXT,
+            author : {
+                type: DataTypes.STRING,
             },
-            type : {
-                type: DataTypes.TEXT,
-            },
-            id_template : {
-                type: DataTypes.INTEGER,
-            },
-            id_filenote : {
-                type: DataTypes.INTEGER,
-            },
-            v1: {
-                type: DataTypes.TEXT,
-            },
-            v2: {
-                type: DataTypes.TEXT,
-            },
-            v3: {
-                type: DataTypes.TEXT,
-            },
-            v4: {
-                type: DataTypes.TEXT,
-            },
-            v5: {
+            content : {
                 type: DataTypes.TEXT,
             },
             trang_thai: {
@@ -68,18 +43,15 @@ export const createChartTemplateModel = async (sequelize) => {
             user_delete: {
                 type: DataTypes.STRING,
             },
-            info : {
-                type: DataTypes.JSONB
-            },
             show: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,
             },
         },
         {
-            tableName: "chartTemplate",
+            tableName: "storyWebPage",
             schema: process.env.SCHEMA,
         }
     );
-    return ChartTemplate;
+    return StoryWebPage;
 };

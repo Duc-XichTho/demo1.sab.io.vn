@@ -5,6 +5,8 @@ import {createRuleSettingModel} from "../models/ruleSetting.js";
 import {createBCanvasDataOriginalModel} from "../models/bCanvasDataOriginal.js";
 import {createBCanvasDataOriginalRowModel} from "../models/bCanvasDataOriginalRow.js";
 import {createBCanvasMappingModel} from "../models/bCanvasMapping.js";
+import {createWebPageModel} from "../models/webPage.js";
+import {createStoryWebPageModel} from "../models/storyWebPage.js";
 
 config();
 
@@ -210,12 +212,16 @@ let RuleSetting;
 let BCanvasMapping;
 let BCanvasDataOriginalRow;
 let BCanvasDataOriginal;
+let WebPage;
+let StoryWebPage;
 
 const connection = async () => {
     try {
         await sequelize.authenticate();
         console.log("Connection DB successfully");
 
+        WebPage = await modelImports.createWebPageModel(sequelize);
+        StoryWebPage = await modelImports.createStoryWebPageModel(sequelize);
         RuleSetting = await modelImports.createRuleSettingModel(sequelize);
         User = await modelImports.createUserModel(sequelize);
         KTQTReportManagement = await modelImports.createKTQTReportManagementModel(sequelize);
@@ -1107,4 +1113,6 @@ export {
     BCanvasMapping,
     BCanvasDataOriginalRow,
     BCanvasDataOriginal,
+    WebPage,
+    StoryWebPage,
 };
