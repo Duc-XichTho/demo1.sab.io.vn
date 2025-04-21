@@ -10,6 +10,9 @@ export const createReportCanvasModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            userClass: {
+                type: DataTypes.JSONB,
+            },
             code: {
                 type: DataTypes.STRING,
             },
