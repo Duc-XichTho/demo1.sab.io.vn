@@ -58,6 +58,14 @@ export const createTemplateColumnModel = async (sequelize) => {
         type: DataTypes.JSONB,
         allowNull: true,
       },
+        duyetDieuKien: {
+        type: DataTypes.JSONB,
+        allowNull: true,
+      },
+        bieuTuongPhanTram: {
+        type: DataTypes.JSONB,
+        allowNull: true,
+      },
       textColor: {
         type: DataTypes.STRING,
         allowNull: true,
