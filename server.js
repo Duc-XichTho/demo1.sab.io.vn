@@ -210,6 +210,8 @@ import fileNotePadRouterPublic from "./src/routes/public/fileNotePadRouterPublic
 import bCanvasDataOriginalRouter from "./src/routes/bCanvasDataOriginalRouter.js";
 import bCanvasDataOriginalRowRouter from "./src/routes/bCanvasDataOriginalRowRouter.js";
 import bCanvasMappingRouter from "./src/routes/bCanvasMappingRouter.js";
+import webPageRouter from "./src/routes/webPageRouter.js";
+import storyWebPageRouter from "./src/routes/storyWebPageRouter.js";
 
 dotenv.config();
 
@@ -257,6 +259,8 @@ app.use("/tai-khoan", taiKhoanPublicRouter);
 app.use("/file-note-pad", fileNotePadRouterPublic);
 
 app.use(authenticateToken);
+app.use('/api/web-page', webPageRouter);
+app.use('/api/story-web-page', storyWebPageRouter);
 app.use('/api/tts', audioPlayRouter);
 app.use('/api/rule-setting', RuleSettingRouter);
 app.use("/api/tag", tagRouter);
