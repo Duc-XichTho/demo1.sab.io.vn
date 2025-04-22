@@ -100,37 +100,39 @@ export const updateTemplateDataService = async (id, dataUpdate) => {
 };
 
 export const updateBatchTemplateDataService = async (tableId, dataUpdate) => {
+  const t = await TemplateData.sequelize.transaction(); // bắt đầu transaction
+
   try {
     if (!Array.isArray(dataUpdate)) {
       throw new Error('dataUpdate must be an array');
     }
 
-    const updates = await Promise.all(
-      dataUpdate.map(async ({ id, data }) => {
-        const row = await TemplateData.findOne({
-          where: {
-            id,
-            tableId,
-            show: true
-          }
-        });
+    const updates = [];
 
-        if (!row) {
-          throw new Error(`Bản ghi template_data với id ${id} không tồn tại`);
-        }
+    for (const { id, data } of dataUpdate) {
+      const row = await TemplateData.findOne({
+        where: { id, tableId, show: true },
+        transaction: t
+      });
 
-        return row.update({ data });
-      })
-    );
+      if (!row) {
+        throw new Error(`Bản ghi template_data với id ${id} không tồn tại`);
+      }
 
+      const updated = await row.update({ data }, { transaction: t });
+      updates.push(updated);
+    }
+
+    await t.commit(); // commit transaction
     cacheQueue.delete(cacheKey(tableId));
-
     return updates.map(row => row.dataValues);
   } catch (error) {
+    await t.rollback(); // rollback nếu lỗi
     console.log('Error updateBatchTemplateDataService', error.message);
     throw error;
   }
 };
+
 
 export const deleteTemplateDataByIdService = async (id) => {
   const cacheKeyById = `${process.env.FOLDER_NAME_BUCKET_BITFLY}_template_data:id:${id}`;
