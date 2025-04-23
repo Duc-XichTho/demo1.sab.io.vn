@@ -25,6 +25,9 @@ export const createReportCanvasModel = async (sequelize) => {
             user_class: {
                 type: DataTypes.JSONB
             },
+            info: {
+                type: DataTypes.JSONB
+            },
             type: {
                 type: DataTypes.STRING,
             },
