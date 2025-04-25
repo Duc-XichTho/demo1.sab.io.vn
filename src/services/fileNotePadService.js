@@ -23,12 +23,11 @@ export const getFileNotePadByIdService = async (id) => {
         if (data.table === 'Template') {
             const template = await TemplateTable.findOne({
                 where: {
-                    id: data.id,
+                    fileNote_id: data.id,
                     show: true,
                 },
                 raw: true,
             });
-
             if (template && (template.isCombine || template.mother_table_id)) {
                 data.isNotEdit = true;
             }

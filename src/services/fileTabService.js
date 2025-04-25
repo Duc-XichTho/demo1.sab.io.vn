@@ -111,7 +111,7 @@ export const getAllFileTabTypeDataService = async () => {
 
                 const templates = await TemplateTable.findAll({
                     where: {
-                        id: templateIds,
+                        fileNote_id: templateIds,
                         show: true
                     },
                     raw: true,
@@ -120,7 +120,7 @@ export const getAllFileTabTypeDataService = async () => {
                 const templateMap = {};
                 templates.forEach(t => {
                     if (t.isCombine || t.mother_table_id) {
-                        templateMap[t.id] = true;
+                        templateMap[t.fileNote_id] = true;
                     }
                 });
 
