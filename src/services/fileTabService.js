@@ -1,4 +1,4 @@
-import {FileNotePad, FileTab, ReportCanvas} from "../postgres/postgres.js";
+import {FileNotePad, FileTab, ReportCanvas, TemplateTable} from "../postgres/postgres.js";
 
 
 ;export const getAllFileTabService = async () => {
@@ -88,15 +88,16 @@ export const getAllFileTabTypeDataService = async () => {
     try {
         const fileTabs = await FileTab.findAll({
             where: {
-                show : true,
+                show: true,
                 show2: true,
                 type: "data",
             },
             raw: true,
         });
+
         const result = await Promise.all(
             fileTabs.map(async (tab) => {
-                const notes = await FileNotePad.findAll({
+                let notes = await FileNotePad.findAll({
                     where: {
                         tab: tab.key,
                         show: true
@@ -104,17 +105,50 @@ export const getAllFileTabTypeDataService = async () => {
                     order: [['id', 'DESC']],
                     raw: true,
                 });
+
+                const templateNotes = notes.filter(note => note.table === 'Template');
+                const templateIds = templateNotes.map(note => note.id);
+
+                const templates = await TemplateTable.findAll({
+                    where: {
+                        id: templateIds,
+                        show: true
+                    },
+                    raw: true,
+                });
+
+                const templateMap = {};
+                templates.forEach(t => {
+                    if (t.isCombine || t.mother_table_id) {
+                        templateMap[t.id] = true;
+                    }
+                });
+
+                notes = notes.map(note => {
+                    if (note.table === 'ChartTemplate' || note.table === 'KPI') {
+                        return { ...note, isNotEdit: true };
+                    }
+
+                    if (note.table === 'Template' && templateMap[note.id]) {
+                        return { ...note, isNotEdit: true };
+                    }
+
+                    return note;
+                });
+
                 return {
                     ...tab,
                     listFileNote: notes,
                 };
             })
         );
+
         return result;
     } catch (error) {
         throw new Error("Lỗi khi lấy dữ liệu: " + error.message);
     }
-}
+};
+
 
 
 // CREATE

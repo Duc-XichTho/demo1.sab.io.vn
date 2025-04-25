@@ -1,5 +1,5 @@
 import {
-    FileNotePad
+    FileNotePad, TemplateTable
 } from '../postgres/postgres.js';
 
 export const createFileNotePadService = async (newData) => {
@@ -10,18 +10,35 @@ export const createFileNotePadService = async (newData) => {
         throw new Error('Lỗi khi tạo bản ghi FileNotePad: ' + error.message);
     }
 };
-
 export const getFileNotePadByIdService = async (id) => {
     try {
-        const data = await FileNotePad.findByPk(id);
+        const data = await FileNotePad.findByPk(id, { raw: true });
         if (!data || data.show !== true) {
             throw new Error('Bản ghi FileNotePad không tồn tại hoặc không được hiển thị');
+        }
+        if (data.table === 'ChartTemplate' || data.table === 'KPI') {
+            data.isNotEdit = true;
+        }
+
+        if (data.table === 'Template') {
+            const template = await TemplateTable.findOne({
+                where: {
+                    id: data.id,
+                    show: true,
+                },
+                raw: true,
+            });
+
+            if (template && (template.isCombine || template.mother_table_id)) {
+                data.isNotEdit = true;
+            }
         }
         return data;
     } catch (error) {
         throw new Error('Lỗi khi lấy bản ghi FileNotePad: ' + error.message);
     }
 };
+
 
 export const getFileNotePadService = async () => {
     try {

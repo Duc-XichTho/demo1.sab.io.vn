@@ -39,6 +39,8 @@ export const getFileNotePadByIdControllerPublic = async (req, res) => {
         const data = {
             id: fileNotePad.id || '',
             url: fileNotePad.url || '',
+            table : fileNotePad.table || null,
+            isNotEdit : fileNotePad.isNotEdit || false,
         }
         res.status(200).json(data);
     } catch (error) {
