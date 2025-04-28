@@ -79,5 +79,15 @@ export const createFileNotePadModel = async (sequelize) => {
         }
     );
 
+    FileNotePad.addHook("beforeCreate", async (fileNote, options) => {
+        const maxPosition = await FileNotePad.max("position", {
+            where: {
+                tab: fileNote.tab,
+            },
+        });
+
+        fileNote.position = maxPosition ? maxPosition + 1 : 1;
+    });
+
     return FileNotePad;
 };

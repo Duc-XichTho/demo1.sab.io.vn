@@ -66,7 +66,7 @@ export const getFileTabByTypeService = async (table, type) => {
                             show: true,
                             ...noteWhere,
                         },
-                        order: [['id', 'DESC']],
+                        order: [['position', 'ASC']],
                         raw: true,
                     });
 
@@ -102,7 +102,7 @@ export const getAllFileTabTypeDataService = async () => {
                         tab: tab.key,
                         show: true
                     },
-                    order: [['id', 'DESC']],
+                    order: [['position', 'ASC']],
                     raw: true,
                 });
 

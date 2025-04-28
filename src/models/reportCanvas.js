@@ -59,11 +59,25 @@ export const createReportCanvasModel = async (sequelize) => {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,
             },
+            position: {
+                type: DataTypes.INTEGER,
+            },
         },
+
         {
             tableName: "reportCanvas",
             schema: process.env.SCHEMA,
         }
+
     );
+    ReportCanvas.addHook("beforeCreate", async (reportCanvas, options) => {
+        const maxPosition = await ReportCanvas.max("position", {
+            where: {
+                tab: reportCanvas.tab,
+            },
+        });
+
+        reportCanvas.position = maxPosition ? maxPosition + 1 : 1;
+    });
     return ReportCanvas;
 };
