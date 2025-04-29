@@ -82,6 +82,10 @@ export const createTemplateColumnModel = async (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
       },
+        useDataBar: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true,
+        },
     },
     {
       tableName: "template_column",
