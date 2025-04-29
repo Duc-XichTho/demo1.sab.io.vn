@@ -117,12 +117,22 @@ export const getAllFileTabTypeDataService = async () => {
                     raw: true,
                 });
 
+                // Tạo map để lưu các note ID cần ẩn (liên quan đến ROTATE template)
+                const rotateNoteIds = new Set();
+                templates.forEach(t => {
+                    if (t.table_type === 'ROTATE') {
+                        rotateNoteIds.add(t.fileNote_id);
+                    }
+                });
+
+                // Lọc bỏ các note liên quan đến ROTATE template
+                notes = notes.filter(note => !rotateNoteIds.has(note.id));
+
                 const templateMap = {};
-                templates.filter(e=> e.table_type !== 'ROTATE').forEach(t => {
+                templates.forEach(t => {
                     if (t.isCombine || t.mother_table_id) {
                         templateMap[t.fileNote_id] = true;
                     }
-
                 });
 
                 notes = notes.map(note => {
