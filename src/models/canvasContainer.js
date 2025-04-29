@@ -17,7 +17,7 @@ export const createCanvasContainerModel = async (sequelize) => {
             },
 			show_chart: {
 				type : DataTypes.BOOLEAN,
-				default : false,
+				default : true,
 			},
             description: {
                 type: DataTypes.TEXT,
