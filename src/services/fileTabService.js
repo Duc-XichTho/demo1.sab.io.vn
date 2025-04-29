@@ -118,10 +118,11 @@ export const getAllFileTabTypeDataService = async () => {
                 });
 
                 const templateMap = {};
-                templates.forEach(t => {
+                templates.filter(e=> e.table_type !== 'ROTATE').forEach(t => {
                     if (t.isCombine || t.mother_table_id) {
                         templateMap[t.fileNote_id] = true;
                     }
+
                 });
 
                 notes = notes.map(note => {
