@@ -12,15 +12,12 @@ export const createKHKDTongHopModel = async (sequelize) => {
             },
             name: {
                 type: DataTypes.STRING,
-                allowNull: false,
             },
             setting: {
                 type: DataTypes.JSONB,
-                allowNull: false,
             },
             settingDongTien: {
                 type: DataTypes.JSONB,
-                allowNull: false,
             },
             created_at: {
                 type: DataTypes.DATE,

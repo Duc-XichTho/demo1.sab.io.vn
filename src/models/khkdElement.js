@@ -12,31 +12,24 @@ export const createKHKDElementModel = async (sequelize) => {
             },
             name: {
                 type: DataTypes.STRING,
-                allowNull: false,
             },
             khoanMuc: {
                 type: DataTypes.STRING,
-                allowNull: false,
             },
             boPhan: {
                 type: DataTypes.STRING,
-                allowNull: false,
             },
             labelSoLuong: {
                 type: DataTypes.STRING,
-                allowNull: false,
             },
             data: {
                 type: DataTypes.JSONB,
-                allowNull: false,
             },
             theoDoi: {
                 type: DataTypes.BOOLEAN,
-                defaultValue: false,
             },
             idKHKD: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
             },
             created_at: {
                 type: DataTypes.DATE,
