@@ -1,4 +1,4 @@
-import { Kpi2Calculator } from "../postgres/postgres.js";
+import { FileNotePad, Kpi2Calculator } from "../postgres/postgres.js";
 
 export const createKpi2CalculatorService = async (newData) => {
     try {
@@ -56,6 +56,16 @@ export const updateKpi2CalculatorService = async (newData) => {
 
 export const deleteKpi2CalculatorService = async (ids) => {
     try {
+        // Tìm các fileNote đang sử dụng KPI này
+        const fileNotes = await FileNotePad.findAll({
+            where: {
+                show: true,
+                table: 'KPI',
+                type: ids  // type của fileNote chứa id của KPI Calculator
+            },
+        });
+
+        // Tìm các KPI Calculator cần xóa
         const dataList = await Kpi2Calculator.findAll({
             where: {
                 id: ids,
@@ -66,6 +76,20 @@ export const deleteKpi2CalculatorService = async (ids) => {
                 "Không có bản ghi KPI2 Calculator nào tồn tại với các ID này"
             );
         }
+
+        // Thực hiện xóa (ẩn) các fileNote liên quan
+        if (fileNotes.length > 0) {
+            await FileNotePad.update(
+                { show: false },
+                {
+                    where: {
+                        id: fileNotes.map(note => note.id)
+                    }
+                }
+            );
+        }
+
+        // Thực hiện xóa (ẩn) các KPI Calculator
         await Kpi2Calculator.update(
             { show: false },
             {
@@ -74,8 +98,11 @@ export const deleteKpi2CalculatorService = async (ids) => {
                 },
             }
         );
-        return { message: "Các bản ghi KPI2 Calculator đã được ẩn thành công" };
+
+        return { 
+            message: `Các bản ghi KPI2 Calculator đã được ẩn thành công. ${fileNotes.length} FileNote liên quan cũng đã được ẩn.`
+        };
     } catch (error) {
         throw new Error("Lỗi khi ẩn các bản ghi KPI2 Calculator: " + error.message);
     }
-}; 
+};
