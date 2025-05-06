@@ -214,6 +214,8 @@ let BCanvasDataOriginalRow;
 let BCanvasDataOriginal;
 let WebPage;
 let StoryWebPage;
+let KHKD;
+let KHKDElement;
 
 const connection = async () => {
     try {
@@ -394,6 +396,9 @@ const connection = async () => {
         BCanvasMapping = await modelImports.createBCanvasMappingModel(sequelize);
         BCanvasDataOriginalRow = await modelImports.createBCanvasDataOriginalRowModel(sequelize);
         BCanvasDataOriginal = await modelImports.createBCanvasDataOriginalModel(sequelize);
+
+        KHKD = await modelImports.createKHKDModel(sequelize);
+        KHKDElement = await modelImports.createKHKDElementModel(sequelize);
 
         const modelsToAudit = [
             {
@@ -930,8 +935,8 @@ const connection = async () => {
             },
         ];
 
-        // await sequelize.sync({ alter: true });
-        await sequelize.sync();
+        await sequelize.sync({ alter: true });
+        // await sequelize.sync();
         console.log("Database Synced");
     } catch (error) {
         console.error("Unable to connect to the database", error);
@@ -1115,4 +1120,6 @@ export {
     BCanvasDataOriginal,
     WebPage,
     StoryWebPage,
+    KHKD,
+    KHKDElement,
 };

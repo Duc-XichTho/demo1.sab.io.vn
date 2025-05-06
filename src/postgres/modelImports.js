@@ -171,6 +171,8 @@ import {createBCanvasDataOriginalRowModel} from "../models/bCanvasDataOriginalRo
 import {createBCanvasDataOriginalModel} from "../models/bCanvasDataOriginal.js";
 import {createWebPageModel} from "../models/webPage.js";
 import {createStoryWebPageModel} from "../models/storyWebPage.js";
+import { createKHKDModel } from "../models/khkd.js";
+import { createKHKDElementModel } from "../models/khkdElement.js";
 
 export const modelImports = {
   createRuleSettingModel,
@@ -345,5 +347,7 @@ export const modelImports = {
   createBCanvasDataOriginalRowModel,
   createBCanvasDataOriginalModel,
   createWebPageModel,
-  createStoryWebPageModel
+  createStoryWebPageModel,
+  createKHKDModel,
+  createKHKDElementModel
 }
