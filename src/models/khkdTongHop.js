@@ -1,9 +1,9 @@
 import { DataTypes } from "sequelize";
 import { config } from "dotenv"; config();
 
-export const createKHKDElementModel = async (sequelize) => {
-    const KHKDElement = sequelize.define(
-        "khkdElement",
+export const createKHKDTongHopModel = async (sequelize) => {
+    const KHKDTongHop = sequelize.define(
+        "khkdTongHop",
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -14,28 +14,12 @@ export const createKHKDElementModel = async (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            khoanMuc: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            boPhan: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            labelSoLuong: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            data: {
+            setting: {
                 type: DataTypes.JSONB,
                 allowNull: false,
             },
-            theoDoi: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: false,
-            },
-            idKHKD: {
-                type: DataTypes.INTEGER,
+            settingDongTien: {
+                type: DataTypes.JSONB,
                 allowNull: false,
             },
             created_at: {
@@ -56,9 +40,9 @@ export const createKHKDElementModel = async (sequelize) => {
             },
         },
         {
-            tableName: "khkdElement",
+            tableName: "khkdTongHop",
             schema: process.env.SCHEMA,
         }
     );
-    return KHKDElement;
+    return KHKDTongHop;
 }; 

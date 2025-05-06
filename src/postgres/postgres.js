@@ -216,7 +216,7 @@ let WebPage;
 let StoryWebPage;
 let KHKD;
 let KHKDElement;
-
+let KHKDTongHop;
 const connection = async () => {
     try {
         await sequelize.authenticate();
@@ -399,7 +399,7 @@ const connection = async () => {
 
         KHKD = await modelImports.createKHKDModel(sequelize);
         KHKDElement = await modelImports.createKHKDElementModel(sequelize);
-
+        KHKDTongHop = await modelImports.createKHKDTongHopModel(sequelize);
         const modelsToAudit = [
             {
                 model: User,
@@ -935,8 +935,8 @@ const connection = async () => {
             },
         ];
 
-        await sequelize.sync({ alter: true });
-        // await sequelize.sync();
+        // await sequelize.sync({ alter: true });
+        await sequelize.sync();
         console.log("Database Synced");
     } catch (error) {
         console.error("Unable to connect to the database", error);
@@ -1122,4 +1122,5 @@ export {
     StoryWebPage,
     KHKD,
     KHKDElement,
+    KHKDTongHop
 };
