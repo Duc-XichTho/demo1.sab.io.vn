@@ -28,6 +28,9 @@ export const createKHKDElementModel = async (sequelize) => {
             theoDoi: {
                 type: DataTypes.BOOLEAN,
             },
+            theoDoiDG: {
+                type: DataTypes.BOOLEAN,
+            },
             idKHKD: {
                 type: DataTypes.INTEGER,
             },
@@ -54,4 +57,4 @@ export const createKHKDElementModel = async (sequelize) => {
         }
     );
     return KHKDElement;
-}; 
+};

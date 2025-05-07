@@ -13,6 +13,12 @@ export const createKHKDTongHopModel = async (sequelize) => {
             name: {
                 type: DataTypes.STRING,
             },
+            listKHKD: {
+                type: DataTypes.JSONB,
+            },
+            listTemplate: {
+                type: DataTypes.JSONB,
+            },
             setting: {
                 type: DataTypes.JSONB,
             },
@@ -42,4 +48,4 @@ export const createKHKDTongHopModel = async (sequelize) => {
         }
     );
     return KHKDTongHop;
-}; 
+};
