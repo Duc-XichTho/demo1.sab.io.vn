@@ -216,7 +216,7 @@ import storyWebPageRouter from "./src/routes/storyWebPageRouter.js";
 dotenv.config();
 
 const app = express();
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 
 const PORT = process.env.PORT;
 schedule();
@@ -227,6 +227,7 @@ const apiRateLimiter = rateLimit({
   message: 'Quá nhiều yêu cầu, hãy thử lại sau!',
   standardHeaders: true,
   legacyHeaders: false,
+  trustProxy: 1,
 });
 
 const whitelist = [process.env.URL_CLIENT];
