@@ -213,15 +213,13 @@ import bCanvasMappingRouter from "./src/routes/bCanvasMappingRouter.js";
 import webPageRouter from "./src/routes/webPageRouter.js";
 import storyWebPageRouter from "./src/routes/storyWebPageRouter.js";
 
-import khkdRouter from "./src/routes/khkdRoutes.js";
-import khkdElementRouter from "./src/routes/khkdElementRoutes.js";
-import khkdTongHopRouter from "./src/routes/khkdTongHopRoutes.js";
+import khkdRoutes from "./src/routes/khkdRoutes.js";
+import khkdElementRoutes from "./src/routes/khkdElementRoutes.js";
+import khkdTongHopRoutes from "./src/routes/khkdTongHopRoutes.js";
 
 dotenv.config();
 
 const app = express();
-app.set('trust proxy', 1);
-
 const PORT = process.env.PORT;
 schedule();
 
@@ -231,7 +229,6 @@ const apiRateLimiter = rateLimit({
   message: 'Quá nhiều yêu cầu, hãy thử lại sau!',
   standardHeaders: true,
   legacyHeaders: false,
-  trustProxy: 1,
 });
 
 const whitelist = [process.env.URL_CLIENT];
@@ -448,10 +445,9 @@ app.use("/api/b-canvas-data-original", bCanvasDataOriginalRouter);
 app.use("/api/b-canvas-data-original-row", bCanvasDataOriginalRowRouter);
 app.use("/api/b-canvas-mapping", bCanvasMappingRouter);
 
-app.use("/api/khkd", khkdRouter);
-app.use("/api/khkd-element", khkdElementRouter);
-app.use("/api/khkd-tong-hop", khkdTongHopRouter);
-
+app.use("/api/khkd", khkdRoutes);
+app.use("/api/khkd-element", khkdElementRoutes);
+app.use("/api/khkd-tong-hop", khkdTongHopRoutes);
 
 
 const httpServer = createServer(app);
