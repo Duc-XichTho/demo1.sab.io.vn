@@ -213,6 +213,10 @@ import bCanvasMappingRouter from "./src/routes/bCanvasMappingRouter.js";
 import webPageRouter from "./src/routes/webPageRouter.js";
 import storyWebPageRouter from "./src/routes/storyWebPageRouter.js";
 
+import khkdRouter from "./src/routes/khkdRoutes.js";
+import khkdElementRouter from "./src/routes/khkdElementRoutes.js";
+import khkdTongHopRouter from "./src/routes/khkdTongHopRoutes.js";
+
 dotenv.config();
 
 const app = express();
@@ -443,6 +447,12 @@ app.use("/api/cf-config", CFConfigRouter);
 app.use("/api/b-canvas-data-original", bCanvasDataOriginalRouter);
 app.use("/api/b-canvas-data-original-row", bCanvasDataOriginalRowRouter);
 app.use("/api/b-canvas-mapping", bCanvasMappingRouter);
+
+app.use("/api/khkd", khkdRouter);
+app.use("/api/khkd-element", khkdElementRouter);
+app.use("/api/khkd-tong-hop", khkdTongHopRouter);
+
+
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
