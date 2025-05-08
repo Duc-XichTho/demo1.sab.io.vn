@@ -10,6 +10,9 @@ export const createKHKDTongHopModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            dauKy: {
+                type: DataTypes.STRING,
+            },
             name: {
                 type: DataTypes.STRING,
             },
