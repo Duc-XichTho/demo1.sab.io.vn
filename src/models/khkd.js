@@ -17,6 +17,9 @@ export const createKHKDModel = async (sequelize) => {
             year: {
                 type: DataTypes.INTEGER,
             },
+            info :{
+                type: DataTypes.JSONB,
+            },
             userCreated: {
                 type: DataTypes.STRING,
             },

@@ -10,11 +10,36 @@ export const createKHKDTongHopModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            duyet :{
+                type: DataTypes.BOOLEAN,
+            },
+            month :{
+                type: DataTypes.JSONB,
+            },
+            showDL: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: true,
+            },
+            showKD: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: true,
+            },
+            showDT: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: true,
+            },
+            showDTFull: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: true,
+            },
             dauKy: {
                 type: DataTypes.STRING,
             },
             name: {
                 type: DataTypes.STRING,
+            },
+            info :{
+                type: DataTypes.JSONB,
             },
             listKHKD: {
                 type: DataTypes.JSONB,
