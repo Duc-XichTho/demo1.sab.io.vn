@@ -2,7 +2,7 @@ import express from 'express';
 import {
     createKpiKQKDController, deleteKpiKQKDController,
     getAllKpiKQKDController,
-    getKpiKQKDByIdController, updateKpiKQKDController
+    getKpiKQKDByIdController, getKpiKQKDByIdKHKDController, updateKpiKQKDController
 } from "../controllers/kpiKQKDController.js";
 
 const router = express.Router();
@@ -16,5 +16,6 @@ router.put('/', updateKpiKQKDController);
 router.delete('/:id', deleteKpiKQKDController);
 
 router.get('/:id', getKpiKQKDByIdController);
+router.get('/khkd-tong-hop/:id', getKpiKQKDByIdKHKDController);
 
 export default router;

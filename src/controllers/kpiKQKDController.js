@@ -1,6 +1,6 @@
 import {
     createKpiKQKDService, deleteKpiKQKDService,
-    getAllKpiKQKDService,
+    getAllKpiKQKDService, getKpiKQKDByIdKHKDService,
     getKpiKQKDByIdService,
     updateKpiKQKDService
 } from "../services/kpiKQKDService.js";
@@ -29,6 +29,18 @@ export const getKpiKQKDByIdController = async (req, res) => {
 export const getAllKpiKQKDController = async (req, res) => {
     try {
         const teamList = await getAllKpiKQKDService();
+        res.status(200).json(teamList);
+    } catch (error) {
+        res.status(500).json({
+            message: 'Lỗi khi lấy danh sách bản ghi KpiKQKD: ' + error.message,
+        });
+    }
+};
+
+export const getKpiKQKDByIdKHKDController = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const teamList = await getKpiKQKDByIdKHKDService(id);
         res.status(200).json(teamList);
     } catch (error) {
         res.status(500).json({

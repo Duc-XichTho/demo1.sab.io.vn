@@ -21,6 +21,21 @@ export const getKpiKQKDByIdService = async (id) => {
     }
 };
 
+export const getKpiKQKDByIdKHKDService = async (id) => {
+    try {
+        const data = await KpiKQKD.findAll({
+            where : {
+                id_khkd_tong_hop : id,
+                show: true
+            },
+            order: [['id', 'DESC']]
+        });
+        return data;
+    } catch (error) {
+        throw new Error('Lỗi khi lấy bản ghi KpiKQKD: ' + error.message);
+    }
+};
+
 export const getAllKpiKQKDService = async () => {
     try {
         const dataList = await KpiKQKD.findAll({

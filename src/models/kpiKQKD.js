@@ -15,6 +15,9 @@ export const createKpiKQKDModel = async (sequelize) => {
             name: {
                 type: DataTypes.STRING,
             },
+            id_khkd_tong_hop: {
+                type: DataTypes.INTEGER,
+            },
             setting: {
                 type: DataTypes.JSONB,
             },
