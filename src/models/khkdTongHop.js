@@ -25,6 +25,12 @@ export const createKHKDTongHopModel = async (sequelize) => {
             settingDongTien: {
                 type: DataTypes.JSONB,
             },
+            settingDongTienTC: {
+                type: DataTypes.JSONB,
+            },
+            settingDongTienDT: {
+                type: DataTypes.JSONB,
+            },
             created_at: {
                 type: DataTypes.DATE,
                 defaultValue: DataTypes.NOW,

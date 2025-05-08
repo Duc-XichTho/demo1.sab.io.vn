@@ -216,6 +216,7 @@ import storyWebPageRouter from "./src/routes/storyWebPageRouter.js";
 import khkdRoutes from "./src/routes/khkdRoutes.js";
 import khkdElementRoutes from "./src/routes/khkdElementRoutes.js";
 import khkdTongHopRoutes from "./src/routes/khkdTongHopRoutes.js";
+import kpiKQKDRouter from "./src/routes/kpiKQKDRouter.js";
 
 dotenv.config();
 
@@ -264,6 +265,7 @@ app.use("/file-note-pad", fileNotePadRouterPublic);
 
 app.use(authenticateToken);
 app.use('/api/web-page', webPageRouter);
+app.use('/api/kpi-kqkd', kpiKQKDRouter);
 app.use('/api/story-web-page', storyWebPageRouter);
 app.use('/api/tts', audioPlayRouter);
 app.use('/api/rule-setting', RuleSettingRouter);

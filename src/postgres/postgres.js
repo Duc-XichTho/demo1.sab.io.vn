@@ -7,6 +7,7 @@ import {createBCanvasDataOriginalRowModel} from "../models/bCanvasDataOriginalRo
 import {createBCanvasMappingModel} from "../models/bCanvasMapping.js";
 import {createWebPageModel} from "../models/webPage.js";
 import {createStoryWebPageModel} from "../models/storyWebPage.js";
+import {createKpiKQKDModel} from "../models/kpiKQKD.js";
 
 config();
 
@@ -217,12 +218,14 @@ let StoryWebPage;
 let KHKD;
 let KHKDElement;
 let KHKDTongHop;
+let KpiKQKD;
 const connection = async () => {
     try {
         await sequelize.authenticate();
         console.log("Connection DB successfully");
 
         WebPage = await modelImports.createWebPageModel(sequelize);
+        KpiKQKD = await modelImports.createKpiKQKDModel(sequelize);
         StoryWebPage = await modelImports.createStoryWebPageModel(sequelize);
         RuleSetting = await modelImports.createRuleSettingModel(sequelize);
         User = await modelImports.createUserModel(sequelize);
@@ -1122,5 +1125,6 @@ export {
     StoryWebPage,
     KHKD,
     KHKDElement,
-    KHKDTongHop
+    KHKDTongHop,
+    KpiKQKD,
 };

@@ -174,6 +174,7 @@ import {createStoryWebPageModel} from "../models/storyWebPage.js";
 import { createKHKDModel } from "../models/khkd.js";
 import { createKHKDElementModel } from "../models/khkdElement.js";
 import { createKHKDTongHopModel } from "../models/khkdTongHop.js";
+import {createKpiKQKDModel} from "../models/kpiKQKD.js";
 
 export const modelImports = {
   createRuleSettingModel,
@@ -351,5 +352,6 @@ export const modelImports = {
   createStoryWebPageModel,
   createKHKDModel,
   createKHKDElementModel,
-  createKHKDTongHopModel
+  createKHKDTongHopModel,
+  createKpiKQKDModel,
 }
