@@ -12,6 +12,12 @@ export const createKpiKQKDModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            isSelected: {
+                type: DataTypes.BOOLEAN,
+            },
+            benmarks: {
+                type: DataTypes.JSONB,
+            },
             name: {
                 type: DataTypes.STRING,
             },

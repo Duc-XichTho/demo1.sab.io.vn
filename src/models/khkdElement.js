@@ -10,7 +10,13 @@ export const createKHKDElementModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            chuKy :{
+                type: DataTypes.JSONB,
+            },
             name: {
+                type: DataTypes.STRING,
+            },
+            phanLoai: {
                 type: DataTypes.STRING,
             },
             khoanMuc: {
@@ -29,6 +35,9 @@ export const createKHKDElementModel = async (sequelize) => {
                 type: DataTypes.BOOLEAN,
             },
             theoDoiDG: {
+                type: DataTypes.BOOLEAN,
+            },
+            isPercentFormula: {
                 type: DataTypes.BOOLEAN,
             },
             idKHKD: {
