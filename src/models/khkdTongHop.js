@@ -19,6 +19,10 @@ export const createKHKDTongHopModel = async (sequelize) => {
             month :{
                 type: DataTypes.JSONB,
             },
+            showBH: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: true,
+            },
             showDL: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,
