@@ -46,6 +46,10 @@ export const createKHKDElementModel = async (sequelize) => {
             idKHKD: {
                 type: DataTypes.INTEGER,
             },
+            isDT: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: true,
+            },
             created_at: {
                 type: DataTypes.DATE,
                 defaultValue: DataTypes.NOW,
