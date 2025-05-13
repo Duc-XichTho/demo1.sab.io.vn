@@ -1,4 +1,4 @@
-import { khkdElementService } from "../services/khkdElementService.js";
+import {khkdElementService} from "../services/khkdElementService.js";
 
 export const khkdElementController = {
     async create(req, res) {
@@ -20,6 +20,22 @@ export const khkdElementController = {
     async findAll(req, res) {
         try {
             const result = await khkdElementService.findAll();
+            res.status(200).json({
+                success: true,
+                data: result
+            });
+        } catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    },
+
+    async findAllByKhoanMuc(req, res) {
+        try {
+            const { khoanMuc } = req.params;
+            const result = await khkdElementService.findByKhoanMuc(khoanMuc)
             res.status(200).json({
                 success: true,
                 data: result

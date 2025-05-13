@@ -1,4 +1,4 @@
-import { KHKDElement } from "../postgres/postgres.js";
+import {KHKDElement} from "../postgres/postgres.js";
 
 export const khkdElementService = {
     async create(data) {
@@ -14,6 +14,21 @@ export const khkdElementService = {
             return await KHKDElement.findAll({
                 where: { show: true },
                 order: [['created_at', 'DESC']]
+            });
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
+
+    async findByKhoanMuc(khoanMuc) {
+        try {
+            return await KHKDElement.findAll({
+                where : {
+                    khoanMuc : khoanMuc,
+                    show : true,
+                },
+                order: [["id", "DESC"]]
+
             });
         } catch (error) {
             throw new Error(error.message);

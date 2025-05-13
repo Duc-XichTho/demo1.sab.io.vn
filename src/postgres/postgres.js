@@ -8,6 +8,7 @@ import {createBCanvasMappingModel} from "../models/bCanvasMapping.js";
 import {createWebPageModel} from "../models/webPage.js";
 import {createStoryWebPageModel} from "../models/storyWebPage.js";
 import {createKpiKQKDModel} from "../models/kpiKQKD.js";
+import {createDienGiaiModel} from "../models/dienGiai.js";
 
 config();
 
@@ -219,11 +220,14 @@ let KHKD;
 let KHKDElement;
 let KHKDTongHop;
 let KpiKQKD;
+let DienGiai;
 const connection = async () => {
     try {
         await sequelize.authenticate();
         console.log("Connection DB successfully");
 
+        DienGiai = await modelImports.createDienGiaiModel(sequelize);
+        WebPage = await modelImports.createWebPageModel(sequelize);
         WebPage = await modelImports.createWebPageModel(sequelize);
         KpiKQKD = await modelImports.createKpiKQKDModel(sequelize);
         StoryWebPage = await modelImports.createStoryWebPageModel(sequelize);
@@ -1127,4 +1131,5 @@ export {
     KHKDElement,
     KHKDTongHop,
     KpiKQKD,
+    DienGiai
 };
