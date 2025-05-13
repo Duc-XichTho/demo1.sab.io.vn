@@ -13,6 +13,9 @@ export const createKHKDElementModel = async (sequelize) => {
             chuKy :{
                 type: DataTypes.JSONB,
             },
+            lai :{
+                type: DataTypes.JSONB,
+            },
             name: {
                 type: DataTypes.STRING,
             },
