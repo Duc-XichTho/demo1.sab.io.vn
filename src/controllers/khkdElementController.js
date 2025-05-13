@@ -48,6 +48,22 @@ export const khkdElementController = {
         }
     },
 
+    async findByLabelSoLuong(req, res) {
+        try {
+            const { labelSoLuong } = req.params;
+            const result = await khkdElementService.findByLabelSoLuong(labelSoLuong)
+            res.status(200).json({
+                success: true,
+                data: result
+            });
+        } catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    },
+
     async findById(req, res) {
         try {
             const { id } = req.params;

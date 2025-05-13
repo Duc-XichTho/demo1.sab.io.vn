@@ -26,6 +26,12 @@ export const createKTQTPhanTichNoteModel = async (sequelize) => {
                 type: DataTypes.STRING,
                 allowNull: true,
             },
+            
+            update_at: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
+            
             show: {
                 type: DataTypes.BOOLEAN,
                 allowNull: false,

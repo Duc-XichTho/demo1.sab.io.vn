@@ -35,6 +35,21 @@ export const khkdElementService = {
         }
     },
 
+    async findByLabelSoLuong(soLuong) {
+        try {
+            return await KHKDElement.findAll({
+                where : {
+                    labelSoLuong : soLuong,
+                    show : true,
+                },
+                order: [["id", "DESC"]]
+
+            });
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
+
     async findById(id) {
         try {
             return await KHKDElement.findOne({

@@ -7,6 +7,7 @@ const router = express.Router();
 router.post("/", khkdElementController.create);
 router.get("/khkd/:khkdId", khkdElementController.findByKHKDId);           // cụ thể hơn
 router.get("/khoan-muc/:khoanMuc", khkdElementController.findAllByKhoanMuc); // cụ thể hơn
+router.get("/label-so-luong/:labelSoLuong", khkdElementController.findByLabelSoLuong); // cụ thể hơn
 router.get("/:id", khkdElementController.findById);                         // để cuối cùng
 router.get("/", khkdElementController.findAll);
 router.put("/:id", khkdElementController.update);

@@ -27,10 +27,6 @@ export const getDienGiaiByNameService = async (name) => {
             where: { name },
         });
 
-        if (!data) {
-            throw new Error('Bản ghi DienGiai không tồn tại');
-        }
-
         return data;
     } catch (error) {
         throw new Error('Lỗi khi lấy bản ghi DienGiai: ' + error.message);
