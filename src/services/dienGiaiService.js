@@ -1,4 +1,5 @@
 import {DienGiai} from '../postgres/postgres.js';
+import { Op, fn, col, where, literal } from 'sequelize';
 
 export const createDienGiaiService = async (newData) => {
     try {
@@ -23,11 +24,16 @@ export const getDienGiaiByIdService = async (id) => {
 
 export const getDienGiaiByNameService = async (name) => {
     try {
+        const trimmedUpperName = name.trim().toUpperCase();
+
         const data = await DienGiai.findOne({
-            where: { name },
+            where: where(
+                fn('upper', fn('trim', col('name'))),
+                trimmedUpperName
+            )
         });
 
-        return data;
+        return data || {};
     } catch (error) {
         throw new Error('Lỗi khi lấy bản ghi DienGiai: ' + error.message);
     }
