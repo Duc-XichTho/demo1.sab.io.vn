@@ -1,5 +1,7 @@
-import {config} from "dotenv"; config();
-import { DataTypes } from 'sequelize';
+import {config} from "dotenv";
+
+config();
+import {DataTypes} from 'sequelize';
 
 export const createNoteChartModel = async (sequelize) => {
     const NoteChart = sequelize.define(
@@ -14,13 +16,24 @@ export const createNoteChartModel = async (sequelize) => {
                 type: DataTypes.TEXT,
                 allowNull: true,
             },
-           content : {
-               type: DataTypes.TEXT,
-               allowNull: true,
-           },
+            content: {
+                type: DataTypes.TEXT,
+                allowNull: true,
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
             show: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,
+            },
+            info : {
+                type: DataTypes.JSONB,
+            },
+            type: {
+                type: DataTypes.STRING,
+                allowNull: true,
             },
         },
         {

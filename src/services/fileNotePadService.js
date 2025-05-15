@@ -78,6 +78,10 @@ export const deleteFileNotePadService = async (id) => {
         await dataList.update({
             show: false
         });
+        await TemplateTable.update(
+            { show: false },
+            { where: { fileNote_id: id } }
+        );
         return {
             message: 'Các bản ghi FileNotePad đã được ẩn thành công'
         };

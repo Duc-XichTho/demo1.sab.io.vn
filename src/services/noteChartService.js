@@ -24,10 +24,7 @@ export const getOrCreateNoteChart = async (title) => {
 // CREATE
 export const createNoteChart = async (data) => {
     try {
-        const result = await NoteChart.create({
-            show: true,
-            metadata: data
-        })
+        const result = await NoteChart.create(data)
 
         return result;
     } catch (e) {
@@ -46,6 +43,14 @@ export const updateNoteChart = async (id, data) => {
     }
 }
 
+export const  getNoteChartByIdService = async (id) => {
+    try {
+        const data = await NoteChart.findByPk(id);
+        return data || null;
+    } catch (error) {
+        throw new Error('Lỗi khi lấy bản ghi chart data: ' + error.message);
+    }
+};
 
 // DELETE
 export const deleteNoteChart = async (id) => {
@@ -64,3 +69,18 @@ export const deleteNoteChart = async (id) => {
         throw new Error("Lỗi khi xóa chart data: " + e.message);
     }
 }
+
+export const getALLNoteChart = async () => {
+    try {
+        const allNoteCharts = await NoteChart.findAll({
+            where : {
+              show : true
+            },
+            order: [['id', 'ASC']]
+        });
+
+        return allNoteCharts;
+    } catch (e) {
+        throw new Error("Lỗi khi lấy hoặc tạo bản ghi Chart Data: " + e.message);
+    }
+};
