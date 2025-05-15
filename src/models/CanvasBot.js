@@ -12,6 +12,9 @@ export const createCanvasBotModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            idKHKD : {
+                type: DataTypes.INTEGER,
+            },
             idCanvasContainer : {
                 type: DataTypes.INTEGER,
             },
@@ -20,6 +23,9 @@ export const createCanvasBotModel = async (sequelize) => {
             },
             name: {
                 type: DataTypes.STRING,
+            },
+            khkdPacks: {
+                type: DataTypes.JSON,
             },
             kpiPacks: {
                 type: DataTypes.JSON,

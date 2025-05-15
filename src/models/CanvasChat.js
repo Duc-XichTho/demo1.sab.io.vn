@@ -12,6 +12,9 @@ export const createCanvasChatModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            idKHKD : {
+                type: DataTypes.INTEGER,
+            },
             idCanvasContainer : {
                 type: DataTypes.INTEGER,
             },

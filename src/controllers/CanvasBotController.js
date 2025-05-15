@@ -2,7 +2,7 @@ import {
     getAllCanvasBot,
     createCanvasBot,
     updateCanvasBot,
-    deleteCanvasBot, getCanvasBotByIdCanvasContainer
+    deleteCanvasBot, getCanvasBotByIdCanvasContainer, getCanvasBotByIdKHKD
 } from "../services/CanvasBotService.js";
 
 // GET
@@ -21,6 +21,18 @@ export const getCanvasBotByIdCanvasContainerController = async (req, res) => {
     try {
         const id = req.params.id;
         const dataList = await getCanvasBotByIdCanvasContainer(id);
+        res.status(200).json(dataList);
+    } catch (error) {
+        res.status(500).json({
+            message: 'Lỗi khi lấy danh sách bản ghi Canvas Bot: ' + error.message
+        });
+    }
+};
+
+export const getCanvasBotByIdKHKDController = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const dataList = await getCanvasBotByIdKHKD(id);
         res.status(200).json(dataList);
     } catch (error) {
         res.status(500).json({
