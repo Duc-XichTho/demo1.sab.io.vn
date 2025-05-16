@@ -86,7 +86,10 @@ export const createTemplateColumnModel = async (sequelize) => {
         type: DataTypes.JSONB,
         allowNull: true,
       },
-      
+      dateFormat: {
+        type: DataTypes.JSONB,
+        allowNull: true,
+      },
       show: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,

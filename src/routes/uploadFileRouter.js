@@ -40,7 +40,7 @@ router.post("/", upload.array("files"), async (req, res) => {
 
       const uploadParams = {
         Bucket: bucketName,
-        Key: `${folderName}${fileName}`,
+        Key: `${folderName}/${fileName}`,
         Body: fs.createReadStream(file.path),
         ACL: "public-read",
         ContentType: file.mimetype,

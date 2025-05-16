@@ -50,6 +50,10 @@ export const createKHKDElementModel = async (sequelize) => {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,
             },
+            isSum: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: true,
+            },
             created_at: {
                 type: DataTypes.DATE,
                 defaultValue: DataTypes.NOW,
