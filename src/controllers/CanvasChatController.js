@@ -2,7 +2,7 @@ import {
     getAllCanvasChat,
     createCanvasChat,
     updateCanvasChat,
-    deleteCanvasChat, getAllCanvasChatByCanvasContainer
+    deleteCanvasChat, getAllCanvasChatByCanvasContainer, getAllCanvasChatByKHKDId
 } from "../services/CanvasChatService.js";
 
 // GET
@@ -21,6 +21,19 @@ export const getAllCanvasChatByCanvasContainerController = async (req, res) => {
     try {
         const  id  = req.params.id;
         const dataList = await getAllCanvasChatByCanvasContainer(id);
+        res.status(200).json(dataList);
+    } catch (error) {
+        res.status(500).json({
+            message: 'Lỗi khi lấy danh sách bản ghi Canvas Chat: ' + error.message
+        });
+    }
+};
+
+export const getAllCanvasChatByKHKDIdController = async (req, res) => {
+
+    try {
+        const  id  = req.params.id;
+        const dataList = await getAllCanvasChatByKHKDId(id);
         res.status(200).json(dataList);
     } catch (error) {
         res.status(500).json({

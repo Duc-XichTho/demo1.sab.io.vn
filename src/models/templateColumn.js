@@ -78,6 +78,15 @@ export const createTemplateColumnModel = async (sequelize) => {
         type: DataTypes.JSONB,
         allowNull: true,
       },
+      setting_date_time_picker: {
+        type: DataTypes.JSONB,
+        allowNull: true,
+      },
+      setting_time_diff: {
+        type: DataTypes.JSONB,
+        allowNull: true,
+      },
+      
       show: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
