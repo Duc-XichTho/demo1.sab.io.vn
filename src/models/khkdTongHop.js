@@ -13,6 +13,12 @@ export const createKHKDTongHopModel = async (sequelize) => {
             duyet :{
                 type: DataTypes.BOOLEAN,
             },
+            luyKeDL :{
+                type: DataTypes.JSONB,
+            },
+            luyKeKPI :{
+                type: DataTypes.JSONB,
+            },
             chuKy :{
                 type: DataTypes.JSONB,
             },
