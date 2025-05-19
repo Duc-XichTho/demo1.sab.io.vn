@@ -221,6 +221,7 @@ let KHKDElement;
 let KHKDTongHop;
 let KpiKQKD;
 let DienGiai;
+let OnboardingGuide;
 const connection = async () => {
     try {
         await sequelize.authenticate();
@@ -407,6 +408,8 @@ const connection = async () => {
         KHKD = await modelImports.createKHKDModel(sequelize);
         KHKDElement = await modelImports.createKHKDElementModel(sequelize);
         KHKDTongHop = await modelImports.createKHKDTongHopModel(sequelize);
+
+        OnboardingGuide = await modelImports.createOnboardingGuideModel(sequelize);
         const modelsToAudit = [
             {
                 model: User,
@@ -1131,5 +1134,6 @@ export {
     KHKDElement,
     KHKDTongHop,
     KpiKQKD,
-    DienGiai
+    DienGiai,
+    OnboardingGuide
 };

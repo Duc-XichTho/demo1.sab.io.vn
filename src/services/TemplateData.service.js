@@ -153,6 +153,41 @@ export const deleteTemplateDataByIdService = async (id) => {
     console.log('Error deleteTemplateDataByIdService', error.message);
   }
 };
+
+const chunkArray = (array, size) => {
+  const result = [];
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
+  }
+  return result;
+};
+
+export const deleteTemplateDataByIdsService = async (ids = []) => {
+  const chunks = chunkArray(ids, 100); // chia thành các nhóm 100 ID
+  const allResults = [];
+
+  for (const chunk of chunks) {
+    const results = await Promise.all(
+        chunk.map(async (id) => {
+          try {
+            const cacheKeyById = `${process.env.FOLDER_NAME_BUCKET_BITFLY}_template_data:id:${id}`;
+            const row = await TemplateData.findByPk(id);
+            if (!row) return null;
+            const updatedRow = await row.update({ show: false });
+            cacheQueue.delete(cacheKeyById);
+            cacheQueue.delete(cacheKey(row.tableId));
+            return updatedRow.dataValues;
+          } catch (err) {
+            console.error(`Lỗi với ID ${id}:`, err.message);
+            return null;
+          }
+        })
+    );
+    allResults.push(...results.filter(Boolean));
+  }
+
+  return allResults;
+};
 export const deleteTemplateRowByTableIdService = async (tableId) => {
   try {
     const deletedCount = await TemplateData.destroy({

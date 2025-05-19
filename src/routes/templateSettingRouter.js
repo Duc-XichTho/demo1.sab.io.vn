@@ -26,7 +26,7 @@ import {
   getTemplateTableByDevIdController,
   getTemplateRowByIdController,
   createBatchTemplateDataController,
-  updateBatchTemplateRowController, deleteTemplateColByTableIdController
+  updateBatchTemplateRowController, deleteTemplateColByTableIdController, deleteTemplateRowsController
 } from "../controllers/templateSettingController.js";
 
 const router = express.Router();
@@ -90,6 +90,7 @@ router.delete(
   deleteTemplateRowByTableIdController
 );
 router.delete("/delete-column-by-table/:tableId", deleteTemplateColByTableIdController);
+router.delete("/delete-rows", deleteTemplateRowsController);
 
 router.put("/delete-column", deleteTemplateColumnController);
 
