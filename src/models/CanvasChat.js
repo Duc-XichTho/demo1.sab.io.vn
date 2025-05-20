@@ -15,6 +15,9 @@ export const createCanvasChatModel = async (sequelize) => {
             title: {
                 type: DataTypes.TEXT,
             },
+            month: {
+                type: DataTypes.TEXT,
+            },
             typeKHKD: {
                 type: DataTypes.TEXT,
             },

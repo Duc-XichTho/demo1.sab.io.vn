@@ -10,6 +10,9 @@ export const createKHKDElementModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            percentFormula: {
+                type: DataTypes.JSONB,
+            },
             chuKy :{
                 type: DataTypes.JSONB,
             },
