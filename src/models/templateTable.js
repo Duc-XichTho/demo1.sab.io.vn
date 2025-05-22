@@ -10,6 +10,10 @@ export const createTemplateTableModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            isNeedUpdatePivot: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
+            },
             setting: {
                 type: DataTypes.JSONB,
                 allowNull: true,

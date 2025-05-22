@@ -1,4 +1,4 @@
-import {TemplateColumn, TemplateData} from "../postgres/postgres.js";
+import {TemplateColumn, TemplateData, TemplateTable} from "../postgres/postgres.js";
 import { cacheQueue } from "./redis/cacheQueue.js";
 import dotenv from "dotenv";
 dotenv.config();
@@ -123,6 +123,11 @@ export const updateBatchTemplateDataService = async (tableId, dataUpdate) => {
       updates.push(updated);
     }
 
+    await TemplateTable.update({ isNeedUpdatePivot: true}, {
+      where: {
+        id: tableId,
+      },
+    })
     await t.commit(); // commit transaction
     cacheQueue.delete(cacheKey(tableId));
     return updates.map(row => row.dataValues);

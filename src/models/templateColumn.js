@@ -10,6 +10,10 @@ export const createTemplateColumnModel = async (sequelize) => {
         autoIncrement: true,
         primaryKey: true,
       },
+        formulaDate: {
+            type: DataTypes.JSONB,
+            allowNull: true,
+        },
       columnIndex: {
         type: DataTypes.INTEGER,
         allowNull: true,
