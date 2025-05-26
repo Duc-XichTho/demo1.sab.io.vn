@@ -219,6 +219,8 @@ import khkdTongHopRoutes from "./src/routes/khkdTongHopRoutes.js";
 import kpiKQKDRouter from "./src/routes/kpiKQKDRouter.js";
 import dienGiaiRouter from "./src/routes/dienGiaiRouter.js";
 import onboardingGuideRoutes from "./src/routes/onboardingGuideRoutes.js";
+import ktqtMappingRoutes from "./src/routes/ktqtMappingRoutes.js";
+import ktqtImportRoutes from "./src/routes/ktqtImportRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -454,6 +456,8 @@ app.use("/api/khkd-element", khkdElementRoutes);
 app.use("/api/khkd-tong-hop", khkdTongHopRoutes);
 
 app.use("/api/onboarding-guide", onboardingGuideRoutes);
+app.use("/api/ktqt-mapping", ktqtMappingRoutes);
+app.use("/api/ktqt-import", ktqtImportRoutes);
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {

@@ -177,6 +177,8 @@ import { createKHKDTongHopModel } from "../models/khkdTongHop.js";
 import {createKpiKQKDModel} from "../models/kpiKQKD.js";
 import {createDienGiaiModel} from "../models/dienGiai.js";
 import {createOnboardingGuideModel} from "../models/onboardingGuideModel.js";
+import { createKtqtMappingModel } from "../models/ktqtMapping.js";
+import { createKtqtImportModel } from "../models/ktqtImport.js";
 
 export const modelImports = {
   createRuleSettingModel,
@@ -357,5 +359,7 @@ export const modelImports = {
   createKHKDTongHopModel,
   createKpiKQKDModel,
   createDienGiaiModel,
-  createOnboardingGuideModel
+  createOnboardingGuideModel,
+  createKtqtMappingModel,
+  createKtqtImportModel
 }
