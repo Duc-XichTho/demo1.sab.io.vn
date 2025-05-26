@@ -10,9 +10,11 @@ export const createKtqtMappingModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            type: {
+                type: DataTypes.STRING,
+            },
             name: {
                 type: DataTypes.STRING,
-                allowNull: false,
             },
             danhMuc: {
                 type: DataTypes.TEXT,
@@ -45,4 +47,4 @@ export const createKtqtMappingModel = async (sequelize) => {
         }
     );
     return KtqtMapping;
-}; 
+};
