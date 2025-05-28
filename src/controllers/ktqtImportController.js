@@ -56,9 +56,8 @@ export const ktqtImportController = {
 
     async update(req, res) {
         try {
-            const { id } = req.params;
             const data = req.body;
-            const result = await ktqtImportService.update(id, data);
+            const result = await ktqtImportService.update(data);
             if (!result) {
                 return res.status(404).json({
                     success: false,

@@ -34,19 +34,24 @@ export const ktqtImportService = {
         }
     },
 
-    async update(id, data) {
+    async update(data) {
         try {
-            if (Array.isArray(id)) {
-                // Bulk update: id là mảng các id
-                const [affectedRows] = await KtqtImport.update(data, {
-                    where: { id: id, show: true }
-                });
-                return affectedRows > 0 ? { updated: affectedRows } : null;
+            if (Array.isArray(data)) {
+                // Bulk update: data là mảng các object, mỗi object phải có id
+                let updated = 0;
+                for (const item of data) {
+                    if (!item.id) continue;
+                    const found = await KtqtImport.findOne({ where: { id: item.id, show: true } });
+                    if (found) {
+                        await found.update(item);
+                        updated++;
+                    }
+                }
+                return updated > 0 ? { updated } : null;
             } else {
                 // Update 1 bản ghi
-                const item = await KtqtImport.findOne({
-                    where: { id, show: true }
-                });
+                if (!data.id) return null;
+                const item = await KtqtImport.findOne({ where: { id: data.id, show: true } });
                 if (!item) return null;
                 return await item.update(data);
             }

@@ -11,6 +11,9 @@ export const createKTQTSoKeToanModel = async (sequelize) => {
                 primaryKey: true,
                 autoIncrement: true,
             },
+            idKTQT: {
+                type: DataTypes.INTEGER,
+            },
             costPool: {
                 type: DataTypes.STRING,
             },
@@ -70,6 +73,9 @@ export const createKTQTSoKeToanModel = async (sequelize) => {
             },
             kmns: {
                 type: DataTypes.STRING,
+            },
+            kmfGoc: {
+                type: DataTypes.TEXT,
             },
             kmf: {
                 type: DataTypes.STRING,

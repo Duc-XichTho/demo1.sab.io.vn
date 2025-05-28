@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("/", ktqtImportController.create);
 router.get("/", ktqtImportController.findAll);
 router.get("/:id", ktqtImportController.findById);
-router.put("/:id", ktqtImportController.update);
+router.put("/", ktqtImportController.update);
 router.delete("/:id", ktqtImportController.delete);
 
 export default router; 

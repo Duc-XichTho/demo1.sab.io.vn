@@ -34,6 +34,9 @@ export const createKtqtImportModel = async (sequelize) => {
             kmf: {
                 type: DataTypes.TEXT,
             },
+            kmfGoc: {
+                type: DataTypes.TEXT,
+            },
             project: {
                 type: DataTypes.TEXT,
             },
