@@ -179,6 +179,7 @@ import {createDienGiaiModel} from "../models/dienGiai.js";
 import {createOnboardingGuideModel} from "../models/onboardingGuideModel.js";
 import { createKtqtMappingModel } from "../models/ktqtMapping.js";
 import { createKtqtImportModel } from "../models/ktqtImport.js";
+import { createKtqtImportHistoryModel } from "../models/ktqtImportHistory.js";
 
 export const modelImports = {
   createRuleSettingModel,
@@ -361,5 +362,6 @@ export const modelImports = {
   createDienGiaiModel,
   createOnboardingGuideModel,
   createKtqtMappingModel,
-  createKtqtImportModel
+  createKtqtImportModel,
+  createKtqtImportHistoryModel
 }

@@ -224,6 +224,7 @@ let DienGiai;
 let OnboardingGuide;
 let KtqtMapping;
 let KtqtImport;
+let KtqtImportHistory;
 const connection = async () => {
     try {
         await sequelize.authenticate();
@@ -412,6 +413,7 @@ const connection = async () => {
         KHKDTongHop = await modelImports.createKHKDTongHopModel(sequelize);
         KtqtMapping = await modelImports.createKtqtMappingModel(sequelize);
         KtqtImport = await modelImports.createKtqtImportModel(sequelize);
+        KtqtImportHistory = await modelImports.createKtqtImportHistoryModel(sequelize);
 
         OnboardingGuide = await modelImports.createOnboardingGuideModel(sequelize);
         const modelsToAudit = [
@@ -1141,5 +1143,6 @@ export {
     DienGiai,
     OnboardingGuide,
     KtqtMapping,
-    KtqtImport
+    KtqtImport,
+    KtqtImportHistory
 };

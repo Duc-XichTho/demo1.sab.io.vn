@@ -40,13 +40,22 @@ export const createKtqtImportModel = async (sequelize) => {
             project: {
                 type: DataTypes.TEXT,
             },
+            projectGoc: {
+                type: DataTypes.TEXT,
+            },
             unit_code: {
+                type: DataTypes.TEXT,
+            },
+            unit_codeGoc: {
                 type: DataTypes.TEXT,
             },
             product: {
                 type: DataTypes.TEXT,
             },
             kenh: {
+                type: DataTypes.TEXT,
+            },
+            kenhGoc: {
                 type: DataTypes.TEXT,
             },
             company: {
