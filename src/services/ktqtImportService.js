@@ -1,4 +1,4 @@
-import { KtqtImport } from "../postgres/postgres.js";
+import { KtqtImport, KTQTSoKeToan } from "../postgres/postgres.js";
 
 export const ktqtImportService = {
     async create(data) {
@@ -15,10 +15,26 @@ export const ktqtImportService = {
 
     async findAll() {
         try {
-            return await KtqtImport.findAll({
+            // Lấy tất cả idKTQT từ KTQTSoKeToan (chỉ lấy bản ghi show=true nếu cần)
+            const soKeToanList = await KTQTSoKeToan.findAll({
+                attributes: ['idKTQT'],
                 where: { show: true },
-                order: [['id', 'DESC']]
+                raw: true
             });
+            const idKTQTList = soKeToanList.map(e => e.idKTQT);
+
+            // Lấy danh sách import
+            const importList = await KtqtImport.findAll({
+                where: { show: true },
+                order: [['id', 'DESC']],
+                raw: true
+            });
+
+            // Gắn trường daHopNhat
+            return importList.map(item => ({
+                ...item,
+                daHopNhat: idKTQTList.includes(item.id)
+            }));
         } catch (error) {
             throw new Error(error.message);
         }
