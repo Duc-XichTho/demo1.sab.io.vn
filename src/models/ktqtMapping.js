@@ -28,6 +28,9 @@ export const createKtqtMappingModel = async (sequelize) => {
             data: {
                 type: DataTypes.JSONB,
             },
+            setting: {
+                type: DataTypes.JSONB,
+            },
             company: {
                 type: DataTypes.TEXT,
             },
