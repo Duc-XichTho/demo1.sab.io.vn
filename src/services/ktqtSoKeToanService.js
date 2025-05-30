@@ -2,6 +2,7 @@ import {KTQTSoKeToan} from '../postgres/postgres.js';
 import dayjs from 'dayjs';
 import {Op} from "sequelize";
 import {cacheQueue} from "./redis/cacheQueue.js";
+import {sequelize} from '../postgres/postgres.js';
 
 import dotenv from "dotenv";
 
@@ -283,16 +284,19 @@ export const getCountSoKeToanService = async () => {
 
 
 export const updateBulkKTQTSoKeToanService = async (dataArray) => {
+    const transaction = await sequelize.transaction();
     try {
         const results = [];
         for (const item of dataArray) {
-            const data = await KTQTSoKeToan.findByPk(item.id);
+            const data = await KTQTSoKeToan.findByPk(item.id, { transaction });
             if (!data) {
                 throw new Error(`Bản ghi KTQTSoKeToan với ID ${item.id} không tồn tại`);
             }
             item.updateAt = dayjs().toDate();
-            await data.update(item);
-            results.push(data);
+            await data.update(item, { transaction });
+            // Lấy lại instance mới nhất sau update
+            const updatedData = await KTQTSoKeToan.findByPk(item.id, { transaction });
+            results.push(updatedData);
         }
 
         // Update cache
@@ -316,11 +320,13 @@ export const updateBulkKTQTSoKeToanService = async (dataArray) => {
                 }
                 return cacheItem;
             });
-             cacheQueue.set(cacheKey, updatedCache);
+         cacheQueue.set(cacheKey, updatedCache);
         }
-  
+
+        await transaction.commit();
         return results;
     } catch (error) {
+        await transaction.rollback();
         throw new Error('Lỗi khi cập nhật hàng loạt bản ghi KTQTSoKeToan: ' + error.message);
     }
 };
