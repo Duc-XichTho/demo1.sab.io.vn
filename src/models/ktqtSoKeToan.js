@@ -11,6 +11,10 @@ export const createKTQTSoKeToanModel = async (sequelize) => {
                 primaryKey: true,
                 autoIncrement: true,
             },
+            daHopNhat: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
+            },
             isUse: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,
