@@ -2,7 +2,6 @@ import {KTQTSoKeToan} from '../postgres/postgres.js';
 import dayjs from 'dayjs';
 import {Op} from "sequelize";
 import {cacheQueue} from "./redis/cacheQueue.js";
-import {sequelize} from '../postgres/postgres.js';
 
 import dotenv from "dotenv";
 
@@ -283,52 +282,51 @@ export const getCountSoKeToanService = async () => {
 };
 
 
-export const updateBulkKTQTSoKeToanService = async (dataArray) => {
-    const transaction = await sequelize.transaction();
-    try {
-        const results = [];
-        for (const item of dataArray) {
-            const data = await KTQTSoKeToan.findByPk(item.id, { transaction });
-            if (!data) {
-                throw new Error(`Bản ghi KTQTSoKeToan với ID ${item.id} không tồn tại`);
-            }
-            item.updateAt = dayjs().toDate();
-            await data.update(item, { transaction });
-            // Lấy lại instance mới nhất sau update
-            const updatedData = await KTQTSoKeToan.findByPk(item.id, { transaction });
-            results.push(updatedData);
-        }
 
-        // Update cache
-        const cachedData = await cacheQueue.get(cacheKey);
-        if (cachedData) {
-            const updatedCache = cachedData.map(cacheItem => {
-                const updateItem = dataArray.find(item => item.id === cacheItem.id);
-                if (updateItem) {
-                    const updatedItem = { ...cacheItem, ...updateItem };
-                    if (updatedItem.pl_value && updatedItem.pl_value != 0 && (!updatedItem.kmf || updatedItem.kmf === '')) {
-                        updatedItem.not_kmf = true;
-                    } else {
-                        updatedItem.not_kmf = false;
-                    }
-                    if (updatedItem.cash_value && updatedItem.cash_value != 0 && (!updatedItem.kmns || updatedItem.kmns === '')) {
-                        updatedItem.not_kmns = true;
-                    } else {
-                        updatedItem.not_kmns = false;
-                    }
-                    return updatedItem;
-                }
-                return cacheItem;
-            });
-         cacheQueue.set(cacheKey, updatedCache);
-        }
+export const updateBulkKTQTSoKeToanService = async (dataArray, batchSize = 50) => {
+    if (!Array.isArray(dataArray) || dataArray.length === 0) return null;
 
-        await transaction.commit();
-        return results;
-    } catch (error) {
-        await transaction.rollback();
-        throw new Error('Lỗi khi cập nhật hàng loạt bản ghi KTQTSoKeToan: ' + error.message);
+    let updatedIds = [];
+    for (let i = 0; i < dataArray.length; i += batchSize) {
+        const batch = dataArray.slice(i, i + batchSize);
+        const updatePromises = batch.map(async (item) => {
+            if (!item.id) return null;
+            const found = await KTQTSoKeToan.findByPk(item.id);
+            if (!found) return null;
+            item.updateAt = new Date();
+            await found.update(item);
+            return found.id;
+        });
+        const batchResult = (await Promise.all(updatePromises)).filter(Boolean);
+        updatedIds = updatedIds.concat(batchResult);
     }
+
+    // Update cache như cũ
+    const cachedData = await cacheQueue.get(cacheKey);
+    if (cachedData) {
+        const now = new Date();
+        const updatedCache = cachedData.map(cacheItem => {
+            const updateItem = dataArray.find(item => item.id === cacheItem.id);
+            if (updateItem) {
+                const updatedItem = { ...cacheItem, ...updateItem, updateAt: now };
+                if (updatedItem.pl_value && updatedItem.pl_value != 0 && (!updatedItem.kmf || updatedItem.kmf === '')) {
+                    updatedItem.not_kmf = true;
+                } else {
+                    updatedItem.not_kmf = false;
+                }
+                if (updatedItem.cash_value && updatedItem.cash_value != 0 && (!updatedItem.kmns || updatedItem.kmns === '')) {
+                    updatedItem.not_kmns = true;
+                } else {
+                    updatedItem.not_kmns = false;
+                }
+                return updatedItem;
+            }
+            return cacheItem;
+        });
+        await cacheQueue.set(cacheKey, updatedCache);
+    }
+
+    return { updated: updatedIds.length, ids: updatedIds };
 };
 
 export const deleteBulkKTQTSoKeToanService = async (ids) => {
