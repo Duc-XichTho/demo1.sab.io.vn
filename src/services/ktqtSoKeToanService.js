@@ -323,7 +323,7 @@ export const updateBulkKTQTSoKeToanService = async (dataArray, batchSize = 50) =
             }
             return cacheItem;
         });
-        await cacheQueue.set(cacheKey, updatedCache);
+         cacheQueue.set(cacheKey, updatedCache);
     }
 
     return { updated: updatedIds.length, ids: updatedIds };

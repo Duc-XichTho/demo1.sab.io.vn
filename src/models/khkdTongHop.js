@@ -10,6 +10,10 @@ export const createKHKDTongHopModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            isOnlyTH: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
+            },
             duyet :{
                 type: DataTypes.BOOLEAN,
             },
