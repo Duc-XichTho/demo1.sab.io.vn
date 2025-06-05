@@ -193,7 +193,7 @@ import pmvPlanDetailRouter from "./src/routes/pmvPlanDetailRouter.js";
 import pmvDeploymentRouter from "./src/routes/pmvDeploymentRouter.js";
 import pmvDeploymentDetailRouter from "./src/routes/pmvDeploymentDetailRouter.js";
 import pmvSkuAllocationRouter from "./src/routes/pmvSkuAllocationRouter.js";
-
+import n8nProxyRouter from './src/routes/n8nProxyRouter.js';
 // Gateway
 import GW_CompanyRouter from "./src/routes/gateway/companyRoute.js"
 import GW_MessageRouter from "./src/routes/gateway/messageRoute.js"
@@ -222,6 +222,8 @@ import onboardingGuideRoutes from "./src/routes/onboardingGuideRoutes.js";
 import ktqtMappingRoutes from "./src/routes/ktqtMappingRoutes.js";
 import ktqtImportRoutes from "./src/routes/ktqtImportRoutes.js";
 import ktqtImportHistoryRoutes from "./src/routes/ktqtImportHistoryRoutes.js";
+import fileTabPublicRouter from "./src/routes/public/fileTabPublicRouter.js";
+import n8nWebhookSender from "./src/routes/public/n8nWebhookSender.js";
 dotenv.config();
 
 const app = express();
@@ -257,6 +259,9 @@ app.post("/git/update", githubWebhook, (req, res) => {
   return res.status(200).send("Webhook received");
 });
 
+app.use("/api/file-tab-public", fileTabPublicRouter);
+app.use("/api/n8n-webhook", n8nWebhookSender);
+
 app.use("/api/template-setting", apiRateLimiter, templateSettingRouter);
 // app.use("/api/template-setting", templateSettingRouter);
 app.use("/api/file-note-pad", fileNotePadRouter);
@@ -268,6 +273,10 @@ app.use("/tai-khoan", taiKhoanPublicRouter);
 app.use("/file-note-pad", fileNotePadRouterPublic);
 
 app.use(authenticateToken);
+
+
+
+
 app.use('/api/web-page', webPageRouter);
 app.use('/api/dien-giai', dienGiaiRouter);
 app.use('/api/kpi-kqkd', kpiKQKDRouter);
