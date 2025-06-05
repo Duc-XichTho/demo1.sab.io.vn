@@ -5,7 +5,7 @@ const router = express.Router();
 
 // POST /send-to-n8n
 router.post("/send-to-n8n", async (req, res) => {
-  const n8nUrl = "https://n8n.sab.io.vn/webhook-test/f7d13e88-a4bb-4172-b614-b3f0b17f466b";
+  const n8nUrl = "http://localhost:5678/webhook/f7d13e88-a4bb-4172-b614-b3f0b17f466b";
   const data = req.body;
   console.log(data);
   try {
