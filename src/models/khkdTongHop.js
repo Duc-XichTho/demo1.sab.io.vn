@@ -10,6 +10,9 @@ export const createKHKDTongHopModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            userClass: {
+                type: DataTypes.JSONB,
+            },
             isOnlyTH: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
