@@ -12,7 +12,8 @@ router.post("/send-to-n8n", async (req, res) => {
     const response = await axios.post(n8nUrl, data, {
       headers: { "Content-Type": "application/json" }
     });
-    res.json({ success: true, n8nResponse: response });
+    console.log(response);
+    res.status(200).json({ success: true, n8nResponse: response.data });
   } catch (error) {
     res.status(500).json({
       success: false,
