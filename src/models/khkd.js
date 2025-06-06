@@ -10,6 +10,9 @@ export const createKHKDModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            userClass: {
+                type: DataTypes.JSONB,
+            },
             name: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -46,4 +49,4 @@ export const createKHKDModel = async (sequelize) => {
         }
     );
     return KHKD;
-}; 
+};
