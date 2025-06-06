@@ -10,6 +10,9 @@ export const createFileNotePadModel = async (sequelize) => {
                 primaryKey: true,
                 autoIncrement: true,
             },
+            desc: {
+                type: DataTypes.TEXT,
+            },
             tag_id: {
                 type: DataTypes.STRING,
             },
