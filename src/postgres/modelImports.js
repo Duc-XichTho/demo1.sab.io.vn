@@ -180,6 +180,7 @@ import {createOnboardingGuideModel} from "../models/onboardingGuideModel.js";
 import { createKtqtMappingModel } from "../models/ktqtMapping.js";
 import { createKtqtImportModel } from "../models/ktqtImport.js";
 import { createKtqtImportHistoryModel } from "../models/ktqtImportHistory.js";
+import { createAiChatHistoryModel } from "../models/aiChatHistory.js";
 
 export const modelImports = {
   createRuleSettingModel,
@@ -363,5 +364,6 @@ export const modelImports = {
   createOnboardingGuideModel,
   createKtqtMappingModel,
   createKtqtImportModel,
-  createKtqtImportHistoryModel
+  createKtqtImportHistoryModel,
+  createAiChatHistoryModel
 }

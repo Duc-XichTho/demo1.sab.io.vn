@@ -224,6 +224,7 @@ import ktqtImportRoutes from "./src/routes/ktqtImportRoutes.js";
 import ktqtImportHistoryRoutes from "./src/routes/ktqtImportHistoryRoutes.js";
 import fileTabPublicRouter from "./src/routes/public/fileTabPublicRouter.js";
 import n8nWebhookSender from "./src/routes/public/n8nWebhookSender.js";
+import aiChatHistoryRoutes from "./src/routes/aiChatHistoryRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -232,7 +233,7 @@ schedule();
 
 const apiRateLimiter = rateLimit({
   windowMs: 5 * 60 * 1000,
-  max: 5000,
+  max: 10000,
   message: 'Quá nhiều yêu cầu, hãy thử lại sau!',
   standardHeaders: true,
   legacyHeaders: false,
@@ -262,8 +263,11 @@ app.post("/git/update", githubWebhook, (req, res) => {
 app.use("/api/file-tab-public", fileTabPublicRouter);
 app.use("/api/n8n-webhook", n8nWebhookSender);
 
-app.use("/api/template-setting", apiRateLimiter, templateSettingRouter);
-// app.use("/api/template-setting", templateSettingRouter);
+app.use("/api/template-setting/create", apiRateLimiter, templateSettingRouter);
+app.use("/api/template-setting/update", apiRateLimiter, templateSettingRouter);
+app.use("/api/template-setting/delete", apiRateLimiter, templateSettingRouter);
+// Routes that don't need rate limiting
+app.use("/api/template-setting", templateSettingRouter);
 app.use("/api/file-note-pad", fileNotePadRouter);
 
 app.use(authRoutes);
@@ -273,9 +277,6 @@ app.use("/tai-khoan", taiKhoanPublicRouter);
 app.use("/file-note-pad", fileNotePadRouterPublic);
 
 app.use(authenticateToken);
-
-
-
 
 app.use('/api/web-page', webPageRouter);
 app.use('/api/dien-giai', dienGiaiRouter);
@@ -469,6 +470,7 @@ app.use("/api/onboarding-guide", onboardingGuideRoutes);
 app.use("/api/ktqt-mapping", ktqtMappingRoutes);
 app.use("/api/ktqt-import", ktqtImportRoutes);
 app.use("/api/ktqt-import-history", ktqtImportHistoryRoutes);
+app.use("/api/ai-chat-history", aiChatHistoryRoutes);
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {

@@ -225,6 +225,7 @@ let OnboardingGuide;
 let KtqtMapping;
 let KtqtImport;
 let KtqtImportHistory;
+let AiChatHistory;
 const connection = async () => {
     try {
         await sequelize.authenticate();
@@ -416,6 +417,7 @@ const connection = async () => {
         KtqtImportHistory = await modelImports.createKtqtImportHistoryModel(sequelize);
 
         OnboardingGuide = await modelImports.createOnboardingGuideModel(sequelize);
+        AiChatHistory = await modelImports.createAiChatHistoryModel(sequelize);
         const modelsToAudit = [
             {
                 model: User,
@@ -865,6 +867,10 @@ const connection = async () => {
                 model: ChartTemplate,
                 name: "ChartTemplate",
             },
+            {
+                model: AiChatHistory,
+                name: "AiChatHistory",
+            },
         ];
 
         modelsToAudit.forEach(({model, name}) => {
@@ -1144,5 +1150,6 @@ export {
     OnboardingGuide,
     KtqtMapping,
     KtqtImport,
-    KtqtImportHistory
+    KtqtImportHistory,
+    AiChatHistory
 };
