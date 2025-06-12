@@ -10,6 +10,10 @@ export const createFileChildModel = async (sequelize) => {
                 primaryKey: true,
                 autoIncrement: true,
             },
+            embed : {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
+            },
             userClass : {
                 type: DataTypes.JSONB,
             },
