@@ -31,6 +31,35 @@ export async function processQuestion(question, email, timeAsk) {
     }
 }
 
+export async function processQuestionWithSources(question, email, timeAsk , sourceIds) {
+    try {
+        const response = await axios.post(
+            `${process.env.DPAS_SERVICE_BASE_URL}/services/ask-with-sources`,
+            {
+                question,
+                email,
+                timeAsk,
+                sourceIds
+            },
+            {
+                headers: {
+                    'x-api-secret': process.env.INTERNAL_API_SECRET
+                }
+            }
+        );
+        const success = response.data?.success ;
+        if (success){
+            await ExternalChatHistory.create(response.data.data);
+        }
+
+        // Trả về kết quả từ service A (nếu cần)
+        return response.data;
+    } catch (error) {
+        console.error('Error calling /qa/ask from service A:', error.response?.data || error.message);
+        throw new Error('Failed to process question with service A');
+    }
+}
+
 
 export async function embedDataFile(data) {
     try {
@@ -43,7 +72,6 @@ export async function embedDataFile(data) {
                 }
             }
         );
-        console.log(response)
         // Trả về kết quả từ service A (nếu cần)
         return response.data;
     } catch (error) {
