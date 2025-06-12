@@ -1,14 +1,6 @@
 import {config} from "dotenv";
 import {Sequelize} from "sequelize";
 import {modelImports} from "./modelImports.js";
-import {createRuleSettingModel} from "../models/ruleSetting.js";
-import {createBCanvasDataOriginalModel} from "../models/bCanvasDataOriginal.js";
-import {createBCanvasDataOriginalRowModel} from "../models/bCanvasDataOriginalRow.js";
-import {createBCanvasMappingModel} from "../models/bCanvasMapping.js";
-import {createWebPageModel} from "../models/webPage.js";
-import {createStoryWebPageModel} from "../models/storyWebPage.js";
-import {createKpiKQKDModel} from "../models/kpiKQKD.js";
-import {createDienGiaiModel} from "../models/dienGiai.js";
 
 config();
 
@@ -226,11 +218,13 @@ let KtqtMapping;
 let KtqtImport;
 let KtqtImportHistory;
 let AiChatHistory;
+let ExternalChatHistory;
 const connection = async () => {
     try {
         await sequelize.authenticate();
         console.log("Connection DB successfully");
 
+        ExternalChatHistory = await modelImports.createExternalChatHistoryModel(sequelize);
         DienGiai = await modelImports.createDienGiaiModel(sequelize);
         WebPage = await modelImports.createWebPageModel(sequelize);
         WebPage = await modelImports.createWebPageModel(sequelize);
@@ -1151,5 +1145,6 @@ export {
     KtqtMapping,
     KtqtImport,
     KtqtImportHistory,
-    AiChatHistory
+    AiChatHistory,
+    ExternalChatHistory,
 };

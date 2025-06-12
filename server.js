@@ -225,6 +225,8 @@ import ktqtImportHistoryRoutes from "./src/routes/ktqtImportHistoryRoutes.js";
 import fileTabPublicRouter from "./src/routes/public/fileTabPublicRouter.js";
 import n8nWebhookSender from "./src/routes/public/n8nWebhookSender.js";
 import aiChatHistoryRoutes from "./src/routes/aiChatHistoryRoutes.js";
+import serviceRouter from "./src/routes/serviceRouter/serviceRouter.js";
+import externalChatHistoryRoutes from "./src/routes/externalChatHistoryRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -471,6 +473,9 @@ app.use("/api/ktqt-mapping", ktqtMappingRoutes);
 app.use("/api/ktqt-import", ktqtImportRoutes);
 app.use("/api/ktqt-import-history", ktqtImportHistoryRoutes);
 app.use("/api/ai-chat-history", aiChatHistoryRoutes);
+app.use("/api/service-proxy", serviceRouter);
+app.use("/api/external-chat-history", externalChatHistoryRoutes);
+
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
