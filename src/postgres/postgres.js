@@ -219,6 +219,7 @@ let KtqtImport;
 let KtqtImportHistory;
 let AiChatHistory;
 let ExternalChatHistory;
+let AiFreeChatHistory;
 const connection = async () => {
     try {
         await sequelize.authenticate();
@@ -412,6 +413,7 @@ const connection = async () => {
 
         OnboardingGuide = await modelImports.createOnboardingGuideModel(sequelize);
         AiChatHistory = await modelImports.createAiChatHistoryModel(sequelize);
+        AiFreeChatHistory = await modelImports.createAiFreeChatHistoryModel(sequelize);
         const modelsToAudit = [
             {
                 model: User,
@@ -1147,4 +1149,5 @@ export {
     KtqtImportHistory,
     AiChatHistory,
     ExternalChatHistory,
+    AiFreeChatHistory,
 };

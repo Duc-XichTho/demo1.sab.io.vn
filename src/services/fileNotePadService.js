@@ -1,6 +1,9 @@
 import {
+    FileChild,
     FileNotePad, TemplateColumn, TemplateData, TemplateTable
 } from '../postgres/postgres.js';
+import {DeleteObjectCommand, S3Client} from "@aws-sdk/client-s3";
+import {deleteEmbedDataFile} from "./serviceApi/serviceApi.js";
 
 export const createFileNotePadService = async (newData) => {
     try {
@@ -69,6 +72,28 @@ export const updateFileNotePadService = async (newData) => {
     }
 };
 
+const s3Client = new S3Client({
+    region: "hn",
+    endpoint: process.env.END_POINT,
+    credentials: {
+        accessKeyId: process.env.ACCESS_KEY_ID,
+        secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    },
+});
+
+const BUCKET_NAME = "bucket-xichtho";
+
+function extractS3KeyFromUrl(url) {
+    // url dạng: https://bucket-xichtho.hn.ss.bfcplatform.vn/folder/file.ext
+    try {
+        const parsedUrl = new URL(url);
+        // Bỏ dấu '/' đầu tiên
+        return parsedUrl.pathname.startsWith("/") ? parsedUrl.pathname.slice(1) : parsedUrl.pathname;
+    } catch {
+        return null;
+    }
+}
+
 
 export const deleteFileNotePadService = async (id) => {
     try {
@@ -95,22 +120,46 @@ export const deleteFileNotePadService = async (id) => {
         // 2.1 Cập nhật show = false cho TemplateTable
         await templateTable.update({ show: false });
 
-        await TemplateTable.update(
-            { show: false },
-            { where: { mother_table_id: tableId } }
-        );
+        await TemplateTable.update({ show: false }, { where: { mother_table_id: tableId } });
 
         // 3. Cập nhật show = false cho TemplateColumn và TemplateData liên quan
-        await TemplateColumn.update(
-            { show: false },
-            { where: { tableId: tableId } }
-        );
+        await TemplateColumn.update({ show: false }, { where: { tableId: tableId } });
 
-        await TemplateData.update(
-            { show: false },
-            { where: { tableId: tableId } }
-        );
+        await TemplateData.update({ show: false }, { where: { tableId: tableId } });
 
+        if (fileNotePad.table === 'FileUpLoad') {
+            const fileChildren = await FileChild.findAll({
+                where: { table_id: String(fileNotePad.id) }
+            });
+            const fileChildIds = [];
+
+            for (const file of fileChildren) {
+                fileChildIds.push(file.id);
+
+                if (file.url) {
+                    const key = extractS3KeyFromUrl(file.url);
+                    if (key) {
+                        try {
+                            await s3Client.send(new DeleteObjectCommand({
+                                Bucket: BUCKET_NAME,
+                                Key: key,
+                            }));
+                        } catch (err) {
+                            console.error(`Lỗi khi xóa file trên cloud với key ${key}:`, err.message);
+                        }
+                    }
+                }
+            }
+
+            // Gọi API để xóa external embeddings
+            if (fileChildIds.length > 0) {
+                await FileChild.update(
+                    { show: false },
+                    { where: { id: fileChildIds } }
+                );
+                await deleteEmbedDataFile(fileChildIds);
+            }
+        }
         return {
             message: 'Các bản ghi FileNotePad và dữ liệu liên quan đã được ẩn thành công'
         };

@@ -1,5 +1,6 @@
 import { FileChild } from "../postgres/postgres.js";
 import { S3Client, DeleteObjectCommand } from "@aws-sdk/client-s3";
+import {deleteEmbedDataFile} from "./serviceApi/serviceApi.js";
 
 const s3Client = new S3Client({
   region: "hn",
@@ -109,6 +110,14 @@ export const deleteFileChildService = async (id) => {
 
     // Xóa bản ghi khỏi database
     await FileChild.destroy({ where: { id: ids } });
+    try {
+      await deleteEmbedDataFile( ids );
+    } catch (embedError) {
+      console.error(
+          `Lỗi khi gọi service A để xóa embeddings cho IDs: ${ids.join(", ")}`,
+          embedError.message
+      );
+    }
 
     return {
       message: `Các bản ghi FileChild (ID: ${ids.join(", ")}) và file cloud đã được xóa thành công`,

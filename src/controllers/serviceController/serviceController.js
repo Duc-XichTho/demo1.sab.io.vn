@@ -1,4 +1,9 @@
-import {embedDataFile, processQuestion, processQuestionWithSources} from "../../services/serviceApi/serviceApi.js";
+import {
+    deleteEmbedDataFile,
+    embedDataFile,
+    processQuestion,
+    processQuestionWithSources
+} from "../../services/serviceApi/serviceApi.js";
 
 export const askQuestion = async (req, res) => {
     try {
@@ -58,8 +63,8 @@ export const askQuestionSourceIDDataFile = async (req, res) => {
 
 export const embedData = async (req, res) => {
     try {
-        const value= req.body;
-        if (value.length < 0) {
+        const  ids= req.body;
+        if (ids.length < 0) {
             return res.status(400).json({
                 success: false,
                 message: 'Question is required',
@@ -67,7 +72,7 @@ export const embedData = async (req, res) => {
             });
         }
 
-        const result = await embedDataFile(value);
+        const result = await embedDataFile(ids);
 
         return res.status(200).json({
             success: true,
@@ -75,6 +80,32 @@ export const embedData = async (req, res) => {
         });
     } catch (error) {
         console.error('Error in processQuestion:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message
+        });
+    }
+};
+
+export const deleteEmbedData = async (req, res) => {
+    try {
+        const value= req.body;
+        if (value.length < 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'DataFile is required',
+                error: 'DataFile < 0'
+            });
+        }
+
+        const result = await deleteEmbedDataFile(value);
+
+        return res.status(200).json({
+            success: true,
+            data: result
+        });
+    } catch (error) {
         return res.status(500).json({
             success: false,
             message: 'Internal server error',

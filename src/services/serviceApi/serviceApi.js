@@ -79,3 +79,22 @@ export async function embedDataFile(data) {
         throw new Error('Failed to process question with service A');
     }
 }
+
+export async function deleteEmbedDataFile(data) {
+    try {
+        const response = await axios.post (
+            `${process.env.DPAS_SERVICE_BASE_URL}/services/external-embeddings`,
+                data,
+            {
+                headers: {
+                    'x-api-secret': process.env.INTERNAL_API_SECRET
+                }
+            }
+        );
+        // Trả về kết quả từ service A (nếu cần)
+        return response.data;
+    } catch (error) {
+        console.error('Error calling /embed from service A:', error.response?.data || error.message);
+        throw new Error('Failed to process question with service A');
+    }
+}
