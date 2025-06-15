@@ -10,7 +10,8 @@ export async function processQuestion(question, email, timeAsk) {
             {
                 question,
                 email,
-                timeAsk
+                timeAsk,
+                serviceName: process.env.SERVICE_NAME
             },
             {
                 headers: {
@@ -22,7 +23,6 @@ export async function processQuestion(question, email, timeAsk) {
         if (success){
             await ExternalChatHistory.create(response.data.data);
         }
-
         // Trả về kết quả từ service A (nếu cần)
         return response.data;
     } catch (error) {
@@ -39,7 +39,8 @@ export async function processQuestionWithSources(question, email, timeAsk , sour
                 question,
                 email,
                 timeAsk,
-                sourceIds
+                sourceIds,
+                serviceName: process.env.SERVICE_NAME
             },
             {
                 headers: {
@@ -65,7 +66,10 @@ export async function embedDataFile(data) {
     try {
         const response = await axios.post(
             `${process.env.DPAS_SERVICE_BASE_URL}/services/embed`,
-                data,
+            {
+                ids: data, // giả sử `data` là mảng id
+                serviceName: process.env.SERVICE_NAME
+            },
             {
                 headers: {
                     'x-api-secret': process.env.INTERNAL_API_SECRET
@@ -84,7 +88,10 @@ export async function deleteEmbedDataFile(data) {
     try {
         const response = await axios.post (
             `${process.env.DPAS_SERVICE_BASE_URL}/services/external-embeddings`,
-                data,
+            {
+                sourceIds: data, // giả sử `data` là mảng id
+                serviceName: process.env.SERVICE_NAME
+            },
             {
                 headers: {
                     'x-api-secret': process.env.INTERNAL_API_SECRET
