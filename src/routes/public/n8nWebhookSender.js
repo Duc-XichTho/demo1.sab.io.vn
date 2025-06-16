@@ -24,8 +24,8 @@ router.post("/send-to-n8n", async (req, res) => {
   }
 });
 router.post("/send-to-n8n-v2", async (req, res) => {
-  const n8nUrl = "https://n8n.sab.io.vn/webhook-test/download-private-drive-file";
-  // const n8nUrl = "http://localhost:5678/webhook/download-private-drive-file";
+  // const n8nUrl = "https://n8n.sab.io.vn/webhook-test/download-private-drive-file";
+  const n8nUrl = "http://localhost:5678/webhook/download-private-drive-file";
   const data = req.body;
   try {
     const response = await axios.post(n8nUrl, data, {
