@@ -1,10 +1,10 @@
 
 // Lấy lịch sử chat của user
-import {deleteExternalChatHistory, getChatStats, getUserExternalChatHistory, deleteExternalChatHistoryService} from "../services/externalChatHistoryService.js";
+import {deleteChatHistoryFile, getChatStats, getUserChatHistoryFile} from "../services/chatHistoryFileService.js";
 
-export const getExternalChatHistory = async (req, res) => {
+export const getChatHistoryFile = async (req, res) => {
     try {
-        const { email } = req.body; // Lấy email từ request body
+        const { email , id_file} = req.body; // Lấy email từ request body
         const { limit } = req.query;
         
         if (!email) {
@@ -14,7 +14,7 @@ export const getExternalChatHistory = async (req, res) => {
             });
         }
 
-        const history = await getUserExternalChatHistory(email, limit ? parseInt(limit) : 50);
+        const history = await getUserChatHistoryFile(email, id_file , limit ? parseInt(limit) : 50);
         
         return res.status(200).json({
             success: true,
@@ -30,7 +30,7 @@ export const getExternalChatHistory = async (req, res) => {
 };
 
 // Xóa lịch sử chat của user
-export const clearExternalChatHistory = async (req, res) => {
+export const clearChatHistoryFile = async (req, res) => {
     try {
         const { email } = req.query; // Lấy email từ query parameters
         
@@ -41,7 +41,7 @@ export const clearExternalChatHistory = async (req, res) => {
             });
         }
 
-        await deleteExternalChatHistory(email);
+        await deleteChatHistoryFile(email);
         
         return res.status(200).json({
             success: true,
@@ -82,20 +82,3 @@ export const getUserChatStats = async (req, res) => {
         });
     }
 }; 
-
-export const deleteExternalChatHistoryController = async (req, res) => {
-    try {
-        const { id } = req.params;
-        await deleteExternalChatHistoryService(id);
-        return res.status(200).json({
-            success: true,
-            message: 'Đã xóa lịch sử chat thành công'
-        });
-    } catch (error) {
-        console.error('Lỗi khi xóa lịch sử chat:', error);
-        return res.status(500).json({
-            success: false,
-            message: 'Đã có lỗi xảy ra khi xóa lịch sử chat'
-        });
-    }
-};

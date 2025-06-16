@@ -1,6 +1,7 @@
 import {config} from "dotenv";
 import {Sequelize} from "sequelize";
 import {modelImports} from "./modelImports.js";
+import {createChatHistoryFileModel} from "../models/chatHistoryFile.js";
 
 config();
 
@@ -220,11 +221,13 @@ let KtqtImportHistory;
 let AiChatHistory;
 let ExternalChatHistory;
 let AiFreeChatHistory;
+let ChatHistoryFile;
 const connection = async () => {
     try {
         await sequelize.authenticate();
         console.log("Connection DB successfully");
 
+        ChatHistoryFile = await modelImports.createChatHistoryFileModel(sequelize);
         ExternalChatHistory = await modelImports.createExternalChatHistoryModel(sequelize);
         DienGiai = await modelImports.createDienGiaiModel(sequelize);
         WebPage = await modelImports.createWebPageModel(sequelize);
@@ -1150,4 +1153,5 @@ export {
     AiChatHistory,
     ExternalChatHistory,
     AiFreeChatHistory,
+    ChatHistoryFile,
 };

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getExternalChatHistory, clearExternalChatHistory, getUserChatStats } from '../controllers/externalChatHistoryController.js';
+import { getExternalChatHistory, clearExternalChatHistory, getUserChatStats, deleteExternalChatHistoryController } from '../controllers/externalChatHistoryController.js';
 
 const router = express.Router();
 
@@ -12,4 +12,6 @@ router.delete('/', clearExternalChatHistory);
 // Lấy thống kê chat của user
 router.post('/stats', getUserChatStats);
 
+// Xóa lịch sử chat của user
+router.delete('/:id', deleteExternalChatHistoryController);
 export default router; 

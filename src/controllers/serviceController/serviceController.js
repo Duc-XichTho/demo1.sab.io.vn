@@ -2,12 +2,12 @@ import {
     deleteEmbedDataFile,
     embedDataFile,
     processQuestion,
-    processQuestionWithSources
+    processQuestionWithSources, processQuestionWithSourcesOne
 } from "../../services/serviceApi/serviceApi.js";
 
 export const askQuestion = async (req, res) => {
     try {
-        const { question , email , timeAsk} = req.body;
+        const {question, email, timeAsk} = req.body;
 
         if (!question) {
             return res.status(400).json({
@@ -17,7 +17,7 @@ export const askQuestion = async (req, res) => {
             });
         }
 
-        const result = await processQuestion(question , email , timeAsk);
+        const result = await processQuestion(question, email, timeAsk);
 
         return res.status(200).json({
             success: true,
@@ -35,7 +35,7 @@ export const askQuestion = async (req, res) => {
 
 export const askQuestionSourceIDDataFile = async (req, res) => {
     try {
-        const { question , email , timeAsk , sourceIds} = req.body;
+        const {question, email, timeAsk, sourceIds} = req.body;
 
         if (!question) {
             return res.status(400).json({
@@ -45,7 +45,39 @@ export const askQuestionSourceIDDataFile = async (req, res) => {
             });
         }
 
-        const result = await processQuestionWithSources(question , email , timeAsk , sourceIds);
+        const result = await processQuestionWithSources(question, email, timeAsk, sourceIds);
+
+        return res.status(200).json({
+            success: true,
+            data: result
+        });
+    } catch (error) {
+        console.error('Error in processQuestion:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message
+        });
+    }
+};
+
+
+export const askQuestionSourceIDDataFileOne = async (req, res) => {
+    try {
+        const {
+            question, email, timeAsk, sourceIds, systemMessage, template,
+        } = req.body;
+
+        if (!question) {
+            return res.status(400).json({
+                success: false,
+                message: 'Question is required',
+                error: 'MISSING_QUESTION'
+            });
+        }
+
+        const result = await processQuestionWithSourcesOne(question, email, timeAsk, sourceIds, systemMessage, template,
+        );
 
         return res.status(200).json({
             success: true,
@@ -63,7 +95,7 @@ export const askQuestionSourceIDDataFile = async (req, res) => {
 
 export const embedData = async (req, res) => {
     try {
-        const  ids= req.body;
+        const ids = req.body;
         if (ids.length < 0) {
             return res.status(400).json({
                 success: false,
@@ -90,7 +122,7 @@ export const embedData = async (req, res) => {
 
 export const deleteEmbedData = async (req, res) => {
     try {
-        const value= req.body;
+        const value = req.body;
         if (value.length < 0) {
             return res.status(400).json({
                 success: false,

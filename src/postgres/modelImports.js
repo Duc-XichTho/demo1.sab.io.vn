@@ -183,6 +183,7 @@ import {createKtqtImportHistoryModel} from "../models/ktqtImportHistory.js";
 import {createAiChatHistoryModel} from "../models/aiChatHistory.js";
 import {createExternalChatHistoryModel} from "../models/externalChatHistory.js";
 import {createAiFreeChatHistoryModel} from "../models/aiFreeChatHistory.js";
+import {createChatHistoryFileModel} from "../models/chatHistoryFile.js";
 
 export const modelImports = {
   createRuleSettingModel,
@@ -370,4 +371,5 @@ export const modelImports = {
   createAiChatHistoryModel,
   createExternalChatHistoryModel,
   createAiFreeChatHistoryModel,
+  createChatHistoryFileModel,
 }

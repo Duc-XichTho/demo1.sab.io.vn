@@ -1,11 +1,12 @@
-import { ExternalChatHistory } from '../postgres/postgres.js';
+import { ChatHistoryFile } from '../postgres/postgres.js';
 import { Op } from 'sequelize';
 
 // Lấy lịch sử chat của một user
-export const getUserExternalChatHistory = async (user_email, limit = 50) => {
-    return await ExternalChatHistory.findAll({
+export const getUserChatHistoryFile = async (user_email, id_file ,  limit = 50) => {
+    return await ChatHistoryFile.findAll({
         where: {
-            user_email
+            user_email,
+            id_file
         },
         attributes: {
             exclude: ['similar_passages'] // Bỏ trường này
@@ -16,26 +17,18 @@ export const getUserExternalChatHistory = async (user_email, limit = 50) => {
 };
 
 // Xóa lịch sử chat của một user
-export const deleteExternalChatHistory = async (user_email) => {
-    return await ExternalChatHistory.destroy({
+export const deleteChatHistoryFile = async (user_email) => {
+    return await ChatHistoryFile.destroy({
         where: {
             user_email
         }
     });
 };
 
-export const deleteExternalChatHistoryService = async (id) => {
-    const result = await ExternalChatHistory.destroy({
-        where: {
-            id: id
-        }
-    });
-    return result;
-};
 
 // Lấy thống kê chat của user
 export const getChatStats = async (user_email) => {
-    const totalChats = await ExternalChatHistory.count({
+    const totalChats = await ChatHistoryFile.count({
         where: {
             user_email
         }
@@ -44,7 +37,7 @@ export const getChatStats = async (user_email) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const chatsToday = await ExternalChatHistory.count({
+    const chatsToday = await ChatHistoryFile.count({
         where: {
             user_email,
             question_time: {
