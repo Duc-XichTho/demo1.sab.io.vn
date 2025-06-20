@@ -184,7 +184,8 @@ import {createAiChatHistoryModel} from "../models/aiChatHistory.js";
 import {createExternalChatHistoryModel} from "../models/externalChatHistory.js";
 import {createAiFreeChatHistoryModel} from "../models/aiFreeChatHistory.js";
 import {createChatHistoryFileModel} from "../models/chatHistoryFile.js";
-
+import {createTemplateSettingAIReportBuilderModel} from "../models/templateSettingAIReportBuilder.js";
+  
 export const modelImports = {
   createRuleSettingModel,
   createUserModel,
@@ -372,4 +373,5 @@ export const modelImports = {
   createExternalChatHistoryModel,
   createAiFreeChatHistoryModel,
   createChatHistoryFileModel,
+  createTemplateSettingAIReportBuilderModel,
 }

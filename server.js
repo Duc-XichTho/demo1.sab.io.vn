@@ -229,6 +229,7 @@ import serviceRouter from "./src/routes/serviceRouter/serviceRouter.js";
 import externalChatHistoryRoutes from "./src/routes/externalChatHistoryRoutes.js";
 import aiFreeChatHistoryRoutes from "./src/routes/aiFreeChatHistoryRoutes.js";
 import chatHistoryFileRoutes from "./src/routes/chatHistoryFileRoutes.js";
+import templateSettingAIReportBuilderRoutes from "./src/routes/templateSettingAIReportBuilderRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -479,6 +480,8 @@ app.use("/api/service-proxy", serviceRouter);
 app.use("/api/external-chat-history", externalChatHistoryRoutes);
 app.use("/api/ai-free-chat-history", aiFreeChatHistoryRoutes);
 app.use("/api/chat-history-file", chatHistoryFileRoutes);
+
+app.use("/api/template-setting-ai-report-builder", templateSettingAIReportBuilderRoutes);
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {

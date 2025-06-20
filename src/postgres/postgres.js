@@ -222,6 +222,7 @@ let AiChatHistory;
 let ExternalChatHistory;
 let AiFreeChatHistory;
 let ChatHistoryFile;
+let TemplateSettingAIReportBuilder;
 const connection = async () => {
     try {
         await sequelize.authenticate();
@@ -417,7 +418,8 @@ const connection = async () => {
         OnboardingGuide = await modelImports.createOnboardingGuideModel(sequelize);
         AiChatHistory = await modelImports.createAiChatHistoryModel(sequelize);
         AiFreeChatHistory = await modelImports.createAiFreeChatHistoryModel(sequelize);
-        const modelsToAudit = [
+        TemplateSettingAIReportBuilder = await modelImports.createTemplateSettingAIReportBuilderModel(sequelize);
+            const modelsToAudit = [
             {
                 model: User,
                 name: "User",
@@ -1154,4 +1156,5 @@ export {
     ExternalChatHistory,
     AiFreeChatHistory,
     ChatHistoryFile,
+    TemplateSettingAIReportBuilder,
 };
