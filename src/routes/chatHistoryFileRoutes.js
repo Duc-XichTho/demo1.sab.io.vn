@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/', getChatHistoryFile);
 
 // Xóa lịch sử chat của user
-router.delete('/', clearChatHistoryFile);
+router.delete('/:id', clearChatHistoryFile);
 
 // Lấy thống kê chat của user
 router.post('/stats', getUserChatStats);

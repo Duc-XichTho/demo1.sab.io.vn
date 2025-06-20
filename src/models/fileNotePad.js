@@ -28,6 +28,9 @@ export const createFileNotePadModel = async (sequelize) => {
             url: {
                 type: DataTypes.TEXT,
             },
+            chart :{
+                type: DataTypes.JSONB,
+            },
             type: {
                 type: DataTypes.STRING,
             },

@@ -149,7 +149,7 @@ export const getAllFileTabTypeDataService = async () => {
 
                 notes = notes.map(note => {
                     let extra = {};
-                    if (note.table === 'ChartTemplate' || note.table === 'KPI') {
+                    if (note.table === 'ChartTemplate' || note.table === 'KPI' || note.table === 'TiptapWithChart') {
                         extra.isNotEdit = true;
                     }
                     if (note.table === 'Template' && templateMap[note.id]) {

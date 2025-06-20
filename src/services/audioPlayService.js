@@ -12,8 +12,8 @@ export const sendTTSRequest = async (data) => {
             method: 'POST',
             url: 'https://vbee.vn/api/v1/tts',
             data: {
-                voice_code: 'hn_female_hachi_book_22k-vc',
-                speed_rate: '1.2',
+                voice_code: 'hn_male_manhdung_news_48k-phg',
+                speed_rate: '1',
                 input_text: text,
                 app_id: APP_ID,
                 callback_url: CALLBACK_URL

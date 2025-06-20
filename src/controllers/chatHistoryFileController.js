@@ -32,16 +32,16 @@ export const getChatHistoryFile = async (req, res) => {
 // Xóa lịch sử chat của user
 export const clearChatHistoryFile = async (req, res) => {
     try {
-        const { email } = req.query; // Lấy email từ query parameters
+        const { id } = req.params; // Lấy email từ query parameters
         
-        if (!email) {
+        if (!id) {
             return res.status(400).json({
                 success: false,
-                message: 'Email không được để trống'
+                message: 'id không được để trống'
             });
         }
 
-        await deleteChatHistoryFile(email);
+        await deleteChatHistoryFile(id);
         
         return res.status(200).json({
             success: true,

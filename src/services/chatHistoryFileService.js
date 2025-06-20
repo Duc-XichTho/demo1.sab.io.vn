@@ -17,10 +17,10 @@ export const getUserChatHistoryFile = async (user_email, id_file ,  limit = 50) 
 };
 
 // Xóa lịch sử chat của một user
-export const deleteChatHistoryFile = async (user_email) => {
+export const deleteChatHistoryFile = async (id) => {
     return await ChatHistoryFile.destroy({
         where: {
-            user_email
+            id
         }
     });
 };

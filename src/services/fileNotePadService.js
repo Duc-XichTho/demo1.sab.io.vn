@@ -19,7 +19,7 @@ export const getFileNotePadByIdService = async (id) => {
         if (!data || data.show !== true) {
             throw new Error('Bản ghi FileNotePad không tồn tại hoặc không được hiển thị');
         }
-        if (data.table === 'ChartTemplate' || data.table === 'KPI') {
+        if (data.table === 'ChartTemplate' || data.table === 'KPI' || data.table === 'TiptapWithChart') {
             data.isNotEdit = true;
         }
 
