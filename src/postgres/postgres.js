@@ -31,6 +31,14 @@ const sequelize = new Sequelize(
         dialectOptions: {
             // Thời gian tối đa (tính bằng ms) để kết nối cơ sở dữ liệu trước khi timeout (ở đây là 60000 ms = 60 giây).
             connectTimeout: 60000,
+            // Thêm cấu hình SSL
+            ssl: {
+                require: false,
+                rejectUnauthorized: false
+            },
+            // Thêm các tùy chọn bảo mật
+            keepAlive: true,
+            keepAliveInitialDelayMillis: 0
         },
     }
 );
