@@ -230,6 +230,9 @@ import externalChatHistoryRoutes from "./src/routes/externalChatHistoryRoutes.js
 import aiFreeChatHistoryRoutes from "./src/routes/aiFreeChatHistoryRoutes.js";
 import chatHistoryFileRoutes from "./src/routes/chatHistoryFileRoutes.js";
 import templateSettingAIReportBuilderRoutes from "./src/routes/templateSettingAIReportBuilderRoutes.js";
+import aiGenConfigListRoutes from "./src/routes/aiGenConfigListRoutes.js";
+import aiQuestionTemplateRoutes from "./src/routes/aiQuestionTemplateRoutes.js";
+import aiGenHistoryRoutes from "./src/routes/aiGenHistoryRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -482,6 +485,9 @@ app.use("/api/ai-free-chat-history", aiFreeChatHistoryRoutes);
 app.use("/api/chat-history-file", chatHistoryFileRoutes);
 
 app.use("/api/template-setting-ai-report-builder", templateSettingAIReportBuilderRoutes);
+app.use("/api/ai-gen-config-list", aiGenConfigListRoutes);
+app.use("/api/ai-question-template", aiQuestionTemplateRoutes);
+app.use("/api/ai-gen-history", aiGenHistoryRoutes);
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
