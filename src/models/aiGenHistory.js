@@ -10,6 +10,12 @@ export const createAiGenHistoryModel = async (sequelize) => {
                 autoIncrement: true,
                 primaryKey: true,
             },
+            audioUrl: {
+                type: DataTypes.TEXT,
+            },
+            imageUrl: {
+                type: DataTypes.TEXT,
+            },
             prompt: {
                 type: DataTypes.TEXT,
             },
