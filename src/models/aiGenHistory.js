@@ -16,6 +16,9 @@ export const createAiGenHistoryModel = async (sequelize) => {
             imageUrl: {
                 type: DataTypes.TEXT,
             },
+            imageUrls: {
+                type: DataTypes.JSONB,
+            },
             prompt: {
                 type: DataTypes.TEXT,
             },
@@ -45,4 +48,4 @@ export const createAiGenHistoryModel = async (sequelize) => {
         }
     );
     return AiGenHistory;
-}; 
+};
